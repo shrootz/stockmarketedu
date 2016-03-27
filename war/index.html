@@ -1,27 +1,78 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<!-- The HTML 4.01 Transitional DOCTYPE declaration-->
-<!-- above set at the top of the file will set     -->
-<!-- the browser's rendering engine into           -->
-<!-- "Quirks Mode". Replacing this declaration     -->
-<!-- with a "Standards Mode" doctype is supported, -->
-<!-- but may lead to some differences in layout.   -->
-
+<!DOCTYPE HTML>
 <html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>Hello App Engine</title>
-  </head>
+	<head>
+		<title>StockMarketEdu</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet' type='text/css'>
+		<link href="http://fonts.googleapis.com/css?family=Oleo+Script:400" rel="stylesheet" type="text/css" />
+		<script src="js/jquery.min.js"></script>
+		<script src="js/config.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-panels.min.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel-noscript.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-desktop.css" />
+		</noscript>
+	</head>
+	<body class="left-sidebar">
 
-  <body>
-    <h1>Hello App Engine!</h1>
-	
-    <table>
-      <tr>
-        <td colspan="2" style="font-weight:bold;">Available Servlets:</td>        
-      </tr>
-      <tr>
-        <td><a href="stockmarketedu">StockMarketEdu</a></td>
-      </tr>
-    </table>
-  </body>
+		<div id="header-wrapper">
+			<div class="container">
+				<header id = "header" class = "header">
+					<div class = "row">
+						<div class = "12u">
+						<header id="header" class="header">
+												
+							<div id="logo">
+								<h2><a href="/">StockMarketEdu</a><h2>
+							</div>
+							<nav id="nav">
+								<ul>
+									<li  class="current_page_item" ><a href="/">Home</a></li>
+									<li ><a href="/student">Student Portal</a></li>
+									<li ><a href="/teacher">Teacher Portal</a></li>
+								</ul>
+							</nav>
+						</header>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="feature-wrapper">
+			<div class="container">
+				<div class="row">
+
+					<div class="9u skel-cell-important">
+
+						<!-- Content -->
+							<div id="content">
+							</div>
+
+					</div>
+
+					<div class="3u">
+					
+						<div id="sidebar">
+							<div id="contact-info" class="widget-contact">
+							</div>
+							<!-- 
+							<div id="contact-info-mobi" class="widget-contact-mobi">
+								<ul>
+									<li><a href="#" class="fa fa-google-plus solo"><span>Google+</span></a></li>
+									<li><a href="#" class="fa fa-envelope solo"><span>Mail</span></a></li>
+								</ul>
+							</div>
+							-->
+						</div>
+
+					</div>
+			</div>
+		</div>
+
+	</body>
 </html>
