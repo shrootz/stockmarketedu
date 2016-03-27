@@ -246,7 +246,7 @@
 				{
 					font-weight: 800;
 					letter-spacing: 0.025em;
-					color: #696969;
+					color: #ffffff;
 					text-decoration: none;
 					border-radius: 3px;
 					padding: 0.5em 1em 0.5em 1em;
@@ -272,7 +272,7 @@
 
 				#nav ul li.current_page_item a
 				{
-					background: #444;
+					background: #4A90E2;
 					color: #fff;
 				}
 

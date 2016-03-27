@@ -179,7 +179,7 @@ box-sizing: content-box;
 	{
 		font-family: 'Nunito', sans-serif;
 		font-size: 12pt;
-		color: #696969;
+		color: #ffffff;
 		font-weight: 300;
 		background: url('images/bgshadow.png') top left no-repeat;
 		background-size: 100% 100%;
@@ -198,7 +198,7 @@ box-sizing: content-box;
 	
 	h1, h2, h3, h4, h5, h6
 	{
-		color: #0053a0;
+		color: #ffffff;
 		font-weight: 800;
 	}
 	
