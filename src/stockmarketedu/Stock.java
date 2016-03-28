@@ -1,23 +1,28 @@
-package stockmarketedu;
+package yahoofinancequerytest;
 
 import java.util.Date;
 
 public class Stock {
 	private String name;
-	private float price;
+	private double price;
 	private String symbol;
 	private Date timeStamp;
-	private float dividendShare;
+	private double dividendShare;
 	private boolean active;
 	
-	public Stock(){
-		
+	public Stock(String name, double price, String symbol, Date timeStamp, double dividendShare, boolean active){
+		this.name = name;
+		this.symbol = symbol;
+		this.price = price;
+		this.timeStamp = timeStamp;
+		this.dividendShare = dividendShare;
+		this.active = active;
 	}
 	
 	public String getName() {
 		return name;
 	}
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
 	public String getSymbol() {
@@ -26,12 +31,16 @@ public class Stock {
 	public Date getTimeStamp() {
 		return timeStamp;
 	}
-	public float getDividendShare() {
+	public double getDividendShare() {
 		return dividendShare;
 	}
-	public void updateStock(float price, Date timeStamp, float dividendShare){
+	public void updateStock(double price, Date timeStamp, double dividendShare){
 		this.price = price;
 		this.timeStamp = timeStamp;
 		this.dividendShare = dividendShare;
+	}
+	
+	public void setInactive(){
+		active = false;
 	}
 }
