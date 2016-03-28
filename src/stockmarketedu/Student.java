@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class Student{
 	private ArrayList<Position> portfolio;
+	private String email; // every student should probably have an email address in this generation
+	private String name; // students should know their name
 	private float cashMoney;
 	private ArrayList<History> myHistory;
 	public Student(float cashMoney){
@@ -18,5 +20,8 @@ public class Student{
 	public ArrayList<Position> getPortfolio() {
 		return portfolio;
 	}
+	public String getEmail(){ return email; }
+	
+	public String getName() { return name; }
 
 }
