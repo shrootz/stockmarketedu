@@ -460,6 +460,26 @@ box-sizing: content-box;
 		margin-bottom: 1.15em;
 	}
 
+	ul.horiz {
+    text-align: justify;
+	}
+	ul.horiz:after {
+	    content: '';
+	    display: inline-block;
+	    width: 100%;
+	}
+	ul.horiz:before {
+	    content: '';
+	    display: block;
+	    margin-top: -1.25em;
+	}
+	ul.horiz > li {
+	    display: inline-block;
+	    margin-right: -.25em;
+	    position: relative;
+	    top: 1.25em;
+	}
+
 	header
 	{
 		margin-bottom: 1.5em;
@@ -1219,3 +1239,28 @@ box-sizing: content-box;
 		{
 			color: inherit;
 		}
+
+/*********************************************************************************/
+/* D3                                                                        */
+/*********************************************************************************/
+
+    .axis path, .axis line
+    {
+        fill: none;
+        stroke: #777;
+        shape-rendering: crispEdges;
+    }
+    
+    .axis text
+    {
+        font-size: 13px;
+    }
+    .tick
+    {
+        stroke-dasharray: 1, 2;
+    }
+    .bar
+    {
+        fill: #fff;
+    }
+        
