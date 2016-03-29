@@ -4,23 +4,24 @@ import java.util.Date;
 
 public class Position {
 	private Stock stockType;
-	private float priceBought;
+	private double priceBought;
 	private Date dateBought;
-	private float shares;
+	private double shares;
 	
-	public Position(Stock stockType, float shares){
+	//get info from market and create a new position
+	public Position(Stock stockType, double shares){
 		this.stockType = stockType;
 		this.dateBought = stockType.getTimeStamp();
 		this.priceBought = stockType.getPrice();
 	}
 	
-	public void sellShares(){
+	public void sellShares(double shares){
 		//sell part/all of the shares from this position
 	}
 	public Stock getStockType() {
 		return stockType;
 	}
-	public float getPriceBought() {
+	public double getPriceBought() {
 		return priceBought;
 	}
 
@@ -28,11 +29,15 @@ public class Position {
 		return dateBought;
 	}
 
-	public float getShares() {
+	public double getShares() {
 		return shares;
 	}
+	
+	public void addShares(double shares) {
+		setShares(this.shares + shares);
+	}
 
-	public void setShares(float shares) {
+	public void setShares(double shares) {
 		this.shares = shares;
 	}
 }
