@@ -177,7 +177,7 @@ box-sizing: content-box;
 
 	body
 	{
-		font-family: 'Nunito', sans-serif;
+		font-family: 'Open Sans', sans-serif;
 		font-size: 12pt;
 		color: #ffffff;
 		font-weight: 300;
@@ -344,6 +344,11 @@ box-sizing: content-box;
 		margin-bottom: 2.5em;
 	}
 
+		article.info
+		{
+			margin-bottom: 0.5em;
+		}
+
 	.image
 	{
 		display: inline-block;
@@ -450,12 +455,14 @@ box-sizing: content-box;
 
 	.byline
 	{
+		font-style: italic;
 		display: block;
 		margin-bottom: 1.15em;
 	}
 
 	header
 	{
+		margin-bottom: 1.5em;
 	}
 	
 		header h2, header h3
@@ -1177,6 +1184,7 @@ box-sizing: content-box;
 
 	#logo
 	{
+		font-family: 'Nunito', sans-serif;
 		line-height: 0px;
 	}
 	
