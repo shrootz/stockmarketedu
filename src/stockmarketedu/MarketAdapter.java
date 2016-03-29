@@ -1,4 +1,4 @@
-package yahoofinancequerytest;
+package stockmarketedu;
 
 import java.io.BufferedReader;
 import java.io.IOException;

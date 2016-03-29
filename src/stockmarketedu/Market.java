@@ -1,4 +1,4 @@
-package yahoofinancequerytest;
+package stockmarketedu;
 
 import java.util.ArrayList;
 import java.util.HashMap;
