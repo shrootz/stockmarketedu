@@ -26,7 +26,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	
 	<servlet>
 		<servlet-name>CronController</servlet-name>
-		<servlet-class>blog.CronController</servlet-class>
+		<servlet-class>stockmarketedu.CronController</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>CronController</servlet-name>
@@ -35,7 +35,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	
 	<servlet>
 		<servlet-name>CronDividendController</servlet-name>
-		<servlet-class>blog.CronDividendController</servlet-class>
+		<servlet-class>stockmarketedu.CronDividendController</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>CronDividendController</servlet-name>
