@@ -23,4 +23,22 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
         <filter-name>ObjectifyFilter</filter-name>
         <url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<servlet>
+		<servlet-name>CronController</servlet-name>
+		<servlet-class>blog.CronController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CronController</servlet-name>
+		<url-pattern>/mycronjob</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CronDividendController</servlet-name>
+		<servlet-class>blog.CronDividendController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CronDividendController</servlet-name>
+		<url-pattern>/mydividends</url-pattern>
+	</servlet-mapping>
 </web-app>
