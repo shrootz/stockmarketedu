@@ -1,43 +1,45 @@
 package stockmarketedu;
 
-import java.util.Date;
-
 public class Position {
 	private Stock stockType;
-	private double priceBought;
-	private Date dateBought;
+	private double pricePerShare;
 	private double shares;
 	
 	//get info from market and create a new position
 	public Position(Stock stockType, double shares){
 		this.stockType = stockType;
-		this.dateBought = stockType.getTimeStamp();
-		this.priceBought = stockType.getPrice();
+		this.pricePerShare = stockType.getPrice();
 	}
 	
-	public void sellShares(double shares){
+	public History sellShares(double shares){
 		//sell part/all of the shares from this position
+		if(this.shares < shares){
+			//throw some exception
+		}
+		stockType.getPrice();
+		//add to History
+		History newHist = new History(stockType.getSymbol(), shares, pricePerShare, stockType.getPrice());
+		//update number of shares
+		this.shares -= shares;
+		return newHist;
 	}
+	
 	public Stock getStockType() {
 		return stockType;
 	}
 	public double getPriceBought() {
-		return priceBought;
+		return pricePerShare;
 	}
 
-	public Date getDateBought() {
-		return dateBought;
-	}
 
 	public double getShares() {
 		return shares;
 	}
 	
 	public void addShares(double shares) {
-		setShares(this.shares + shares);
-	}
-
-	public void setShares(double shares) {
-		this.shares = shares;
+		//update price per share
+		double totalPrice = (pricePerShare * this.shares + stockType.getPrice() * shares);
+		this.shares = (this.shares + shares);
+		pricePerShare = totalPrice/this.shares;
 	}
 }

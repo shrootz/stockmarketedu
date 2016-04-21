@@ -33,45 +33,40 @@ public class Student{
 			}
 		}
 		catch(Exception e){
-			//student not found exception <-- need a class for this?
+			//class not found exception <-- need a class for this?
 		}
 	}
 	
 	//need to handle errors here - Stock does not exist, not enough money
-	public void buyPosition(Stock toBuy, double shares){
+	public boolean buyPosition(Stock toBuy, double shares){
 		Position currentPosition = getPosition(toBuy);
-		History currentHistory = getHistory(toBuy);
 		double costToBuy = toBuy.getPrice() * shares;
 		cashMoney = cashMoney - costToBuy;
 		if(cashMoney < 0){
 			cashMoney = cashMoney + costToBuy;
-			//throw some error here --> new exception, money problems?
+			//money problems
+			return false;
 		}
 		if(currentPosition == null){
 			currentPosition = new Position(toBuy, shares);
-			currentHistory = new History(toBuy.getName(), toBuy.getTimeStamp(), shares, toBuy.getPrice());
 			portfolio.add(currentPosition);
-			workingHistory.add(currentHistory);
 		}
 		else{
 			currentPosition.addShares(shares);
-			currentHistory.buy(shares, toBuy.getPrice());
 		}
 	}
 	
 	//need to handle errors here - Stock does not exist, not enough shares to sell
 	public void sellPosition(Stock toSell, double shares){
 		Position currentPosition = getPosition(toSell);
-		History currentHistory = getHistory(toSell);
-		currentPosition.sellShares(shares);
-		currentHistory.sell(shares, toSell.getPrice());
+		History currentHistory = currentPosition.sellShares(shares);
 		if(currentPosition.getShares() <= 0){
 			portfolio.remove(currentPosition);
-			workingHistory.remove(currentHistory);
 		}
+		workingHistory.add(currentHistory);
 	}
 	
-	private History getHistory(Stock intrestedStock){
+	/*private History getHistory(Stock intrestedStock){
 		String myStockName = intrestedStock.getName();
 		for(History h: myHistory){
 			String stockName = h.getStockSymbol();
@@ -80,7 +75,7 @@ public class Student{
 			}
 		}
 		return null;
-	}
+	}*/
 	
 	private Position getPosition(Stock intrestedStock){
 		String myStockName = intrestedStock.getName();
@@ -91,6 +86,11 @@ public class Student{
 			}
 		}
 		return null;
+	}
+	
+	//called from a cron job, goes through the entire portfolio and adds to the cashMoney value
+	public void recieveDividends(){
+		
 	}
 	
 	public ArrayList<Position> getPortfolio() {
