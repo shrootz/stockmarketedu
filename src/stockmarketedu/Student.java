@@ -110,6 +110,7 @@ public class Student{
 				profit = change;
 			}
 		}
+		return profit;
 	}
 	
 	public double getMoney(){
@@ -117,6 +118,7 @@ public class Student{
 		for(Position p: portfolio){
 			totMoney += p.getPriceBought() * p.getShares();
 		}
+		return totMoney;
 	}
 	public double getMaxProfitPerShare(){
 		double profit = Double.NEGATIVE_INFINITY;
@@ -126,5 +128,7 @@ public class Student{
 				profit = change;
 			}
 		}
+		return profit;
 	}
+	
 }

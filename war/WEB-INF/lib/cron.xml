@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+  <cron>
+    <url>/mycronjob</url>
+    <description>Mail out a report at 5 PM</description>
+    <schedule>every day 17:00</schedule>
+    <timezone>CST6CDT</timezone>
+  </cron>
+</cronentries>
