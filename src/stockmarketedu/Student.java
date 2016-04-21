@@ -38,7 +38,11 @@ public class Student{
 	}
 	
 	//need to handle errors here - Stock does not exist, not enough money
-	public boolean buyPosition(Stock toBuy, double shares){
+	public boolean buyPosition(String symbol, double shares){
+		List<Market> market = ObjectifyService.ofy().load().type(Market.class).list();
+	    Market globalMarket = market.get(0);
+	    globalMarket = globalMarket.getInstance();
+	    Stock toBuy = globalMarket.getStock(symbol);
 		Position currentPosition = getPosition(toBuy);
 		double costToBuy = toBuy.getPrice() * shares;
 		cashMoney = cashMoney - costToBuy;
@@ -58,7 +62,11 @@ public class Student{
 	}
 	
 	//need to handle errors here - Stock does not exist, not enough shares to sell
-	public void sellPosition(Stock toSell, double shares){
+	public void sellPosition(String symbol, double shares){
+		List<Market> market = ObjectifyService.ofy().load().type(Market.class).list();
+	    Market globalMarket = market.get(0);
+	    globalMarket = globalMarket.getInstance();
+	    Stock toSell = globalMarket.getStock(symbol);
 		Position currentPosition = getPosition(toSell);
 		History currentHistory = currentPosition.sellShares(shares);
 		if(currentPosition.getShares() <= 0){
