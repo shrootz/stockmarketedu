@@ -102,7 +102,7 @@ public class Student{
 	
 	public double getMaxProfitableSale(){
 		double profit = Double.NEGATIVE_INFINITY;
-		for(History h: history){
+		for(History h: myHistory){
 			double change = h.getShares() * (h.getPriceBought() - h.getPriceSold());
 			if (change > profit){
 				profit = change;
@@ -118,7 +118,7 @@ public class Student{
 	}
 	public double getMaxProfitPerShare(){
 		double profit = Double.NEGATIVE_INFINITY;
-		for(History h: history){
+		for(History h: myHistory){
 			double change = h.getPriceBought() - h.getPriceSold();
 			if (change > profit){
 				profit = change;

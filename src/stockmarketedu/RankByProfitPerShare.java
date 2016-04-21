@@ -16,14 +16,14 @@ public class RankByProfitPerShare implements RankStudents{
 			for(int j = i-1; j>=0; j--){
 				if(rankedStudents.get(j).getMaxProfitPerShare() > current.getMaxProfitPerShare()){ //shift the current elements as long as you need to
 					Student temp = rankedStudents.get(j);
-					rankedStudents.get(j) = rankedStudents.get(j+1);
-					rankedStudents.get(j+1) = temp;
+					rankedStudents.set(j, rankedStudents.get(j+1));
+					rankedStudents.set(j+1,temp);
 					pos = j;
 				}
 				else
 					break;
 			}
-			rankedStudents.get(pos) = current;
+			rankedStudents.set(pos, current);
 		}
 		return rankedStudents;
 	}

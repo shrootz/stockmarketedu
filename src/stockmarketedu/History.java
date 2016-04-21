@@ -10,9 +10,9 @@ public class History {
 	
 	public History(String stockSymbol, double shares, double priceBought, double priceSold){
 		this.stockSymbol = stockSymbol;
-		this.setShares(shares);
-		this.setPriceBought(priceBought);
-		this.setPriceSold(priceSold);
+		this.shares = shares;
+		this.priceBought = priceBought;
+		this.priceSold = priceSold;
 	}
 	
 /*	public void buy(double shares, double priceBought){

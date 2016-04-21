@@ -43,7 +43,7 @@ public class Supervisor{
 		myClass.setInitialMoney(cashMoney);
 	}
 	
-	public ArrayList<Students> rank(RankStudents rankingStrategy){
+	public ArrayList<Student> rank(RankStudents rankingStrategy){
 		return rankingStrategy.returnRanking(myClass.getMyClass());
 	}
 
