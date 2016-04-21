@@ -1,7 +1,9 @@
 package stockmarketedu;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.annotation.Entity;
 
 public class Class {
@@ -22,8 +24,11 @@ public class Class {
 		return stocksAllowed;
 	}
 	
-	public void addStock(Stock stock){
-		stocksAllowed.add(stock);
+	public void addStock(String symbol){
+		List<Market> market = ObjectifyService.ofy().load().type(Market.class).list();
+	    Market globalMarket = market.get(0);
+	    globalMarket = globalMarket.getInstance();
+		stocksAllowed.add(globalMarket.getStock(symbol));
 	}
 	
 	public ArrayList<Student> getMyClass() {
