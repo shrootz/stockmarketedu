@@ -2,8 +2,14 @@
 <cronentries>
   <cron>
     <url>/mycronjob</url>
-    <description>Mail out a report at 5 PM</description>
-    <schedule>every day 17:00</schedule>
+    <description>Update the Market</description>
+    <schedule>every 5 minutes</schedule>
+    <timezone>CST6CDT</timezone>
+  </cron>
+  <cron>
+    <url>/mydividends</url>
+    <description>Update the Dividends</description>
+    <schedule>1 of jan,april,july,oct 00:00</schedule>
     <timezone>CST6CDT</timezone>
   </cron>
 </cronentries>
