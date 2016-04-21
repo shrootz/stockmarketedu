@@ -12,7 +12,6 @@ public class Student{
 	private String name; // students should know their name
 	private double cashMoney;
 	private ArrayList<History> myHistory;
-	private ArrayList<History> workingHistory;
 
 	
 	public Student(String name, String accessCode){
@@ -65,7 +64,7 @@ public class Student{
 		if(currentPosition.getShares() <= 0){
 			portfolio.remove(currentPosition);
 		}
-		workingHistory.add(currentHistory);
+		myHistory.add(currentHistory);
 	}
 	
 	/*private History getHistory(Stock intrestedStock){
@@ -101,5 +100,31 @@ public class Student{
 
 	public ArrayList<History> getMyHistory() {
 		return myHistory;
+	}
+	
+	public double getMaxProfitableSale(){
+		double profit = Double.NEGATIVE_INFINITY;
+		for(History h: myHistory){
+			double change = h.getShares() * (h.getPriceBought() - h.getPriceSold());
+			if (change > profit){
+				profit = change;
+			}
+		}
+	}
+	
+	public double getMoney(){
+		double totMoney = cashMoney;
+		for(Position p: portfolio){
+			totMoney += p.getPriceBought() * p.getShares();
+		}
+	}
+	public double getMaxProfitPerShare(){
+		double profit = Double.NEGATIVE_INFINITY;
+		for(History h: myHistory){
+			double change = h.getPriceBought() - h.getPriceSold();
+			if (change > profit){
+				profit = change;
+			}
+		}
 	}
 }

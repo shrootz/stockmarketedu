@@ -42,6 +42,10 @@ public class Supervisor{
 	public void setInitialCash(float cashMoney){
 		myClass.setInitialMoney(cashMoney);
 	}
+	
+	public ArrayList<Student> rank(RankStudents rankingStrategy){
+		return rankingStrategy.returnRanking(myClass.getMyClass());
+	}
 
 	public Class getClassroom(){
 		return myClass;
