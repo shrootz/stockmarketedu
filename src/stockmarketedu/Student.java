@@ -99,7 +99,10 @@ public class Student{
 	
 	//called from a cron job, goes through the entire portfolio and adds to the cashMoney value
 	public void recieveDividends(){
-		
+		for(Position myPos: portfolio){
+			//dividend per share * number of shares + cashMoney
+			cashMoney += (myPos.getStockType().getDividendShare() * myPos.getShares());
+		}
 	}
 	
 	public ArrayList<Position> getPortfolio() {
