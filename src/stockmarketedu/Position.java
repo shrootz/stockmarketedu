@@ -15,6 +15,12 @@ public class Position {
 		//sell part/all of the shares from this position
 		if(this.shares < shares){
 			//throw some exception
+			try {
+				throw new Exception();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		stockType.getPrice();
 		//add to History
