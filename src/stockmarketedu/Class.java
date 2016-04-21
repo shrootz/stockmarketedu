@@ -7,7 +7,7 @@ import com.googlecode.objectify.annotation.Entity;
 @Entity
 public class Class {
 	private ArrayList<Student> myClass;
-	private Market market;
+	private ArrayList<Stock> stocksAllowed;
 	private final String accessCode;
 	private float initialMoney;
 	public Class(String accessCode){
@@ -18,12 +18,15 @@ public class Class {
 	public String getAccessCode() {
 		return accessCode;
 	}
-	public Market getMarket() {
-		return market;
+	
+	public ArrayList<Stock> getStocksAllowed(){
+		return stocksAllowed;
 	}
-	public void setMarket(Market market) {
-		this.market = market;
+	
+	public void addStock(Stock stock){
+		stocksAllowed.add(stock);
 	}
+	
 	public ArrayList<Student> getMyClass() {
 		return myClass;
 	}

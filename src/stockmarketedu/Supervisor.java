@@ -42,6 +42,10 @@ public class Supervisor{
 	public void setInitialCash(float cashMoney){
 		myClass.setInitialMoney(cashMoney);
 	}
+	
+	public ArrayList<Students> rank(RankStudents rankingStrategy){
+		return rankingStrategy.returnRanking(myClass.getMyClass());
+	}
 
 	//finish sign up button. this method will be called - send email to all the students
 	public void sendInvitations(){
