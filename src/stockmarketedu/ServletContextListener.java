@@ -9,6 +9,6 @@ public class ServletContextListener extends HttpServlet {
 	public void init()
     {
 		ObjectifyService.register(Supervisor.class);
-		ObjectifyService.register(Class.class);
+		ObjectifyService.register(Market.class);
     }
 }

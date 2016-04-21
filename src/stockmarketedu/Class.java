@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.googlecode.objectify.annotation.Entity;
 
-@Entity
 public class Class {
 	private ArrayList<Student> myClass;
 	private Market market;

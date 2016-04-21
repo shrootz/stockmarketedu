@@ -19,8 +19,9 @@ public class Student{
 		this.name = name;
 		this.myHistory = new ArrayList<History>();
 		try{
-			List<Class> allClasses = ObjectifyService.ofy().load().type(Class.class).list();
-			for(Class c: allClasses){
+			List<Supervisor> allSupervisor = ObjectifyService.ofy().load().type(Supervisor.class).list();
+			for(Supervisor s: allSupervisor){
+				Class c = s.getClassroom();
 				String classCode = c.getAccessCode();
 				if(classCode.equals(accessCode)){
 					c.addStudent(this);
@@ -54,6 +55,7 @@ public class Student{
 		else{
 			currentPosition.addShares(shares);
 		}
+		return true;
 	}
 	
 	//need to handle errors here - Stock does not exist, not enough shares to sell

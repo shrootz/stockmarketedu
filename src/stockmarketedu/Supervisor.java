@@ -43,6 +43,9 @@ public class Supervisor{
 		myClass.setInitialMoney(cashMoney);
 	}
 
+	public Class getClassroom(){
+		return myClass;
+	}
 	//finish sign up button. this method will be called - send email to all the students
 	public void sendInvitations(){
 		ArrayList<String> allEmails = allStudentEmails;
