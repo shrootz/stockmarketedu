@@ -1,7 +1,8 @@
 package stockmarketedu;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.googlecode.objectify.ObjectifyService;
@@ -39,6 +40,11 @@ public class Student{
 	
 	public String getName() {
 		return name;
+	}
+	
+	public String getCashMoney() {
+		NumberFormat formatter = new DecimalFormat("#0.00");
+		return formatter.format(cashMoney);
 	}
 	
 	//need to handle errors here - Stock does not exist, not enough money
