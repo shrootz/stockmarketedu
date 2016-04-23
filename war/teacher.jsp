@@ -1,3 +1,26 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Collections" %>
+<%@ page import="com.google.appengine.api.users.User" %>
+<%@ page import="com.google.appengine.api.users.UserService" %>
+<%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
+<%@ page import="com.googlecode.objectify.*" %>
+
+<%@ page import="stockmarketedu.Supervisor" %>
+<%@ page import="stockmarketedu.Student" %>
+<%@ page import="stockmarketedu.Class" %>
+<%@ page import="stockmarketedu.RankStudents" %>
+<%@ page import="stockmarketedu.RankByMoney" %>
+<%@ page import="stockmarketedu.Position" %>
+<%@ page import="stockmarketedu.Stock" %>
+
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Collections" %>
+<%@ page import="java.text.DecimalFormat" %>
+<%@ page import="java.text.NumberFormat"%>
+
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -19,6 +42,31 @@
 			<link rel="stylesheet" href="css/style-desktop.css" />
 		</noscript>
 	</head>
+	<%
+	    UserService userService = UserServiceFactory.getUserService();
+	    User user = userService.getCurrentUser();
+
+	    ObjectifyService.register(Supervisor.class);
+	    List<Supervisor> teachers = ObjectifyService.ofy().load().type(Supervisor.class).list(); 
+	    boolean signedIn = false;
+	    boolean createdClass = false;
+	    int teacherIndex = -1;
+	    Supervisor teacher;
+
+	    NumberFormat formatter = new DecimalFormat("#0.00");
+
+		if (user != null) {
+	    	pageContext.setAttribute("user", user);
+	    	signedIn = true;
+	    	for(Supervisor teach: teachers) {
+    			if(user.getEmail().equals(teach.getEmail())) {
+    				teacher = teach;
+    				createdClass = true;
+    				break;
+    			}
+	    	}
+		}
+	%>
 	<body class="left-sidebar">
 
 		<div id="header-wrapper">
@@ -53,25 +101,29 @@
 						<h2 class="title">Teacher Portal</h2>
 					</div>
 				</div>
-
+				<%
+					if(signedIn && createdClass) {
+						RankStudents byMoney = new RankByMoney();
+						ArrayList<Student> topInvestors = teacher.rank(byMoney);
+				%>
 				<div class="row">
 					<div class="4u">
 						<article class="info">
 							<p class="byline">View class summary</p>
 						</article>
 						<article class="box">
+
 							<ul>
-								<li>Top Investor: Timmy Timmsworth</li>
-								<li>Net Worth: $12345<br></li>
-								<li>Runner-up: Bobby Studious</li>
-								<li>Net Worth: $11111<br></li>
-								<li>Weeks Remaining: 24</li>
+								<li>Top Investor: <% topInvestors.get(0).getName(); %></li>
+								<li>Net Worth: $<% formatter.format(topInvestors.get(0).getMoney()); %><br></li>
+								<li>Runner-up: <% topInvestors.get(1).getName(); %></li>
+								<li>Net Worth: $<% formatter.format(topInvestors.get(1).getMoney()); %><br></li>
 							</ul>
 						</article>
 					</div>
 					<div class="4u">
 						<article class="info">
-							<p class="byline">View this week's class performance</p>
+							<p class="byline">View current class performance</p>
 						</article>
 						<article class="box" id="graph">
 							<svg id="visualisation" width="100%" height="100%"></svg>
@@ -79,21 +131,24 @@
 					</div>
 					<div class="4u">
 						<article class="info">
-							<p class="byline">View class' current net worth</p>
+							<p class="byline">View current class net worth</p>
 						</article>
 						<article class="box">
 							<ul>
-								<li>Timmy Timmsworth: $112122</li>
-								<li>Tommy Toonsmurth: $543</li>
-								<li>Billy Bobbsworth: $143</li>
-								<li>Stella Stevesworth: $15</li>
-								<li>Bertha Bobsworth: $10</li>
-								<li>Curly Curlsworth: -$100</li>
+								<%
+									for(int i = 0; i < 5; i++) {
+								%>
+									<li><% topInvestors.get(i).getName(); %>&#58; $<% formatter.format(topInvestors.get(i).getMoney()); %></li>
+								<%
+									}
+								%>
 							</ul>
 						</article>
 					</div>
 				</div>
-
+				<% 
+					} else if(signedIn && !createdClass) {
+				%>
 				<div class="row">
 
 					<div class="12u">
@@ -101,10 +156,9 @@
 							<p class="byline">Configure class settings</p>
 						</article>
 						<article class="box">
-							<form id="class-config">
+							<form id="class-config" action="/createclass">
 								<ul class="horiz">
 									<li>Class Name <input type="text" name="Class Name"></li>
-									<li>Number of Weeks <input type="text" name="Number of Weeks"></li>
 									<li>Starting Cash <input type="text" name="Class Name"></li>
 								</ul>
 								Participant Emails<br>
@@ -117,6 +171,17 @@
 					</div>
 
 				</div>
+				<% 
+					} else {
+				%>
+					<div class="row">
+						<div class="12u">
+							<a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
+						</div>
+					</div>
+				<%
+					}
+				%>
 
 			</div>
 		</div>
