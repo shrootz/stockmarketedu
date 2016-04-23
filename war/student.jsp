@@ -1,3 +1,25 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Collections" %>
+<%@ page import="com.google.appengine.api.users.User" %>
+<%@ page import="com.google.appengine.api.users.UserService" %>
+<%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
+<%@ page import="com.googlecode.objectify.*" %>
+
+<%@ page import="stockmarketedu.Supervisor" %>
+<%@ page import="stockmarketedu.Student" %>
+<%@ page import="stockmarketedu.Class" %>
+<%@ page import="stockmarketedu.Position" %>
+<%@ page import="stockmarketedu.Stock" %>
+
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Collections" %>
+<%@ page import="java.text.DecimalFormat" %>
+<%@ page import="java.text.NumberFormat"%>
+
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -19,6 +41,36 @@
 			<link rel="stylesheet" href="css/style-desktop.css" />
 		</noscript>
 	</head>
+	<%
+	    UserService userService = UserServiceFactory.getUserService();
+	    User user = userService.getCurrentUser();
+
+	    ObjectifyService.register(Subscriber.class);
+	    List<Supervisor> teachers = ObjectifyService.ofy().load().type(Subscriber.class).list(); 
+	    boolean signedIn = false;
+	    boolean inClass = false;
+	    int teacherIndex = -1;
+	    Student student;
+
+	    NumberFormat formatter = new DecimalFormat("#0.00");
+
+		if (user != null) {
+	    	pageContext.setAttribute("user", user);
+	    	signedIn = true;
+	    	for(Supervisor teacher: teachers) {
+	    		for(Student stud: teacher.getClass().getMyClass()) {
+	    			if(user.getEmail().equals(stud.getEmail())) {
+	    				student = stud;
+	    				inClass = true;
+	    				break;
+	    			}
+	    		}
+	    		if(current != null) {
+	    			break;
+	    		}
+	    	}
+		}
+	%>
 	<body class="left-sidebar">
 
 		<div id="header-wrapper">
@@ -44,7 +96,6 @@
 				</div>
 			</div>
 		</div>
-		
 		<div id="feature-wrapper">
 			<div class="container">
 				<div class="row">
@@ -55,42 +106,65 @@
 				</div>
 
 				<div class="row">
-					<div class="4u">
-						<article class="info">
-							<p class="byline">View your summary</p>
-						</article>
-						<article class="box">
-							<ul>
-								<li>Student: Timmy Timmsworth</li>
-								<li>Investment Value: $12345</li>
-								<li>Cash: $2222</li>
-								<li>Weeks Remaining: 24</li>
-							</ul>
-						</article>
-					</div>
-					<div class="4u">
-						<article class="info">
-							<p class="byline">View this week's performance</p>
-						</article>
-						<article class="box" id="graph">
-							<svg id="visualisation" width="100%" height="100%"></svg>
-						</article>
-					</div>
-					<div class="4u">
-						<article class="info">
-							<p class="byline">View your current holdings</p>
-						</article>
-						<article class="box">
-							<ul>
-								<li>ABC: 54 shares @ $112122</li>
-								<li>BLT: 10 shares @ $543</li>
-								<li>SONY: 4 shares @ $143</li>
-								<li>PONY: 1 share @ $15</li>
-								<li>KEN: 8 shares @  $10</li>
-								<li>SVNE: 19 shares @ -$100</li>
-							</ul>
-						</article>
-					</div>
+					<%
+						if(signedIn && inClass) {
+					%>
+						<div class="4u">
+							<article class="info">
+								<p class="byline">View your summary</p>
+							</article>
+							<article class="box">
+								<ul>
+									<li>Student: <% student.getName(); %></li>
+									<li>Investment Value: $<% formatter.format(student.getMoney()); %></li>
+									<li>Cash: $<% formatter.format(student.getCashMoney()); %></li>
+								</ul>
+							</article>
+						</div>
+						<div class="4u">
+							<article class="info">
+								<p class="byline">View your current performance</p>
+							</article>
+							<article class="box" id="graph">
+								<svg id="visualisation" width="100%" height="100%"></svg>
+							</article>
+						</div>
+						<div class="4u">
+							<article class="info">
+								<p class="byline">View your current holdings</p>
+							</article>
+							<article class="box">
+								<ul>
+									<%
+										for(Position p: student.getPortfolio()) {
+									%>
+											<li>
+												<% p.getStockType().getSymbol(); %>
+												&#58; <% p.getShares(); %>
+												 shares @ 
+												$<% formatter.format(p.getStockType().getPrice()); %>
+											</li>
+									<%
+										}
+									%>
+								</ul>
+							</article>
+						</div>
+					<%
+						} else if(!signedIn){
+					%>
+						<div class="12u">
+							<a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in to view performance</a>
+						</div>
+					<%
+						} else {
+					%>
+						<div class="12u">
+							Your email is not associated with a valid class. Please talk to your teacher.
+						</div>
+					<%
+						}
+					%>
 				</div>
 
 				<div class="row">
