@@ -27,7 +27,7 @@ public abstract class Market {
 	public static Market getInstance() {
 		if(myMarket == null){
 			List<Market> market = ObjectifyService.ofy().load().type(Market.class).list();
-			if(market.get(0) == null){
+			if(market.isEmpty()){
 				myMarket = new MarketAdapter();
 				ObjectifyService.ofy().save().entity(myMarket).now();
 			}
