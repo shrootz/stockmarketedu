@@ -25,9 +25,7 @@ public class Class {
 	}
 	
 	public void addStock(String symbol){
-		List<Market> market = ObjectifyService.ofy().load().type(Market.class).list();
-	    Market globalMarket = market.get(0);
-	    globalMarket = globalMarket.getInstance();
+	    Market globalMarket = Market.getInstance();
 		stocksAllowed.add(globalMarket.getStock(symbol));
 	}
 	

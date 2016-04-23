@@ -2,6 +2,8 @@ package stockmarketedu;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.ObjectifyService;
 
@@ -24,8 +26,14 @@ public abstract class Market {
 	}
 	public static Market getInstance() {
 		if(myMarket == null){
-			myMarket = new MarketAdapter();
-			ObjectifyService.ofy().save().entity(myMarket).now();
+			List<Market> market = ObjectifyService.ofy().load().type(Market.class).list();
+			if(market.get(0) == null){
+				myMarket = new MarketAdapter();
+				ObjectifyService.ofy().save().entity(myMarket).now();
+			}
+			else{
+				myMarket = market.get(0);
+			}
 		}
 	    return myMarket;
 	}
