@@ -45,8 +45,8 @@
 	    UserService userService = UserServiceFactory.getUserService();
 	    User user = userService.getCurrentUser();
 
-	    ObjectifyService.register(Subscriber.class);
-	    List<Supervisor> teachers = ObjectifyService.ofy().load().type(Subscriber.class).list(); 
+	    ObjectifyService.register(Supervisor.class);
+	    List<Supervisor> teachers = ObjectifyService.ofy().load().type(Supervisor.class).list(); 
 	    boolean signedIn = false;
 	    boolean inClass = false;
 	    int teacherIndex = -1;
@@ -174,7 +174,7 @@
 							<p class="byline">Sell a stock</p>
 						</article>
 						<article class="box">
-							<form>
+							<form action="/sell">
 								Stock Ticker<br> <input type="text" name="Stock Ticker"><br>
 								Number of Shares<br> <input type="text" name="Number of Shares"><br>
 								<input type="submit" value="Submit">
@@ -186,7 +186,7 @@
 							<p class="byline">Buy a stock</p>
 						</article>
 						<article class="box">
-							<form>
+							<form action="/buy">
 								Stock Ticker<br> <input type="text" name="Stock Ticker"><br>
 								Number of Shares<br> <input type="text" name="Number of Shares"><br>
 								<input type="submit" value="Submit">
