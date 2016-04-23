@@ -37,6 +37,10 @@ public class Student{
 		}
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
 	//need to handle errors here - Stock does not exist, not enough money
 	public boolean buyPosition(String symbol, double shares){
 		List<Market> market = ObjectifyService.ofy().load().type(Market.class).list();
