@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.googlecode.objectify.ObjectifyService;
 
-public class CronDividendController {
+public class CronDividendController  extends HttpServlet {
 	private static final Logger _logger = Logger.getLogger(CronController.class.getName());
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {		

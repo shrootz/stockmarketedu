@@ -19,9 +19,7 @@ public class CronController extends HttpServlet {
 	    //REDIRECT TO HOME PAGE HERE TO WAKE GAE UP
 		try {
 			_logger.info("Cron Job has been executed");
-		    List<Market> market = ObjectifyService.ofy().load().type(Market.class).list();
-		    Market globalMarket = market.get(0);
-		    globalMarket = globalMarket.getInstance();
+			Market globalMarket = Market.getInstance();
 		    globalMarket.updateStock();
 		}
 		catch (Exception ex) {
