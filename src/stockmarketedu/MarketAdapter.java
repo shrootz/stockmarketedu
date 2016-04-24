@@ -28,7 +28,7 @@ public class MarketAdapter extends Market {
 		    }
 		    double dividend = 0.0;
 		    if (dividendShareText != null && !dividendShareText.equals("")){
-		    	dividend = Double.parseDouble(dividendShareText);
+		    	dividend = Double.parseDouble(dividendShareText)/4.0;
 		    }
 		    boolean active = true;
 		    //System.out.println(name + price + stockSymbol + date + dividend + active);

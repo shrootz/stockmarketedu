@@ -4,13 +4,19 @@ import static org.junit.Assert.*;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
+/*
+ * Need API deployed to test singleton part
+ */
 public class MarketTest {
 	MarketAdapter myMarket;
 	   @Before
@@ -157,23 +163,67 @@ public class MarketTest {
 	}
 	
 	/*
-	 * Check dividend parsing 
+	 * Check stock symbols
 	 */
-/*	@Test
-	public void checkDividends(){
+	@Test
+	public void testStockSymbols(){
 		String [] stocks = {"GOOG", "AAPL", "FB", "NFLX", "CVS", "DAL", "SPY"};
 		for(String s: stocks){
 			myMarket.addStock(s);
-			System.out.println(myMarket.getStock(s).getDividendShare());
+		}
+		List<String> stocks_sorted = Arrays.asList("GOOG", "AAPL", "FB", "NFLX", "CVS", "DAL", "SPY");
+		Collections.sort(stocks_sorted);
+		//System.out.println(myMarket.getStockSymbols());
+		assertEquals(myMarket.getStockSymbols(), stocks_sorted);
+		
+		
+	} 
+	
+	/*
+	 * Check if stock names are retrieved correctly. Due to some bugs with Yahoo! finance API itself, only checking for approximate names
+	 */
+	@Test
+	public void testNameParsing(){
+		String [] stocks = {"GOOG", "AAPL", "FB", "NFLX", "LUV", "DAL", "INTC"};
+		for(String s: stocks){
+			myMarket.addStock(s);
 		}
 		
-		assertEquals(myMarket.getStock("GOOG").getDividendShare(), 0.0, 0.01);
-		assertEquals(myMarket.getStock("AAPL").getDividendShare(), 0.0, 0.01);
+		assertTrue(myMarket.getStock("GOOG").getName().contains("Alphabet"));
+		assertTrue(myMarket.getStock("AAPL").getName().contains("Apple"));
+		assertTrue(myMarket.getStock("FB").getName().contains("Facebook"));
+		assertTrue(myMarket.getStock("NFLX").getName().contains("Netflix"));
+		assertTrue(myMarket.getStock("DAL").getName().contains("Delta"));
+		assertTrue(myMarket.getStock("LUV").getName().contains("Southwest"));
+		assertTrue(myMarket.getStock("INTC").getName().contains("Intel"));
 
+	}
+	
+	/*
+	 * Test Time Stamps on Updating
+	 */
+	@Test
+	public void testTimeStamps(){
 		
+		String[] stocks = {"GOOG", "AAPL", "FB", "NFLX", "CVS", "DAL", "SPY", "SAVE", "LUV", "TGT", 
+							"JNJ", "M", "PEP", "RCL", "HD", "BRKB", "SBUX", "LMT", "INTC", "ETSY", 
+							"QQQ", "SHAK", "UCO", "BA", "V", "PAY" , "MA", "FIS", "PYPL" ,"AXP", "HAWK",
+							"WMT", "WAL", "GE", "GM", "PG", "IBM" , "AMD", "TSLA", "MSFT" ,"LNKD", "ABT",
+							"ANF", "C", "KO", "F"};
+		for (String s: stocks){
+			myMarket.addStock(s);
+		}
+		Date now = new Date();
+		myMarket.updateStock();
+		System.out.println("delay");
+		Date later = new Date();
+		System.out.println(now);
+		System.out.println(later);
+		for(String s: stocks){
+			assertTrue(myMarket.getStock(s).getTimeStamp().after(now) && myMarket.getStock(s).getTimeStamp().before(later) || myMarket.getStock(s).getTimeStamp().equals(now) || myMarket.getStock(s).getTimeStamp().equals(later));
+		}
+	}
 		
-		
-		
-	} */
+	
 
 }
