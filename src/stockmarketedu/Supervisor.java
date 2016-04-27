@@ -24,8 +24,8 @@ public class Supervisor{
 	private Class myClass;
 	private ArrayList<String> allStudentEmails;
 	
-	public Supervisor(String name){
-		this.name = name;
+	public Supervisor(){
+		//this.name = name;
 		accessCode = UUID.randomUUID().toString();
 		myClass = new Class(accessCode);
 		allStudentEmails = new ArrayList<String>();
@@ -59,7 +59,7 @@ public class Supervisor{
 	    Session session = Session.getDefaultInstance(props, null);
 
 	    String msgBody = "Come join our Stock Market Challenge!\n Use this accessCode"
-	    		+ this.accessCode + "to join" + this.name + "'s class"; 
+	    		+ this.accessCode + "to join my class"; 
 	    //  need a google app engine link to send 
 	    
 	    for (String s : allEmails){
