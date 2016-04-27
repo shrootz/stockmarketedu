@@ -24,6 +24,9 @@ public abstract class Market {
 	protected Market(){
 		openMarket = false;
 		market = new HashMap<String, Stock>();
+		for(String s: stockTicker){
+			addStock(s);
+		}
 		//myMarket = new MarketAdapter();
 	}
 	public void openMarket(){
@@ -62,6 +65,12 @@ public abstract class Market {
 		ArrayList<String> symbols = new ArrayList<String>(market.keySet());
 		Collections.sort(symbols);
 		return symbols;
+	}
+	
+	public void removeDefaultStocks(){
+		for(String s: stockTicker){
+			market.remove(s);
+		}
 	}
 
 		
