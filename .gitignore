@@ -1,0 +1,10 @@
+
+*.prefs
+
+.classpath
+
+.classpath
+
+.settings/com.google.appengine.eclipse.core.prefs
+
+.settings/com.google.gdt.eclipse.core.prefs
