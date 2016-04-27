@@ -1,7 +1,9 @@
 package stockmarketedu;
 
 import static org.junit.Assert.*;
+
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalMemcacheServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.googlecode.objectify.ObjectifyService;
 
@@ -9,12 +11,14 @@ import org.junit.*;
 
 public class SupervisorTest {
 	
-	  private final LocalServiceTestHelper helper =
-		      new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
-	  
+	  private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig(),
+              new LocalMemcacheServiceTestConfig());
+	    
 	  @Before
 	  public void setUp() {
 	    helper.setUp();
+	    ObjectifyService.register(Supervisor.class);
+	    ObjectifyService.register(Market.class);
 	  }
 
 	  @After
@@ -24,8 +28,6 @@ public class SupervisorTest {
 
 	@Test
 	public void testTimePM() {
-	    ObjectifyService.register(Supervisor.class);
-	    ObjectifyService.register(Market.class);
 		Supervisor s = new Supervisor("name");
 		s.addEmail("email@email.com");
 		s.addEmail("amail@email.com");
