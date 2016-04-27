@@ -7,6 +7,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
 
+import com.googlecode.objectify.annotation.Entity;
+
+@Entity
 public class MarketAdapter extends Market {
 
 	@Override

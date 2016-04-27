@@ -5,6 +5,14 @@ xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet>
+		<servlet-name>createclass</servlet-name>
+		<servlet-class>stockmarketedu.CreateClassServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>createclass</servlet-name>
+		<url-pattern>/createclass</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>StockMarketEdu</servlet-name>
 		<servlet-class>stockmarketedu.StockMarketEduServlet</servlet-class>
 	</servlet>
@@ -13,7 +21,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/stockmarketedu</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 	<filter>
         <filter-name>ObjectifyFilter</filter-name>
