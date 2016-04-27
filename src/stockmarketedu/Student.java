@@ -152,4 +152,7 @@ public class Student{
 		return profit;
 	}
 	
+	//this method is for testing purposes only 
+	
+	
 }
