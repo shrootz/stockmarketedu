@@ -1,6 +1,7 @@
 package stockmarketedu;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -45,9 +46,15 @@ public abstract class Market {
 	public abstract void updateStock();
 	
 	public Stock getStock(String symbol){
-		System.out.println(market.get(symbol).getName());
+		//System.out.println(market.get(symbol).getName());
 		return market.get(symbol);
 		
+	}
+	
+	public ArrayList<String> getStockSymbols(){
+		ArrayList<String> symbols = new ArrayList<String>(market.keySet());
+		Collections.sort(symbols);
+		return symbols;
 	}
 
 		

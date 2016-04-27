@@ -11,6 +11,9 @@ public class MarketAdapter extends Market {
 
 	@Override
 	public boolean addStock(String stockSymbol) {
+		if (market.containsKey(stockSymbol)){
+			return false;
+		}
 		try {
 			String text = getQueryText(stockSymbol);
 		    //System.out.println(text);
@@ -25,16 +28,16 @@ public class MarketAdapter extends Market {
 		    }
 		    double dividend = 0.0;
 		    if (dividendShareText != null && !dividendShareText.equals("")){
-		    	dividend = Double.parseDouble(dividendShareText);
+		    	dividend = Double.parseDouble(dividendShareText)/4.0;
 		    }
 		    boolean active = true;
-		    System.out.println(name + price + stockSymbol + date + dividend + active);
+		    //System.out.println(name + price + stockSymbol + date + dividend + active);
 		    Stock s = new Stock(name, price, stockSymbol, date, dividend, active);
 			market.put(stockSymbol, s);
 			return true;
 			
 		} catch (Exception e) {
-		    System.out.println(e.getMessage());
+		    //System.out.println(e.getMessage());
 		    return false;
 		        
 		}
