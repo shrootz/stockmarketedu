@@ -15,6 +15,11 @@ public abstract class Market {
 	private boolean openMarket;
 	protected HashMap<String, Stock> market;
 	private static Market myMarket = null;
+	private static final String[] stockTicker = {"GOOG", "AAPL", "FB", "NFLX", "CVS", "DAL", "SPY", "SAVE", "LUV", "TGT", 
+	                 							"JNJ", "M", "PEP", "RCL", "HD", "BRKB", "SBUX", "LMT", "INTC", "ETSY", 
+	                							"QQQ", "SHAK", "UCO", "BA", "V", "PAY" , "MA", "FIS", "PYPL" ,"AXP", "HAWK",
+	                							"WMT", "WAL", "GE", "GM", "PG", "IBM" , "AMD", "TSLA", "MSFT" ,"LNKD", "ABT",
+	                							"ANF", "C", "KO", "F", "FIT", "GLD", "SLV", "DIS", "DPS"};
 
 	protected Market(){
 		openMarket = false;
