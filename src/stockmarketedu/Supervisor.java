@@ -48,6 +48,14 @@ public class Supervisor{
 	public ArrayList<Student> rank(RankStudents rankingStrategy){
 		return rankingStrategy.returnRanking(myClass.getMyClass());
 	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String e) {
+		email = e;
+	}
 
 	public Class getClassroom(){
 		return myClass;
