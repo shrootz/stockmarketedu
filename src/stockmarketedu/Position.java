@@ -9,6 +9,7 @@ public class Position {
 	public Position(Stock stockType, double shares){
 		this.stockType = stockType;
 		this.pricePerShare = stockType.getPrice();
+		this.shares = shares;
 	}
 	
 	public History sellShares(double shares){

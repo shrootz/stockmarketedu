@@ -139,11 +139,26 @@ public class MarketTest {
 			myMarket.addStock(s);
 			oldPrices.put(s, myMarket.getStock(s).getPrice());
 		}
-		if(dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY || !open ){ ///saturday or sunday or market is closed
+		if(dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY){ ///saturday or sunday or market is closed
 			myMarket.updateStock();
 			int same = 0;
 			for(String key: oldPrices.keySet()){
-				if(Math.abs(oldPrices.get(key) - myMarket.getStock(key).getPrice()) < 0.01){ //less than 1c change, say it didn't change
+				Double oldPrice = oldPrices.get(key);
+				Double newPrice = myMarket.getStock(key).getPrice();
+				if(Math.abs(oldPrice - newPrice) < 0.02){ //less than 2c change, say it's working b/c of after hour tradings 
+					same += 1;
+				}
+			}
+			System.out.println(same);
+			assertTrue(same > (int) stocks.length * 0.75);
+		}
+		else if(!open){//allow larger margin b/c more after hours trading on weekdays
+			myMarket.updateStock();
+			int same = 0;
+			for(String key: oldPrices.keySet()){
+				Double oldPrice = oldPrices.get(key);
+				Double newPrice = myMarket.getStock(key).getPrice();
+				if(Math.abs(oldPrice - newPrice) < 0.10){ //less than 2c change, say it's working b/c of after hour tradings 
 					same += 1;
 				}
 			}
