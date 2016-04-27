@@ -28,7 +28,7 @@ public class SupervisorTest {
 
 	@Test
 	public void testTimePM() {
-		Supervisor s = new Supervisor("name");
+		Supervisor s = new Supervisor();
 		s.addEmail("email@email.com");
 		s.addEmail("amail@email.com");
 		float fl = 500.0f;

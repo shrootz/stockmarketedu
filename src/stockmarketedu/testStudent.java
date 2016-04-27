@@ -10,7 +10,7 @@ public class testStudent {
 	Supervisor supervisor;
 	@Before
 	public void setUp() throws Exception {
-		supervisor = new Supervisor("Che"); // manually put in an access code; 
+		supervisor = new Supervisor(); // manually put in an access code; 
 		supervisor.getClassroom().setInitialMoney(1000f);
 		student = new Student("Sneha", "8675309"); // not sure I can test to see if this works using jUnit
 		supervisor.getClassroom().addStudent(student);

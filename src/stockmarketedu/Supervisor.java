@@ -13,11 +13,13 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
 
 import java.util.ArrayList;
 
 @Entity
 public class Supervisor{
+	@Id Long id;
 	private String name;
 	private String email; //gmail account login <- does this need to be stored here?
 	private final String accessCode;

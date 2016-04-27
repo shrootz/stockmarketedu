@@ -6,10 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.ObjectifyService;
 
 @Entity
 public abstract class Market {
+	@Id Long id;
 	private boolean openMarket;
 	protected HashMap<String, Stock> market;
 	private static Market myMarket = null;
