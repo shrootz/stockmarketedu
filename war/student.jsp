@@ -12,7 +12,7 @@
 <%@ page import="stockmarketedu.Position" %>
 <%@ page import="stockmarketedu.Stock" %>
 
-<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Collections" %>
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="java.text.NumberFormat"%>
@@ -46,11 +46,11 @@
 	    User user = userService.getCurrentUser();
 
 	    ObjectifyService.register(Supervisor.class);
-	    List<Supervisor> teachers = ObjectifyService.ofy().load().type(Supervisor.class).list(); 
+	    ArrayList<Supervisor> teachers = (ArrayList<Supervisor>) ObjectifyService.ofy().load().type(Supervisor.class).list(); 
 	    boolean signedIn = false;
 	    boolean inClass = false;
 	    int teacherIndex = -1;
-	    Student student;
+	    Student student = null;
 
 	    NumberFormat formatter = new DecimalFormat("#0.00");
 
@@ -58,14 +58,14 @@
 	    	pageContext.setAttribute("user", user);
 	    	signedIn = true;
 	    	for(Supervisor teacher: teachers) {
-	    		for(Student stud: teacher.getClass().getMyClass()) {
+	    		for(Student stud: teacher.getClassroom().getMyClass()) {
 	    			if(user.getEmail().equals(stud.getEmail())) {
 	    				student = stud;
 	    				inClass = true;
 	    				break;
 	    			}
 	    		}
-	    		if(current != null) {
+	    		if(student != null) {
 	    			break;
 	    		}
 	    	}

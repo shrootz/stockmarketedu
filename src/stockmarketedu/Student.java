@@ -41,6 +41,10 @@ public class Student{
 	public String getName() {
 		return name;
 	}
+
+	public String getEmail() {
+		return email;
+	}
 	
 	public String getCashMoney() {
 		NumberFormat formatter = new DecimalFormat("#0.00");
