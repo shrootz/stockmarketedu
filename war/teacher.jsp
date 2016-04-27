@@ -15,6 +15,7 @@
 <%@ page import="stockmarketedu.Stock" %>
 
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Collections" %>
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="java.text.NumberFormat"%>
@@ -51,7 +52,7 @@
 	    boolean signedIn = false;
 	    boolean createdClass = false;
 	    int teacherIndex = -1;
-	    Supervisor teacher;
+	    Supervisor teacher = null;
 
 	    NumberFormat formatter = new DecimalFormat("#0.00");
 
@@ -156,16 +157,15 @@
 							<p class="byline">Configure class settings</p>
 						</article>
 						<article class="box">
-							<form id="class-config" action="/createclass">
+							<form id="class-config" action="/createclass" method="post">
 								<ul class="horiz">
-									<li>Class Name <input type="text" name="Class Name"></li>
-									<li>Starting Cash <input type="text" name="Class Name"></li>
+									<li>Starting Cash <input type="text" name="Starting Cash"></li>
 								</ul>
 								Participant Emails<br>
 								<textarea rows="3" name="Student Emails">Enter student emails here.</textarea>
 								Permitted Stocks<br>
 								<textarea rows="3" name="Permitted Stocks">Enter permitted stock tickers here.</textarea>
-								<input type="submit" value="Submit" class="">
+								<input type="submit" value="Submit">
 							</form>
 						</article>
 					</div>

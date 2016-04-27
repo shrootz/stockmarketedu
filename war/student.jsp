@@ -12,7 +12,7 @@
 <%@ page import="stockmarketedu.Position" %>
 <%@ page import="stockmarketedu.Stock" %>
 
-<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
 <%@ page import="java.util.Collections" %>
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="java.text.NumberFormat"%>
@@ -46,7 +46,7 @@
 	    User user = userService.getCurrentUser();
 
 	    ObjectifyService.register(Supervisor.class);
-	    ArrayList<Supervisor> teachers = (ArrayList<Supervisor>) ObjectifyService.ofy().load().type(Supervisor.class).list(); 
+	    List<Supervisor> teachers = ObjectifyService.ofy().load().type(Supervisor.class).list(); 
 	    boolean signedIn = false;
 	    boolean inClass = false;
 	    int teacherIndex = -1;
@@ -166,7 +166,9 @@
 						}
 					%>
 				</div>
-
+				<%
+					if(signedIn && inClass) {
+				%>
 				<div class="row">
 
 					<div class="6u">
@@ -195,6 +197,9 @@
 					</div>
 
 				</div>
+				<%
+					}
+				%>
 
 				<div class="row">
 
