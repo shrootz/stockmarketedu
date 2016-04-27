@@ -24,7 +24,10 @@ public class testPosition {
 		}
 		History expected = new History ("GOOG", 4, 10.50, 10.50);
 		h = pos.sellShares(4);
-		assertEquals(expected, h); // this is failing and i'm not sure why
+		assertEquals(expected.getStockSymbol(), h.getStockSymbol()); 
+		assertEquals(expected.getPriceBought(), h.getPriceBought(), 0.01);
+		assertEquals(expected.getPriceSold(), h.getPriceSold(), 0.01);
+		assertEquals(expected.getShares(), h.getShares(), 1.0);
 	}
 	
 	@Test

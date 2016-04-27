@@ -18,6 +18,7 @@ public class Student{
 	public Student(String name, String accessCode){
 		this.name = name;
 		this.myHistory = new ArrayList<History>();
+		this.portfolio = new ArrayList<Position>();
 		try{
 			List<Supervisor> allSupervisor = ObjectifyService.ofy().load().type(Supervisor.class).list();
 			for(Supervisor s: allSupervisor){
@@ -155,8 +156,9 @@ public class Student{
 		}
 		return profit;
 	}
-	
-	//this method is for testing purposes only 
-	
+		
+	public void addCash(double c){
+		cashMoney += c;
+	}
 	
 }

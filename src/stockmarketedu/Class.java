@@ -10,7 +10,7 @@ public class Class {
 	private ArrayList<Student> myClass;
 	private ArrayList<Stock> stocksAllowed;
 	private final String accessCode;
-	private float initialMoney;
+	private double initialMoney;
 	public Class(String accessCode){
 		//Students need to enter this randomly generated access code to be added to the class
 		this.accessCode = accessCode;
@@ -35,11 +35,11 @@ public class Class {
 	public void addStudent(Student student) {
 		this.myClass.add(student);
 	}
-	public float getInitialMoney() {
+	public double getInitialMoney() {
 		return initialMoney;
 	}
-	public void setInitialMoney(float initialMoney) {
-		this.initialMoney = initialMoney;
+	public void setInitialMoney(double d) {
+		this.initialMoney = d;
 	}
 	
 }

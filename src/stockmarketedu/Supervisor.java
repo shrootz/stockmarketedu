@@ -32,6 +32,7 @@ public class Supervisor{
 		myClass = new Class(accessCode);
 		allStudentEmails = new ArrayList<String>();
 	}
+	
 
 	//type email into a text box, button to add email
 	//when button is pressed call this method

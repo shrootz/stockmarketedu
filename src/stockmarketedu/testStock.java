@@ -45,8 +45,7 @@ public class testStock {
 		
 		assertTrue(s2.getDividendShare() == s1.getDividendShare());
 		assertTrue(s2.getPrice() == s1.getPrice());
-		assertTrue(s2.getTimeStamp() == s1.getTimeStamp()); 
-			// Problem with last assert: watch window is saying dates are the same but assert isn't
+		assertTrue(s2.getTimeStamp().equals(s1.getTimeStamp())); 
 	}
 
 }
