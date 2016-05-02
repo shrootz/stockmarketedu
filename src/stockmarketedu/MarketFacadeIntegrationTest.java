@@ -12,14 +12,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 //This class tests market's integration with yahoo finance api
-public class MarketAdapterIntegrationTest {
+public class MarketFacadeIntegrationTest {
 	
 
-   MarketAdapter myMarket;
+   MarketFacade myMarket;
    @Before
    // Informs JUnit that this method should be run before each test
    public void setUp() {
-       myMarket = new MarketAdapter();
+       myMarket = new MarketFacade();
        myMarket.removeDefaultStocks();
    }
 	   /*

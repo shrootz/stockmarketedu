@@ -39,7 +39,7 @@ public abstract class Market {
 		if(myMarket == null){
 			List<Market> market = ObjectifyService.ofy().load().type(Market.class).list();
 			if(market.isEmpty()){
-				myMarket = new MarketAdapter();
+				myMarket = new MarketFacade();
 				ObjectifyService.ofy().save().entity(myMarket).now();
 			}
 			else{

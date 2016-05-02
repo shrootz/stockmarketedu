@@ -20,7 +20,7 @@ public class YahooFinanceQueryTestServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		System.out.println("in Post");
 		System.out.println("Getting stock");
-		Market market = new MarketAdapter();
+		Market market = new MarketFacade();
 		market.addStock(request.getParameter("symbol"));
 		Stock s = market.getStock(request.getParameter("symbol"));
 		response.getWriter().println("Stock Symbol: " + s.getSymbol());

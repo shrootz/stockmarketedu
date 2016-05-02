@@ -19,15 +19,13 @@ import org.junit.Test;
  * Will manually test singleton part
  */
 public class MarketTest {
-	MarketAdapter myMarket;
+	MarketFacade myMarket;
 	   @Before
 	   // Informs JUnit that this method should be run before each test
 	   public void setUp() {
-	       myMarket = new MarketAdapter();
+	       myMarket = new MarketFacade();
 	       myMarket.removeDefaultStocks();
 	   }
-	
-	
 	
 	/*
 	 * Check stock symbols

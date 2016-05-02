@@ -17,7 +17,7 @@ public class CreateClassServlet extends HttpServlet {
 	static {
 		ObjectifyService.register(Supervisor.class);
 		ObjectifyService.register(Market.class);
-		ObjectifyService.register(MarketAdapter.class);
+		ObjectifyService.register(MarketFacade.class);
 	}
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		UserService userService = UserServiceFactory.getUserService();

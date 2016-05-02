@@ -10,7 +10,7 @@ import java.util.Date;
 import com.googlecode.objectify.annotation.Entity;
 
 @Entity
-public class MarketAdapter extends Market {
+public class MarketFacade extends Market {
 
 	@Override
 	public boolean addStock(String stockSymbol) {
