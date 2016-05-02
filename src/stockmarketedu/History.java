@@ -44,5 +44,9 @@ public class History {
 	public double getPriceSold() {
 		return priceSold;
 	}
+	
+	public double getCashFromSale(){
+		return priceSold*shares;
+	}
 
 }
