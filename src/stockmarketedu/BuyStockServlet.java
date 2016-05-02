@@ -29,7 +29,7 @@ public class BuyStockServlet extends HttpServlet {
 			resp.sendRedirect("/student.jsp");
 			return;
 		}
-		int shares = Integer.parseInt(numShares);
+		Double shares = Double.parseDouble(numShares);
 		
 		List<Supervisor> teachers = ObjectifyService.ofy().load().type(Supervisor.class).list();
 		

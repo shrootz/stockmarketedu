@@ -160,12 +160,12 @@
 								<ul>
 									<%
 										for(Position p: student.getPortfolio()) {
+											pageContext.setAttribute("stock_symbol", p.getStockType().getSymbol());
+											pageContext.setAttribute("stock_shares", p.getShares());
+											pageContext.setAttribute("stock_price", formatter.format(p.getStockType().getPrice()));
 									%>
 											<li>
-												<% p.getStockType().getSymbol(); %>
-												&#58; <% p.getShares(); %>
-												 shares @ 
-												$<% formatter.format(p.getStockType().getPrice()); %>
+												${stock_symbol}&#58; ${stock_shares} shares @ $${stock_price}
 											</li>
 									<%
 										}

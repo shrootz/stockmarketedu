@@ -15,6 +15,13 @@ public class History {
 		this.priceSold = priceSold;
 	}
 	
+	private History() {
+		stockSymbol = "XXX";
+		shares = -1;
+		priceBought = -1;
+		priceSold = -1;
+	}
+	
 /*	public void buy(double shares, double priceBought){
 		double totalExpenditure = this.shares * this.priceBought;
 		totalExpenditure = totalExpenditure + shares*priceBought;
