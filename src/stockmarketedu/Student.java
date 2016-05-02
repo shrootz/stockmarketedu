@@ -62,12 +62,11 @@ public class Student{
 	
 	//need to handle errors here - Stock does not exist, not enough shares to sell
 	public void sellPosition(String symbol, double shares){
-		List<Market> market = ObjectifyService.ofy().load().type(Market.class).list();
-	    Market globalMarket = market.get(0);
-	    globalMarket = globalMarket.getInstance();
+	    Market globalMarket =  Market.getInstance();
 	    Stock toSell = globalMarket.getStock(symbol);
 		Position currentPosition = getPosition(toSell);
 		History currentHistory = currentPosition.sellShares(shares);
+		cashMoney += currentHistory.getCashFromSale();
 		if(currentPosition.getShares() <= 0){
 			portfolio.remove(currentPosition);
 		}
