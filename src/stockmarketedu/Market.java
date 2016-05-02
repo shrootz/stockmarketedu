@@ -60,7 +60,12 @@ public abstract class Market {
 	
 	public Stock getStock(String symbol){
 		//System.out.println(market.get(symbol).getName());
-		return market.get(symbol);
+		if(market.containsKey(symbol)){
+			return market.get(symbol);
+		}
+		else{
+			return null;
+		}
 		
 	}
 	
