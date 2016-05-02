@@ -82,9 +82,9 @@
 							</div>
 							<nav id="nav">
 								<ul>
-									<li ><a href="/index.html">Home</a></li>
-									<li ><a href="/student.html">Student Portal</a></li>
-									<li class="current_page_item"><a href="/teacher.html">Teacher Portal</a></li>
+									<li ><a href="/index.jsp">Home</a></li>
+									<li ><a href="/student.jsp">Student Portal</a></li>
+									<li class="current_page_item"><a href="/teacher.jsp">Teacher Portal</a></li>
 								</ul>
 							</nav>
 						</header>
@@ -105,7 +105,9 @@
 				<%
 					if(signedIn && createdClass) {
 						RankStudents byMoney = new RankByMoney();
-						ArrayList<Student> topInvestors = teacher.rank(byMoney);
+						//ArrayList<Student> topInvestors = teacher.rank(byMoney);
+						ArrayList<Student> topInvestors = teacher.getClassroom().getMyClass();
+						System.out.println("This far " + topInvestors);
 				%>
 				<div class="row">
 					<div class="4u">
@@ -115,10 +117,10 @@
 						<article class="box">
 
 							<ul>
-								<li>Top Investor: <% topInvestors.get(0).getName(); %></li>
-								<li>Net Worth: $<% formatter.format(topInvestors.get(0).getMoney()); %><br></li>
-								<li>Runner-up: <% topInvestors.get(1).getName(); %></li>
-								<li>Net Worth: $<% formatter.format(topInvestors.get(1).getMoney()); %><br></li>
+								<li>Top Investor: <% //topInvestors.get(0).getName(); %></li>
+								<li>Net Worth: $<% //formatter.format(topInvestors.get(0).getMoney()); %><br></li>
+								<li>Runner-up: <% // topInvestors.get(1).getName(); %></li>
+								<li>Net Worth: $<% //formatter.format(topInvestors.get(1).getMoney()); %><br></li>
 							</ul>
 						</article>
 					</div>
@@ -137,7 +139,9 @@
 						<article class="box">
 							<ul>
 								<%
-									for(int i = 0; i < 5; i++) {
+									System.out.println(topInvestors.size());
+									int min = topInvestors.size() < 5 ? topInvestors.size() : 5;
+									for(int i = 0; i < min; i++) {
 								%>
 									<li><% topInvestors.get(i).getName(); %>&#58; $<% formatter.format(topInvestors.get(i).getMoney()); %></li>
 								<%

@@ -18,6 +18,7 @@ public class CreateClassServlet extends HttpServlet {
 		ObjectifyService.register(Supervisor.class);
 		ObjectifyService.register(Market.class);
 		ObjectifyService.register(MarketAdapter.class);
+		ObjectifyService.register(Stock.class);
 	}
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		UserService userService = UserServiceFactory.getUserService();
@@ -41,6 +42,10 @@ public class CreateClassServlet extends HttpServlet {
 		
 		// TODO: validate stocks with permitted stock list
 		for(String s: stocks) {
+			System.out.println(s);
+			if(Market.getInstance().getStockSymbols().contains(s)) {
+				System.out.println("it had the stock etc");
+			}
 			teacher.getClassroom().addStock(s);
 		}
 		ofy().save().entity(teacher).now();

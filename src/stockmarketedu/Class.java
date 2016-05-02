@@ -15,7 +15,15 @@ public class Class {
 		//Students need to enter this randomly generated access code to be added to the class
 		this.accessCode = accessCode;
 		myClass = new ArrayList<Student>();
+		stocksAllowed = new ArrayList<Stock>();
 	}
+	
+	public Class() {
+		this.accessCode = "0";
+		myClass = new ArrayList<Student>();
+		stocksAllowed = new ArrayList<Stock>();
+	}
+	
 	public String getAccessCode() {
 		return accessCode;
 	}
@@ -26,6 +34,7 @@ public class Class {
 	
 	public void addStock(String symbol){
 	    Market globalMarket = Market.getInstance();
+	    System.out.println(globalMarket);
 		stocksAllowed.add(globalMarket.getStock(symbol));
 	}
 	

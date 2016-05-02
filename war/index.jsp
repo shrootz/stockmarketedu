@@ -33,8 +33,8 @@
 							<nav id="nav">
 								<ul>
 									<li  class="current_page_item" ><a href="/">Home</a></li>
-									<li ><a href="./student.html">Student Portal</a></li>
-									<li ><a href="./teacher.html">Teacher Portal</a></li>
+									<li ><a href="./student.jsp">Student Portal</a></li>
+									<li ><a href="./teacher.jsp">Teacher Portal</a></li>
 								</ul>
 							</nav>
 						</header>
