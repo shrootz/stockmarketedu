@@ -139,11 +139,11 @@
 						<article class="box">
 							<ul>
 								<%
-									System.out.println(topInvestors.size());
-									int min = topInvestors.size() < 5 ? topInvestors.size() : 5;
-									for(int i = 0; i < min; i++) {
+									for(int i = 0; i < topInvestors.size(); i++) {
+										pageContext.setAttribute("investor_name", topInvestors.get(i).getName());
+										pageContext.setAttribute("investor_money", formatter.format(topInvestors.get(i).getMoney()));
 								%>
-									<li><% topInvestors.get(i).getName(); %>&#58; $<% formatter.format(topInvestors.get(i).getMoney()); %></li>
+									<li>${investor_name} &#58; $${investor_money}</li>
 								<%
 									}
 								%>

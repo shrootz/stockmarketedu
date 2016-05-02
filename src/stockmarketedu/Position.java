@@ -12,6 +12,12 @@ public class Position {
 		this.shares = shares;
 	}
 	
+	private Position() {
+		stockType = new Stock();
+		pricePerShare = -1;
+		shares = -1;
+	}
+	
 	public History sellShares(double shares){
 		//sell part/all of the shares from this position
 		if(this.shares < shares){
