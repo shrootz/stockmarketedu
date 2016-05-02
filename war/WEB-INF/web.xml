@@ -13,6 +13,22 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/createclass</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>buystock</servlet-name>
+		<servlet-class>stockmarketedu.BuyStockServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>buystock</servlet-name>
+		<url-pattern>/buystock</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>sellstock</servlet-name>
+		<servlet-class>stockmarketedu.SellStockServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>sellstock</servlet-name>
+		<url-pattern>/sellstock</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>StockMarketEdu</servlet-name>
 		<servlet-class>stockmarketedu.StockMarketEduServlet</servlet-class>
 	</servlet>
