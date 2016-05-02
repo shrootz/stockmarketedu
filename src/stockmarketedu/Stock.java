@@ -2,7 +2,12 @@ package stockmarketedu;
 
 import java.util.Date;
 
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+
+@Entity
 public class Stock {
+	@Id Long id;
 	private String name;
 	private double price;
 	private String symbol;
@@ -17,6 +22,15 @@ public class Stock {
 		this.timeStamp = timeStamp;
 		this.dividendShare = dividendShare;
 		this.active = active;
+	}
+	
+	public Stock() {
+		name = null;
+		price = 0;
+		symbol = null;
+		timeStamp = null;
+		dividendShare = 0;
+		active = false;
 	}
 	
 	public String getName() {

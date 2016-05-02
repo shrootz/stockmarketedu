@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.persistence.Embedded;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -13,7 +16,7 @@ import com.googlecode.objectify.ObjectifyService;
 public abstract class Market {
 	@Id Long id;
 	private boolean openMarket;
-	protected HashMap<String, Stock> market;
+	protected Map<String, Stock> market;
 	private static Market myMarket = null;
 	private static final String[] stockTicker = {"GOOG", "AAPL", "FB", "NFLX", "CVS", "DAL", "SPY", "SAVE", "LUV", "TGT", 
 	                 							"JNJ", "M", "PEP", "RCL", "HD", "BRKB", "SBUX", "LMT", "INTC", "ETSY", 
