@@ -166,9 +166,9 @@
 									<li>Starting Cash <input type="text" name="Starting Cash"></li>
 								</ul>
 								Participant Emails<br>
-								<textarea rows="3" name="Student Emails">Enter student emails here.</textarea>
+								<textarea rows="3" name="Student Emails" placeholder="Enter student emails here."></textarea>
 								Permitted Stocks<br>
-								<textarea rows="3" name="Permitted Stocks">Enter permitted stock tickers here.</textarea>
+								<textarea rows="3" name="Permitted Stocks" placeholder="Enter permitted stock tickers here."></textarea>
 								<input type="submit" value="Submit">
 							</form>
 						</article>

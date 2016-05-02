@@ -15,28 +15,12 @@ public class Student{
 	private ArrayList<History> myHistory;
 
 	
-	public Student(String name, String accessCode){
+	public Student(String name, String email, double cashMoney){
 		this.name = name;
+		this.email = email;
+		this.cashMoney = cashMoney;
 		this.myHistory = new ArrayList<History>();
 		this.portfolio = new ArrayList<Position>();
-		try{
-			List<Supervisor> allSupervisor = ObjectifyService.ofy().load().type(Supervisor.class).list();
-			for(Supervisor s: allSupervisor){
-				Class c = s.getClassroom();
-				String classCode = c.getAccessCode();
-				if(classCode.equals(accessCode)){
-					c.addStudent(this);
-					this.cashMoney = c.getInitialMoney();
-				}
-			}
-			if(this.cashMoney == 0.0f){
-				Exception e = new Exception ();
-				throw e;
-			}
-		}
-		catch(Exception e){
-			//class not found exception <-- need a class for this?
-		}
 	}
 	
 	public String getName() {

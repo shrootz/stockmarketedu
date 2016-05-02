@@ -58,9 +58,21 @@
 	    	pageContext.setAttribute("user", user);
 	    	signedIn = true;
 	    	for(Supervisor teacher: teachers) {
-	    		for(Student stud: teacher.getClassroom().getMyClass()) {
-	    			if(user.getEmail().equals(stud.getEmail())) {
-	    				student = stud;
+	    		for(String email: teacher.getStudentEmails()) {
+	    			if(email.equals(stud.getEmail())) {
+	    				boolean found = false;
+	    				for(Student stud: teacher.getClassroom().getMyClass()) {
+	    					if(stud.getEmail().equals(email)) {
+	    						student = stud;
+	    						found = true;
+	    					}
+	    				}
+	    				if(!found) {
+	    					Student temp = new Student(user.getNickname(), email);
+	    					student = temp;
+	    					teacher.getClassroom().addStudent(temp);
+	    					ofy().save().entity(teacher).now();
+	    				}
 	    				inClass = true;
 	    				break;
 	    			}

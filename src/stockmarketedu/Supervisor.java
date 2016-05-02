@@ -54,6 +54,10 @@ public class Supervisor{
 		return email;
 	}
 	
+	public ArrayList<String> getStudentEmails() {
+		return allStudentEmails;
+	}
+	
 	public void setEmail(String e) {
 		email = e;
 	}
