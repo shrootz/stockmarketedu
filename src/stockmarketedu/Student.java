@@ -23,6 +23,14 @@ public class Student{
 		this.portfolio = new ArrayList<Position>();
 	}
 	
+	private Student() {
+		this.myHistory = new ArrayList<History>();
+		this.portfolio = new ArrayList<Position>();
+		this.name = "PLACEHOLDER_NAME";
+		this.cashMoney = -666;
+		this.email = "PLACEHOLDER_EMAIL";
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -38,9 +46,7 @@ public class Student{
 	
 	//need to handle errors here - Stock does not exist, not enough money
 	public boolean buyPosition(String symbol, double shares){
-		List<Market> market = ObjectifyService.ofy().load().type(Market.class).list();
-	    Market globalMarket = market.get(0);
-	    globalMarket = globalMarket.getInstance();
+	    Market globalMarket = Market.getInstance();
 	    Stock toBuy = globalMarket.getStock(symbol);
 		Position currentPosition = getPosition(toBuy);
 		double costToBuy = toBuy.getPrice() * shares;
@@ -62,7 +68,9 @@ public class Student{
 	
 	//need to handle errors here - Stock does not exist, not enough shares to sell
 	public void sellPosition(String symbol, double shares){
+
 	    Market globalMarket =  Market.getInstance();
+
 	    Stock toSell = globalMarket.getStock(symbol);
 		Position currentPosition = getPosition(toSell);
 		History currentHistory = currentPosition.sellShares(shares);

@@ -59,19 +59,27 @@
 	    	signedIn = true;
 	    	for(Supervisor teacher: teachers) {
 	    		for(String email: teacher.getStudentEmails()) {
-	    			if(email.equals(stud.getEmail())) {
+	    			System.out.println(email);
+	    			if(email.equals(user.getEmail())) {
 	    				boolean found = false;
 	    				for(Student stud: teacher.getClassroom().getMyClass()) {
 	    					if(stud.getEmail().equals(email)) {
 	    						student = stud;
 	    						found = true;
+	    						break;
 	    					}
 	    				}
 	    				if(!found) {
-	    					Student temp = new Student(user.getNickname(), email);
+	    					double startCash = teacher.getClassroom().getInitialMoney();
+	    					System.out.println("Nick: " + user.getNickname());
+	    					Student temp = new Student(user.getNickname(), email, startCash);
 	    					student = temp;
-	    					teacher.getClassroom().addStudent(temp);
-	    					ofy().save().entity(teacher).now();
+	    					System.out.println(student);
+	    					System.out.println("x: " + student.getEmail());
+	    					teacher.getClassroom().addStudent(student);
+	    					System.out.println("Save beforeq234");
+	    					ObjectifyService.ofy().save().entity(teacher).now();
+	    					System.out.println("Save after1234242");
 	    				}
 	    				inClass = true;
 	    				break;
@@ -120,6 +128,9 @@
 				<div class="row">
 					<%
 						if(signedIn && inClass) {
+							pageContext.setAttribute("student_name", student.getName());
+							pageContext.setAttribute("student_money", formatter.format(student.getMoney()));
+							pageContext.setAttribute("student_cash", student.getCashMoney());							
 					%>
 						<div class="4u">
 							<article class="info">
@@ -127,9 +138,9 @@
 							</article>
 							<article class="box">
 								<ul>
-									<li>Student: <% student.getName(); %></li>
-									<li>Investment Value: $<% formatter.format(student.getMoney()); %></li>
-									<li>Cash: $<% formatter.format(student.getCashMoney()); %></li>
+									<li>Student: ${student_name}</li>
+									<li>Investment Value: $${student_money}</li>
+									<li>Cash: $${student_cash}</li>
 								</ul>
 							</article>
 						</div>
@@ -188,7 +199,7 @@
 							<p class="byline">Sell a stock</p>
 						</article>
 						<article class="box">
-							<form action="/sell">
+							<form action="/sellstock" method="post">
 								Stock Ticker<br> <input type="text" name="Stock Ticker"><br>
 								Number of Shares<br> <input type="text" name="Number of Shares"><br>
 								<input type="submit" value="Submit">
@@ -200,7 +211,7 @@
 							<p class="byline">Buy a stock</p>
 						</article>
 						<article class="box">
-							<form action="/buy">
+							<form action="/buystock" method="post">
 								Stock Ticker<br> <input type="text" name="Stock Ticker"><br>
 								Number of Shares<br> <input type="text" name="Number of Shares"><br>
 								<input type="submit" value="Submit">
