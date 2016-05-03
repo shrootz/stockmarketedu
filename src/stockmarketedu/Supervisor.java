@@ -12,10 +12,13 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import blog.CronController;
+
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 @Entity
 public class Supervisor{
@@ -25,7 +28,9 @@ public class Supervisor{
 	private final String accessCode;
 	private Class myClass;
 	private ArrayList<String> allStudentEmails;
-	
+	private ArrayList<String> alreadySentStudentEmails;
+	private static final Logger _logger = Logger.getLogger(CronController.class.getName());
+
 	public Supervisor(){
 		//this.name = name;
 		accessCode = UUID.randomUUID().toString();
@@ -67,7 +72,13 @@ public class Supervisor{
 	}
 	//finish sign up button. this method will be called - send email to all the students
 	public void sendInvitations(){
-		ArrayList<String> allEmails = allStudentEmails;
+		ArrayList<String> allEmails = new ArrayList<String>();
+		for(String s :allStudentEmails){//alreadySentStudentEmails
+			if(!alreadySentStudentEmails.contains(s)){
+				allEmails.add(s);
+				alreadySentStudentEmails.add(s);
+			}
+		}
 		//allows for more students to be added without re-sending the same email
 		allStudentEmails = new ArrayList<String>(); 
 	    Properties props = new Properties();
@@ -77,51 +88,25 @@ public class Supervisor{
 	    		+ this.accessCode + "to join my class"; 
 	    //  need a google app engine link to send 
 	    
-	    for (String s : allEmails){
 	      try {
 	          Message msg = new MimeMessage(session);
-	          msg.setFrom(new InternetAddress("noreply@stockmarketedu.com", "Your Teacher"));
-	          msg.addRecipient(Message.RecipientType.TO,
+	          msg.setFrom(new InternetAddress("noreply@stockmarketedu.appspotmail.com", "Your Teacher"));
+	          for (String s : allEmails){
+	        	  msg.addRecipient(Message.RecipientType.CC,
 	                         new InternetAddress(s));
+	          }
 	          msg.setSubject("You're doing the StockMarketEdu challenge");
 	          msg.setText(msgBody);
 	          Transport.send(msg);
-
-	      }   catch (AddressException e) {
-	          // ...
-	      }   catch (MessagingException e) {
-	          // ...
-	      }   catch (UnsupportedEncodingException e) {
-		 }
-	   }
-	}
 	
-	/*this assumes we create the students/populate the class from the supervisor
-	public void sendInvitations(){
-		ArrayList<Student> students = myClass.getMyClass(); // send emails to all the students
-	    Properties props = new Properties();
-	    Session session = Session.getDefaultInstance(props, null);
-
-	    String msgBody = "Come join our Stock Market Challenge!\n Use this accessCode"
-	    		+ this.accessCode + "to join" + this.name + "'s class"; //  I don't know what link to send 
-	    
-	    for (Student s : students){
-	      try {
-	          Message msg = new MimeMessage(session);
-	          msg.setFrom(new InternetAddress("noreply@stockmarketedu.com", "Your Teacher"));
-	          msg.addRecipient(Message.RecipientType.TO,
-	                         new InternetAddress(s.getEmail(), s.getName()));
-	          msg.setSubject("You're doing the StockMarketEdu challenge");
-	          msg.setText(msgBody);
-	          Transport.send(msg);
-
 	      }   catch (AddressException e) {
+	    	  _logger.info(e.getMessage());
 	          // ...
 	      }   catch (MessagingException e) {
+	    	  _logger.info(e.getMessage());
 	          // ...
 	      }   catch (UnsupportedEncodingException e) {
+	    	  _logger.info(e.getMessage());	    	  
 		 }
-	   }
 	}
-	*/
 }
