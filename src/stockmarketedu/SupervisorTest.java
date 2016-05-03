@@ -35,7 +35,7 @@ public class SupervisorTest {
 		s.setInitialCash(fl);
 		Class classroom =  s.getClassroom();
 		String access = classroom.getAccessCode();
-		Student name = new Student("Name", access);
+		Student name = new Student("Name", "Email", classroom.getInitialMoney());
 		int size = classroom.getMyClass().size();
 		assertTrue(size == 1);
 	}

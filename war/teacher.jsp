@@ -9,14 +9,15 @@
 <%@ page import="stockmarketedu.Supervisor" %>
 <%@ page import="stockmarketedu.Student" %>
 <%@ page import="stockmarketedu.Class" %>
+<%@ page import="stockmarketedu.Market" %>
 <%@ page import="stockmarketedu.RankStudents" %>
 <%@ page import="stockmarketedu.RankByMoney" %>
+<%@ page import="stockmarketedu.RankByProfitableSale" %>
+<%@ page import="stockmarketedu.RankByProfitPerShare" %>
 <%@ page import="stockmarketedu.Position" %>
 <%@ page import="stockmarketedu.Stock" %>
 
-<%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.Collections" %>
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="java.text.NumberFormat"%>
 
@@ -53,6 +54,10 @@
 	    boolean createdClass = false;
 	    int teacherIndex = -1;
 	    Supervisor teacher = null;
+	    int classSize = 0;
+
+	    Market mkt = Market.getInstance();
+		pageContext.setAttribute("allowed_stocks", topInvestor.getMoney());
 
 	    NumberFormat formatter = new DecimalFormat("#0.00");
 
@@ -63,6 +68,7 @@
     			if(user.getEmail().equals(teach.getEmail())) {
     				teacher = teach;
     				createdClass = true;
+    				classSize = teacher.getClassroom().getMyClass().size();
     				break;
     			}
 	    	}
@@ -103,11 +109,24 @@
 					</div>
 				</div>
 				<%
-					if(signedIn && createdClass) {
+					if(signedIn && createdClass && (classSize > 0)) {
 						RankStudents byMoney = new RankByMoney();
-						//ArrayList<Student> topInvestors = teacher.rank(byMoney);
-						ArrayList<Student> topInvestors = teacher.getClassroom().getMyClass();
-						System.out.println("This far " + topInvestors);
+						ArrayList<Student> topInvestors = teacher.rank(byMoney);
+						Student topInvestor = topInvestors.get(0);
+						pageContext.setAttribute("top_money_name", topInvestor.getName());
+						pageContext.setAttribute("top_money_money", topInvestor.getMoney());
+
+						RankStudents byProfitableSale = new RankByProfitableSale();
+						ArrayList<Student> topSales = teacher.rank(byProfitableSale);
+						Student topSale = topSales.get(0);
+						pageContext.setAttribute("top_sale_name", topSale.getName());
+						pageContext.setAttribute("top_sale_profit", topSale.getMaxProfitableSale());
+
+						RankStudents byProfitPerShare = new RankByProfitPerShare();
+						ArrayList<Student> topShares = teacher.rank(byProfitPerShare);
+						Student topShare = topShares.get(0);
+						pageContext.setAttribute("top_share_name", topShare.getName());
+						pageContext.setAttribute("top_share_profit", topShare.getMaxProfitPerShare());
 				%>
 				<div class="row">
 					<div class="4u">
@@ -117,10 +136,12 @@
 						<article class="box">
 
 							<ul>
-								<li>Top Investor: <% //topInvestors.get(0).getName(); %></li>
-								<li>Net Worth: $<% //formatter.format(topInvestors.get(0).getMoney()); %><br></li>
-								<li>Runner-up: <% // topInvestors.get(1).getName(); %></li>
-								<li>Net Worth: $<% //formatter.format(topInvestors.get(1).getMoney()); %><br></li>
+								<li>Top Investor: ${top_money_name}</li>
+								<li>Net Worth: $${top_money_money}<br></li>
+								<li>Top Salesperson: ${top_sale_name}</li>
+								<li>Highest Value Sale: $${top_sale_profit}<br></li>
+								<li>Top Prospector: ${top_share_name}</li>
+								<li>Highest Profit Per Share: $${top_share_profit}<br></li>
 							</ul>
 						</article>
 					</div>
@@ -134,9 +155,10 @@
 					</div>
 					<div class="4u">
 						<article class="info">
-							<p class="byline">View current class net worth</p>
+							<p class="byline">View current class statistics</p>
 						</article>
-						<article class="box">
+						<article class="box" id="rank-money">
+							<p class="byline">Ranks by net worth</p>
 							<ul>
 								<%
 									for(int i = 0; i < topInvestors.size(); i++) {
@@ -149,8 +171,57 @@
 								%>
 							</ul>
 						</article>
+						<article class="box" id="rank-sales">
+							<p class="byline">Ranks by highest profitable sale</p>
+							<ul>
+								<%
+									for(int i = 0; i < topSales.size(); i++) {
+										pageContext.setAttribute("salesperson_name", topSales.get(i).getName());
+										pageContext.setAttribute("salesperson_profit", formatter.format(topSales.get(i).getMaxProfitableSale()));
+								%>
+									<li>${salesperson_name} &#58; $${salesperson_profit}</li>
+								<%
+									}
+								%>
+							</ul>
+						</article>
+						<article class="box" id="rank-shares">
+							<p class="byline">Ranks by highest profit per share</p>
+							<ul>
+								<%
+									for(int i = 0; i < topShares.size(); i++) {
+										pageContext.setAttribute("prospector_name", topShares.get(i).getName());
+										pageContext.setAttribute("prospector_profit", formatter.format(topShares.get(i).getMaxProfitPerShare()));
+								%>
+									<li>${prospector_name} &#58; $${prospector_profit}</li>
+								<%
+									}
+								%>
+							</ul>
+						</article>
+						<ul id="rank-selection">
+							<li ><a href="#" class="button alt" onclick="showRankByMoney();">Money</a></li>
+							<li ><a href="#" class="button alt" onclick="showRankBySale();">Profitable Sale</a></li>
+							<li ><a href="#" class="button alt" onclick="showRankByShare();">Profit Per Share</a></li>
+						</ul>
 					</div>
 				</div>
+				<div class="row">
+						<div class="12u">
+							<article class="info">
+							<p class="byline">Add more student emails or stocks below, if desired.</p>
+							</article>
+							<article class="box">
+								<form id="class-config" action="/configureclass" method="post">
+									Participant Emails<br>
+									<textarea rows="3" name="Student Emails" placeholder="Enter student emails separated by a space."></textarea>
+									Permitted Stocks<br>
+									<textarea rows="3" name="Permitted Stocks" placeholder="Enter permitted stock tickers separated by a space. Valid stock choices are ${allowed_stocks}"></textarea>
+									<input type="submit" value="Submit">
+								</form>
+							</article>
+						</div>
+					</div>
 				<% 
 					} else if(signedIn && !createdClass) {
 				%>
@@ -166,9 +237,9 @@
 									<li>Starting Cash <input type="text" name="Starting Cash"></li>
 								</ul>
 								Participant Emails<br>
-								<textarea rows="3" name="Student Emails" placeholder="Enter student emails here."></textarea>
+								<textarea rows="3" name="Student Emails" placeholder="Enter student emails separated by a space."></textarea>
 								Permitted Stocks<br>
-								<textarea rows="3" name="Permitted Stocks" placeholder="Enter permitted stock tickers here."></textarea>
+								<textarea rows="3" name="Permitted Stocks" placeholder="Enter permitted stock tickers separated by a space. Valid stock choices are ${allowed_stocks}"></textarea>
 								<input type="submit" value="Submit">
 							</form>
 						</article>
@@ -176,11 +247,30 @@
 
 				</div>
 				<% 
+					} else if(signedIn && (classSize <= 0)) {
+				%>
+					<div class="row">
+						<div class="12u">
+							<article class="info">
+							<p class="byline">No student in your class has completed registration. Add more student emails or stocks below, if desired.</p>
+							</article>
+							<article class="box">
+								<form id="class-config" action="/configureclass" method="post">
+									Participant Emails<br>
+									<textarea rows="3" name="Student Emails" placeholder="Enter student emails separated by a space."></textarea>
+									Permitted Stocks<br>
+									<textarea rows="3" name="Permitted Stocks" placeholder="Enter permitted stock tickers separated by a space. Valid stock choices are ${allowed_stocks}"></textarea>
+									<input type="submit" value="Submit">
+								</form>
+							</article>
+						</div>
+					</div>
+				<% 
 					} else {
 				%>
 					<div class="row">
 						<div class="12u">
-							<a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
+							<a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in to create or access a class</a>
 						</div>
 					</div>
 				<%
@@ -191,6 +281,27 @@
 		</div>
 
 	</body>
+	<script>
+	  function showRankByMoney() {
+	    document.getElementById('rank-shares').style.display = 'none';
+	    document.getElementById('rank-sales').style.display = 'none';
+	    document.getElementById('rank-money').style.display = 'block';
+	  }
+	</script>
+	<script>
+	  function showRankBySale() {
+	    document.getElementById('rank-shares').style.display = 'none';
+	    document.getElementById('rank-sales').style.display = 'block';
+	    document.getElementById('rank-money').style.display = 'none';
+	  }
+	</script>
+	<script>
+	  function showRankByShare() {
+	    document.getElementById('rank-shares').style.display = 'block';
+	    document.getElementById('rank-sales').style.display = 'none';
+	    document.getElementById('rank-money').style.display = 'none';
+	  }
+	</script>
 			<script>
 			InitChart();
 

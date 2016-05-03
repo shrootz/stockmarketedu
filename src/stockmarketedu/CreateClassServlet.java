@@ -42,14 +42,9 @@ public class CreateClassServlet extends HttpServlet {
 		
 		// TODO: validate stocks with permitted stock list
 		for(String s: stocks) {
-			System.out.println(s);
-			if(Market.getInstance().getStockSymbols().contains(s)) {
-				System.out.println("it had the stock etc");
-			}
 			teacher.getClassroom().addStock(s);
 		}
 		ofy().save().entity(teacher).now();
-		System.out.println("A:DLFKSJDF:LKSDJFL:KSJDFLS");
 		resp.sendRedirect("/teacher.jsp");
 	}
 

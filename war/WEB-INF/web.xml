@@ -13,6 +13,14 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/createclass</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>configureclass</servlet-name>
+		<servlet-class>stockmarketedu.ConfigureClassServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>configureclass</servlet-name>
+		<url-pattern>/configureclass</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>buystock</servlet-name>
 		<servlet-class>stockmarketedu.BuyStockServlet</servlet-class>
 	</servlet>

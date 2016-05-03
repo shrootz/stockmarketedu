@@ -25,10 +25,10 @@ public class testClass {
 	
 	@Test
 	public void testAddStudent(){		
-		Student sn = new Student("Sneha", "8675309");
-		Student sh = new Student("Shruti", "8675309");
-		Student r = new Student("Ross", "8675309");
-		Student g = new Student("G", "8675309");
+		Student sn = new Student("Sneha", "Email", 8675309);
+		Student sh = new Student("Shruti", "Email",8675309);
+		Student r = new Student("Ross", "Email",8675309);
+		Student g = new Student("G", "Email", 8675309);
 		
 		c.addStudent(sn);
 		c.addStudent(sh);

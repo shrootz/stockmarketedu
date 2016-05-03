@@ -72,7 +72,7 @@
 					<div class="3u">	
 						<section class="box widget-agenda">
 							<div class="inner">
-								My students learned how the stock market works thanks to Stock Market Edu. I’m a teacher by the way.
+								My students learned how the stock market works thanks to Stock Market Edu. I&#39;m a teacher by the way.
 							</div>
 							- Mary S.
 						</section>
@@ -80,7 +80,7 @@
 					<div class="3u">	
 						<section class="box widget-agenda">
 							<div class="inner">
-								My son didn’t know how to count to ten before SMEdu, but now he’s managing my husband’s stock portfolio.
+								My son didn’t know how to count to ten before SMEdu, but now he&#39;s managing my husband’s stock portfolio.
 							</div>
 							- Sue B.
 						</section>
@@ -88,7 +88,7 @@
 					<div class="3u">	
 						<section class="box widget-agenda">
 							<div class="inner">
-								I used to tell my students to apply to colleges when they grow up. Now they’re all successful day traders!
+								I used to tell my students to apply to colleges when they grow up. Now they&#39;re all successful day traders!
 							</div>
 							Sam H.
 						</section>

@@ -14,44 +14,40 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.googlecode.objectify.ObjectifyService;
 
-public class SellStockServlet extends HttpServlet {
+public class ConfigureClassServlet extends HttpServlet {
 	static {
 		ObjectifyService.register(Supervisor.class);
 		ObjectifyService.register(Market.class);
 		ObjectifyService.register(MarketFacade.class);
+
 	}
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser();
-		String stockSymbol = req.getParameter("Stock Ticker");
-		String numShares = req.getParameter("Number of Shares");
-		if(stockSymbol.isEmpty() || numShares.isEmpty()) {
-			resp.sendRedirect("/student.jsp");
+		String emailsString = req.getParameter("Student Emails");
+		if(emailsString.isEmpty()) {
+			resp.sendRedirect("/teacher.jsp");
 			return;
 		}
-		double shares = Double.parseDouble(numShares);
-		
-		List<Supervisor> teachers = ObjectifyService.ofy().load().type(Supervisor.class).list();
-		// TODO: check for allowed stocks here
-		Student student = null;
+		String[] emails = emailsString.split(" ");
+
+	    List<Supervisor> teachers = ObjectifyService.ofy().load().type(Supervisor.class).list(); 
 		Supervisor teacher = null;
 		for(Supervisor teach: teachers) {
-			for(Student stud: teach.getClassroom().getMyClass()) {
-				if(stud.getEmail().equals(user.getEmail())) {
-					student = stud;
-					teacher = teach;
-					break;
-				}
-			}
-			if(student != null) {
+			if(teach.getEmail().equals(user.getEmail())) {
+				teacher = teach;
 				break;
 			}
 		}
 		
-		student.sellPosition(stockSymbol, shares);
-		
+		for(String s: emails) {
+			if(!teacher.getStudentEmails().contains(s)) {
+				teacher.addEmail(s);
+			}
+		}
+
 		ofy().save().entity(teacher).now();
-		resp.sendRedirect("/student.jsp");
+		resp.sendRedirect("/teacher.jsp");
 	}
 
 }
