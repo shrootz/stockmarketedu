@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.googlecode.objectify.ObjectifyService;
 
-public class Student{
+public class Student implements Comparable<Student> {
 	private ArrayList<Position> portfolio;
 	private String email; // do we need to store this info for gmail login?
 	private String name; // students should know their name
@@ -150,6 +150,11 @@ public class Student{
 		
 	public void addCash(double c){
 		cashMoney += c;
+	}
+
+	@Override
+	public int compareTo(Student that) {
+		return name.compareTo(that.name);
 	}
 	
 }

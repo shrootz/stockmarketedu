@@ -9,7 +9,6 @@
 <%@ page import="stockmarketedu.Supervisor" %>
 <%@ page import="stockmarketedu.Student" %>
 <%@ page import="stockmarketedu.Class" %>
-<%@ page import="stockmarketedu.Market" %>
 <%@ page import="stockmarketedu.RankStudents" %>
 <%@ page import="stockmarketedu.RankByMoney" %>
 <%@ page import="stockmarketedu.RankByProfitableSale" %>
@@ -56,9 +55,6 @@
 	    Supervisor teacher = null;
 	    int classSize = 0;
 
-	    Market mkt = Market.getInstance();
-		pageContext.setAttribute("allowed_stocks", topInvestor.getMoney());
-
 	    NumberFormat formatter = new DecimalFormat("#0.00");
 
 		if (user != null) {
@@ -93,6 +89,13 @@
 									<li class="current_page_item"><a href="/teacher.jsp">Teacher Portal</a></li>
 								</ul>
 							</nav>
+							<%
+								if(signedIn) {
+							%>
+								<span style="float:right"><a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">Sign out</a></span>
+							<%
+								}
+							%>
 						</header>
 
 					</div>
@@ -112,21 +115,24 @@
 					if(signedIn && createdClass && (classSize > 0)) {
 						RankStudents byMoney = new RankByMoney();
 						ArrayList<Student> topInvestors = teacher.rank(byMoney);
+						Collections.reverse(topInvestors);
 						Student topInvestor = topInvestors.get(0);
 						pageContext.setAttribute("top_money_name", topInvestor.getName());
-						pageContext.setAttribute("top_money_money", topInvestor.getMoney());
+						pageContext.setAttribute("top_money_money", formatter.format(topInvestor.getMoney()));
 
 						RankStudents byProfitableSale = new RankByProfitableSale();
 						ArrayList<Student> topSales = teacher.rank(byProfitableSale);
+						Collections.reverse(topSales);
 						Student topSale = topSales.get(0);
 						pageContext.setAttribute("top_sale_name", topSale.getName());
-						pageContext.setAttribute("top_sale_profit", topSale.getMaxProfitableSale());
+						pageContext.setAttribute("top_sale_profit", formatter.format(topSale.getMaxProfitableSale()));
 
 						RankStudents byProfitPerShare = new RankByProfitPerShare();
 						ArrayList<Student> topShares = teacher.rank(byProfitPerShare);
+						Collections.reverse(topShares);
 						Student topShare = topShares.get(0);
 						pageContext.setAttribute("top_share_name", topShare.getName());
-						pageContext.setAttribute("top_share_profit", topShare.getMaxProfitPerShare());
+						pageContext.setAttribute("top_share_profit", formatter.format(topShare.getMaxProfitPerShare()));
 				%>
 				<div class="row">
 					<div class="4u">
@@ -147,17 +153,9 @@
 					</div>
 					<div class="4u">
 						<article class="info">
-							<p class="byline">View current class performance</p>
-						</article>
-						<article class="box" id="graph">
-							<svg id="visualisation" width="100%" height="100%"></svg>
-						</article>
-					</div>
-					<div class="4u">
-						<article class="info">
 							<p class="byline">View current class statistics</p>
 						</article>
-						<article class="box" id="rank-money">
+						<article class="box last" id="rank-money">
 							<p class="byline">Ranks by net worth</p>
 							<ul>
 								<%
@@ -171,7 +169,7 @@
 								%>
 							</ul>
 						</article>
-						<article class="box" id="rank-sales">
+						<article class="box last" id="rank-sales">
 							<p class="byline">Ranks by highest profitable sale</p>
 							<ul>
 								<%
@@ -185,7 +183,7 @@
 								%>
 							</ul>
 						</article>
-						<article class="box" id="rank-shares">
+						<article class="box last" id="rank-shares">
 							<p class="byline">Ranks by highest profit per share</p>
 							<ul>
 								<%
@@ -205,6 +203,37 @@
 							<li ><a href="#" class="button alt" onclick="showRankByShare();">Profit Per Share</a></li>
 						</ul>
 					</div>
+					<div class="4u">
+						<article class="info">
+							<p class="byline">View detailed class data</p>
+						</article>
+						<article class="box" style="overflow:scroll;">
+							<table border="1">
+								<tr>
+									<td>Student Name</td>
+									<td>Cash</td>
+									<td>Net Worth</td>
+								</tr>
+								<%
+									ArrayList<Student> studs = teacher.getClassroom().getMyClass();
+									Collections.sort(studs);
+									for(Student s: studs) {
+										pageContext.setAttribute("stud_name", s.getName());
+										pageContext.setAttribute("stud_cash", s.getCashMoney());
+										pageContext.setAttribute("stud_money", formatter.format(s.getMoney()));
+								%>
+										<tr>
+											<td>${stud_name}</td>
+											<td>${stud_cash}</td>
+											<td>${stud_money}</td>
+										</tr>
+								<%
+									}
+								%>
+							</table>
+						</article>
+					</div>
+					
 				</div>
 				<div class="row">
 						<div class="12u">
@@ -216,12 +245,13 @@
 									Participant Emails<br>
 									<textarea rows="3" name="Student Emails" placeholder="Enter student emails separated by a space."></textarea>
 									Permitted Stocks<br>
-									<textarea rows="3" name="Permitted Stocks" placeholder="Enter permitted stock tickers separated by a space. Valid stock choices are ${allowed_stocks}"></textarea>
+									<textarea rows="3" name="Permitted Stocks" placeholder="Enter permitted stock tickers separated by a space."></textarea>
 									<input type="submit" value="Submit">
 								</form>
 							</article>
 						</div>
-					</div>
+				</div>
+
 				<% 
 					} else if(signedIn && !createdClass) {
 				%>
@@ -239,7 +269,7 @@
 								Participant Emails<br>
 								<textarea rows="3" name="Student Emails" placeholder="Enter student emails separated by a space."></textarea>
 								Permitted Stocks<br>
-								<textarea rows="3" name="Permitted Stocks" placeholder="Enter permitted stock tickers separated by a space. Valid stock choices are ${allowed_stocks}"></textarea>
+								<textarea rows="3" name="Permitted Stocks" placeholder="Enter permitted stock tickers separated by a space."></textarea>
 								<input type="submit" value="Submit">
 							</form>
 						</article>
@@ -259,7 +289,7 @@
 									Participant Emails<br>
 									<textarea rows="3" name="Student Emails" placeholder="Enter student emails separated by a space."></textarea>
 									Permitted Stocks<br>
-									<textarea rows="3" name="Permitted Stocks" placeholder="Enter permitted stock tickers separated by a space. Valid stock choices are ${allowed_stocks}"></textarea>
+									<textarea rows="3" name="Permitted Stocks" placeholder="Enter permitted stock tickers separated by a space."></textarea>
 									<input type="submit" value="Submit">
 								</form>
 							</article>
@@ -302,97 +332,4 @@
 	    document.getElementById('rank-money').style.display = 'none';
 	  }
 	</script>
-			<script>
-			InitChart();
-
-			function InitChart() {
-
-			  var barData = [{
-			    'x': 1,
-			    'y': 5
-			  }, {
-			    'x': 20,
-			    'y': 20
-			  }, {
-			    'x': 40,
-			    'y': 10
-			  }, {
-			    'x': 60,
-			    'y': 40
-			  }, {
-			    'x': 80,
-			    'y': 5
-			  }, {
-			    'x': 100,
-			    'y': 60
-			  }];
-
-			  var vis = d3.select('#visualisation'),
-			  	container = document.getElementById("graph"),
-			    WIDTH = container.offsetWidth*.70,
-			    HEIGHT = container.offsetHeight*.70,
-			    MARGINS = {
-			      top: 5,
-			      right: 5,
-			      bottom: 5,
-			      left: 5
-			    },
-			    xRange = d3.scale.ordinal().rangeRoundBands([MARGINS.left, WIDTH - MARGINS.right], 0.1).domain(barData.map(function (d) {
-			      return d.x;
-			    })),
-
-
-			    yRange = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([0,
-			      d3.max(barData, function (d) {
-			        return d.y;
-			      })
-			    ]),
-
-			    xAxis = d3.svg.axis()
-			      .scale(xRange)
-			      .tickSize(5)
-			      .tickSubdivide(true),
-
-			    yAxis = d3.svg.axis()
-			      .scale(yRange)
-			      .tickSize(5)
-			      .orient("left")
-			      .tickSubdivide(true);
-
-			  vis.append('svg:g')
-			    .attr('class', 'x axis')
-			    .attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')')
-			    .call(xAxis);
-
-			  vis.append('svg:g')
-			    .attr('class', 'y axis')
-			    .attr('transform', 'translate(' + (MARGINS.left) + ',0)')
-			    .call(yAxis);
-
-			  vis.selectAll('rect')
-			    .data(barData)
-			    .enter()
-			    .append('rect')
-			    .attr('x', function (d) {
-			      return xRange(d.x);
-			    })
-			    .attr('y', function (d) {
-			      return yRange(d.y);
-			    })
-			    .attr('width', xRange.rangeBand())
-			    .attr('height', function (d) {
-			      return ((HEIGHT - MARGINS.bottom) - yRange(d.y));
-			    })
-			    .attr('fill', 'white')
-			    .on('mouseover',function(d){
-			      d3.select(this)
-			        .attr('fill','blue');
-			    })
-			    .on('mouseout',function(d){
-			      d3.select(this)
-			        .attr('fill','white');
-			    });
-
-			}
-		</script>
 </html>

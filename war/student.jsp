@@ -106,7 +106,13 @@
 								</ul>
 							</nav>
 						</header>
-
+						<%
+							if(signedIn) {
+						%>
+							<span style="float:right"><a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">Sign out</a></span>
+						<%
+							}
+						%>
 					</div>
 				</div>
 			</div>
@@ -127,7 +133,7 @@
 							pageContext.setAttribute("student_money", formatter.format(student.getMoney()));
 							pageContext.setAttribute("student_cash", student.getCashMoney());							
 					%>
-						<div class="4u">
+						<div class="3u">
 							<article class="info">
 								<p class="byline">View your summary</p>
 							</article>
@@ -139,7 +145,7 @@
 								</ul>
 							</article>
 						</div>
-						<div class="4u">
+						<div class="6u">
 							<article class="info">
 								<p class="byline">View your trade history</p>
 							</article>
@@ -147,9 +153,7 @@
 								<ul>
 									<%
 										ArrayList<History> history = student.getMyHistory();
-										System.out.println(history.size());
 										for(int i = history.size() - 1; i >= 0; i--) {
-											System.out.println("IN HISTORY LOOP");
 											History hist = history.get(i);
 											double bought = hist.getPriceBought();
 											double sold = hist.getPriceSold();
@@ -157,25 +161,19 @@
 											double shares = hist.getShares();
 											pageContext.setAttribute("hist_symbol", symbol);
 											pageContext.setAttribute("hist_shares", shares);
-											if(bought == -1) {
-												pageContext.setAttribute("hist_price", formatter.format(sold));
-												pageContext.setAttribute("hist_money", formatter.format(hist.getCashFromSale()));
-												pageContext.setAttribute("hist_verb", "sold at ${hist_price} for ${hist_money}");
-											} else {
-												pageContext.setAttribute("hist_price", formatter.format(bought));
-												pageContext.setAttribute("hist_verb", "bought for ${hist_price}");
-											}
-									%>
-											<li>
-												${hist_symbol}&#58; ${hist_shares} share(s) ${hist_verb}
-											</li>
-									<%
+											pageContext.setAttribute("hist_sell_price", formatter.format(sold));
+											pageContext.setAttribute("hist_buy_price", formatter.format(bought));
+											%>
+												<li>
+													${hist_symbol}&#58; ${hist_shares} share(s) bought at ${hist_buy_price}, sold at ${hist_sell_price}
+												</li>
+											<%
 										}
 									%>
 								</ul>
 							</article>
 						</div>
-						<div class="4u">
+						<div class="3u">
 							<article class="info">
 								<p class="byline">View your current holdings</p>
 							</article>
