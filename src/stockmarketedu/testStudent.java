@@ -12,7 +12,7 @@ public class testStudent {
 	public void setUp() throws Exception {
 		supervisor = new Supervisor(); // manually put in an access code; 
 		supervisor.getClassroom().setInitialMoney(1000.0);
-		student = new Student("Sneha", supervisor.getClassroom().getAccessCode()); 
+		student = new Student("Sneha", "Email", supervisor.getClassroom().getInitialMoney()); 
 		student.addCash(1000.0);
 		supervisor.getClassroom().addStudent(student);
 	}
