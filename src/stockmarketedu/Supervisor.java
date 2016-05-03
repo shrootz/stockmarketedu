@@ -80,7 +80,6 @@ public class Supervisor{
 			}
 		}
 		//allows for more students to be added without re-sending the same email
-		allStudentEmails = new ArrayList<String>(); 
 	    Properties props = new Properties();
 	    Session session = Session.getDefaultInstance(props, null);
 
