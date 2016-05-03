@@ -51,7 +51,6 @@ public class SellStockServlet extends HttpServlet {
 		student.sellPosition(stockSymbol, shares);
 		
 		ofy().save().entity(teacher).now();
-		System.out.println(";alskdfjaoerjapwojerojir");
 		resp.sendRedirect("/student.jsp");
 	}
 
