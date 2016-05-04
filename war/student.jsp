@@ -34,7 +34,6 @@
 		<script src="js/config.js"></script>
 		<script src="js/skel.min.js"></script>
 		<script src="js/skel-panels.min.js"></script>
-		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 		<noscript>
 			<link rel="stylesheet" href="css/skel-noscript.css" />
 			<link rel="stylesheet" href="css/style.css" />
@@ -219,7 +218,7 @@
 							<p class="byline">Buy a stock</p>
 						</article>
 						<article class="box">
-							<form action="/buystock" method="post">
+							<form action="/buystock" method="post" name="buystock" onsubmit="return validateBuyStock()">
 								Stock Ticker<br> <input type="text" name="Stock Ticker"><br>
 								Number of Shares<br> <input type="text" name="Number of Shares"><br>
 								<input type="submit" value="Submit">
@@ -231,7 +230,7 @@
 							<p class="byline">Sell a stock</p>
 						</article>
 						<article class="box">
-							<form action="/sellstock" method="post">
+							<form action="/sellstock" method="post" name="sellstock" onsubmit="return validateSellStock()">
 								Stock Ticker<br> <input type="text" name="Stock Ticker"><br>
 								Number of Shares<br> <input type="text" name="Number of Shares"><br>
 								<input type="submit" value="Submit">
@@ -265,98 +264,6 @@
 		</div>
 
 	</body>
-		<script src="js/studentfacts.js"></script>
-		<script>
-			InitChart();
-
-			function InitChart() {
-
-			  var barData = [{
-			    'x': 1,
-			    'y': 5
-			  }, {
-			    'x': 20,
-			    'y': 20
-			  }, {
-			    'x': 40,
-			    'y': 10
-			  }, {
-			    'x': 60,
-			    'y': 40
-			  }, {
-			    'x': 80,
-			    'y': 5
-			  }, {
-			    'x': 100,
-			    'y': 60
-			  }];
-
-			  var vis = d3.select('#visualisation'),
-			  	container = document.getElementById("graph"),
-			    WIDTH = container.offsetWidth*.70,
-			    HEIGHT = container.offsetHeight*.70,
-			    MARGINS = {
-			      top: 5,
-			      right: 5,
-			      bottom: 5,
-			      left: 5
-			    },
-			    xRange = d3.scale.ordinal().rangeRoundBands([MARGINS.left, WIDTH - MARGINS.right], 0.1).domain(barData.map(function (d) {
-			      return d.x;
-			    })),
-
-
-			    yRange = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([0,
-			      d3.max(barData, function (d) {
-			        return d.y;
-			      })
-			    ]),
-
-			    xAxis = d3.svg.axis()
-			      .scale(xRange)
-			      .tickSize(5)
-			      .tickSubdivide(true),
-
-			    yAxis = d3.svg.axis()
-			      .scale(yRange)
-			      .tickSize(5)
-			      .orient("left")
-			      .tickSubdivide(true);
-
-			  vis.append('svg:g')
-			    .attr('class', 'x axis')
-			    .attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')')
-			    .call(xAxis);
-
-			  vis.append('svg:g')
-			    .attr('class', 'y axis')
-			    .attr('transform', 'translate(' + (MARGINS.left) + ',0)')
-			    .call(yAxis);
-
-			  vis.selectAll('rect')
-			    .data(barData)
-			    .enter()
-			    .append('rect')
-			    .attr('x', function (d) {
-			      return xRange(d.x);
-			    })
-			    .attr('y', function (d) {
-			      return yRange(d.y);
-			    })
-			    .attr('width', xRange.rangeBand())
-			    .attr('height', function (d) {
-			      return ((HEIGHT - MARGINS.bottom) - yRange(d.y));
-			    })
-			    .attr('fill', 'white')
-			    .on('mouseover',function(d){
-			      d3.select(this)
-			        .attr('fill','blue');
-			    })
-			    .on('mouseout',function(d){
-			      d3.select(this)
-			        .attr('fill','white');
-			    });
-
-			}
-		</script>
+	<script src="js/studentfacts.js"></script>
+	<script src="js/validate.js"></script>
 </html>

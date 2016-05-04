@@ -36,7 +36,6 @@
 		<script src="js/config.js"></script>
 		<script src="js/skel.min.js"></script>
 		<script src="js/skel-panels.min.js"></script>
-		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 		<noscript>
 			<link rel="stylesheet" href="css/skel-noscript.css" />
 			<link rel="stylesheet" href="css/style.css" />
@@ -241,7 +240,7 @@
 							<p class="byline">Add more student emails or stocks below, if desired.</p>
 							</article>
 							<article class="box">
-								<form id="class-config" action="/configureclass" method="post">
+								<form id="class-config" action="/configureclass" name="configure" method="post" onsubmit="return validateConfigureClass()">
 									Participant Emails<br>
 									<textarea rows="3" name="Student Emails" placeholder="Enter student emails separated by a space."></textarea>
 									Permitted Stocks<br>
@@ -262,7 +261,7 @@
 							<p class="byline">Configure class settings</p>
 						</article>
 						<article class="box">
-							<form id="class-config" action="/createclass" method="post">
+							<form id="class-config" action="/createclass" name="create" method="post" onsubmit="return validateCreateClass()">
 								<ul class="horiz">
 									<li>Starting Cash <input type="text" name="Starting Cash"></li>
 								</ul>
@@ -285,7 +284,7 @@
 							<p class="byline">No student in your class has completed registration. Add more student emails or stocks below, if desired.</p>
 							</article>
 							<article class="box">
-								<form id="class-config" action="/configureclass" method="post">
+								<form id="class-config" action="/configureclass" name="configure" method="post" onsubmit="return validateConfigureClass()">
 									Participant Emails<br>
 									<textarea rows="3" name="Student Emails" placeholder="Enter student emails separated by a space."></textarea>
 									Permitted Stocks<br>
@@ -332,4 +331,5 @@
 	    document.getElementById('rank-money').style.display = 'none';
 	  }
 	</script>
+	<script src="js/validate.js"></script>
 </html>
