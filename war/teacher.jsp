@@ -288,6 +288,10 @@
 										if(!stocks) {
 											return false;
 										}
+										var studs = Boolean(validateStudentEmailConfig());
+										if(!studs) {
+											return false;
+										}
 										return true;
 									}
 							</script>
@@ -321,6 +325,10 @@
 										}
 										var stocks = Boolean(validatePermittedStocksCreate());
 										if(!stocks) {
+											return false;
+										}
+										var studs = Boolean(validateStudentEmailCreate());
+										if(!studs) {
 											return false;
 										}
 										return true;
@@ -359,6 +367,10 @@
 										if(!stocks) {
 											return false;
 										}
+										var studs = Boolean(validateStudentEmailConfig());
+										if(!studs) {
+											return false;
+										}
 										return true;
 									}
 								</script>
@@ -389,19 +401,36 @@
 
 	</body>
 	<script>
-	function validateStudentEmail() {
-		var students = document.forms["create"]["Student Emails"].value;
-		var emails = students.split(" ");
-		var s_emails = "${student_emails}".split(" ");
-    	for(var i = 0; i < emails.length; i++) {
-        	for(var j = 0; j < s_emails.length; j++) {
-            	if(s_emails[j] === emails[i]) {
-                	alert(s_emails[j] + " is already registered as a student");
-                	return false;
-            	}
-        	}
-    	}
-	}
+		function validateStudentEmailCreate() {
+			var students = document.forms["create"]["Student Emails"].value;
+			var emails = students.split(" ");
+			var s_emails = "${student_emails}".split(" ");
+	    	for(var i = 0; i < emails.length; i++) {
+	        	for(var j = 0; j < s_emails.length; j++) {
+	            	if(s_emails[j] === emails[i]) {
+	                	alert(s_emails[j] + " is already registered as a student");
+	                	return false;
+	            	}
+	        	}
+	    	}
+	    	return true;
+		}
+	</script>
+	<script>
+		function validateStudentEmailConfig() {
+			var students = document.forms["config"]["Student Emails"].value;
+			var emails = students.split(" ");
+			var s_emails = "${student_emails}".split(" ");
+	    	for(var i = 0; i < emails.length; i++) {
+	        	for(var j = 0; j < s_emails.length; j++) {
+	            	if(s_emails[j] === emails[i]) {
+	                	alert(s_emails[j] + " is already registered as a student");
+	                	return false;
+	            	}
+	        	}
+	    	}
+	    	return true;
+		}
 	</script>
 	<script>
 		function validatePermittedStocksCreate() {

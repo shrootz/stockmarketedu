@@ -116,6 +116,8 @@ public class Supervisor{
 	          // ...
 	      }   catch (UnsupportedEncodingException e) {
 	    	  _logger.info(e.getMessage());	    	  
+		 } catch(Exception e) {
+	    	  _logger.info(e.getMessage());	    	  
 		 }
 	}
 }
