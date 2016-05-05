@@ -55,7 +55,7 @@ public class MarketFacade extends Market {
 	    	try {
 				String text = getQueryText(symbol);
 				_logger.info(text);
-			    double price = Double.parseDouble(text.substring(text.indexOf("<LastTradePriceOnly>") + "<LastTradePriceOnly>".length(), text.indexOf("</LastTradePriceOnly>")));
+			    double price = Double.parseDouble(text.substring(text.indexOf("<Ask>") + "<Ask>".length(), text.indexOf("</Ask>")));
 			    Date date = new Date(); 
 			    String dividendShareText = null;
 			    if(text.contains("DividendShare") && text.contains("</DividendShare>")){
