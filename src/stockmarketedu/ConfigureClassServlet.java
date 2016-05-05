@@ -46,6 +46,8 @@ public class ConfigureClassServlet extends HttpServlet {
 			}
 		}
 		
+		teacher.sendInvitations();
+		
 		Market mkt = Market.getInstance();
 		ArrayList<String> validStocks = new ArrayList<String>();
 		for(String stock: mkt.getDefaultStocks()) {
