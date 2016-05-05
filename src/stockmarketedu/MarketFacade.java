@@ -38,6 +38,7 @@ public class MarketFacade extends Market {
 		    //System.out.println(name + price + stockSymbol + date + dividend + active);
 		    Stock s = new Stock(name, price, stockSymbol, date, dividend, active);
 			market.put(stockSymbol, s);
+			saveMarket();
 			return true;
 			
 		} catch (Exception e) {
@@ -45,6 +46,7 @@ public class MarketFacade extends Market {
 		    return false;
 		        
 		}
+		
 
 	}
 
@@ -78,6 +80,7 @@ public class MarketFacade extends Market {
 			} 
 			
 	    }
+	    saveMarket();
 	}
 	
 	private String getQueryText(String stockSymbol){

@@ -84,6 +84,11 @@ public abstract class Market {
 	public String[] getDefaultStocks() {
 		return stockTicker;
 	}
+	
+	public void saveMarket(){
+		//ObjectifyService.ofy().delete().entity(myMarket).now(); 
+		ObjectifyService.ofy().save().entity(myMarket).now();
+	}
 
 		
 }
