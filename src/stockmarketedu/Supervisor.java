@@ -1,6 +1,7 @@
 package stockmarketedu;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.UUID;
 import java.util.Properties;
 
@@ -97,15 +98,16 @@ public class Supervisor{
 	    
 	      try {
 	          Message msg = new MimeMessage(session);
-	          msg.setFrom(new InternetAddress("noreply@stockmarketedu.appspotmail.com", "Your Teacher"));
+	          msg.setFrom(new InternetAddress("email@stockmarketedu.appspotmail.com", "Your Teacher"));
 	          for (String s : allEmails){
 	        	  msg.addRecipient(Message.RecipientType.CC,
 	                         new InternetAddress(s));
 	          }
 	          msg.setSubject("You're doing the StockMarketEdu challenge");
 	          msg.setText(msgBody);
-	          Transport.send(msg);
-	
+	          msg.setContent(msgBody, "text/html; charset=utf-8");
+	          msg.setSentDate(new Date());
+	          Transport.send(msg);	
 	      }   catch (AddressException e) {
 	    	  _logger.info(e.getMessage());
 	          // ...

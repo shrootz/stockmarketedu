@@ -12,6 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.googlecode.objectify.ObjectifyService;
 
 public class CronController extends HttpServlet {
+	static {
+		ObjectifyService.register(Supervisor.class);
+		ObjectifyService.register(Market.class);
+		ObjectifyService.register(MarketFacade.class);
+
+	}
 	private static final Logger _logger = Logger.getLogger(CronController.class.getName());
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {		

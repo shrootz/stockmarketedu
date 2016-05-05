@@ -389,6 +389,21 @@
 
 	</body>
 	<script>
+	function validateStudentEmail() {
+		var students = document.forms["create"]["Student Emails"].value;
+		var emails = students.split(" ");
+		var s_emails = "${student_emails}".split(" ");
+    	for(var i = 0; i < emails.length; i++) {
+        	for(var j = 0; j < s_emails.length; j++) {
+            	if(s_emails[j] === emails[i]) {
+                	alert(s_emails[j] + " is already registered as a student");
+                	return false;
+            	}
+        	}
+    	}
+	}
+	</script>
+	<script>
 		function validatePermittedStocksCreate() {
     		var stocks = document.forms["create"]["Permitted Stocks"].value;
 			var validStocks = "${placeholders}";
