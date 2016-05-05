@@ -19,15 +19,9 @@ public class Position {
 	}
 	
 	public History sellShares(double shares){
-		//sell part/all of the shares from this position
+		//if you try to sell more than you have, sell everything you have
 		if(this.shares < shares){
-			//throw some exception
-			try {
-				throw new Exception();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			shares = this.shares;
 		}
 		stockType.getPrice();
 		//add to History

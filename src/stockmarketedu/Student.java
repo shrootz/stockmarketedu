@@ -67,19 +67,21 @@ public class Student implements Comparable{
 		return true;
 	}
 	
-	//need to handle errors here - Stock does not exist, not enough shares to sell
-	public void sellPosition(String symbol, double shares){
+	public boolean sellPosition(String symbol, double shares){
 
 	    Market globalMarket =  Market.getInstance();
 
 	    Stock toSell = globalMarket.getStock(symbol);
 		Position currentPosition = getPosition(toSell);
+		if(currentPosition == null)
+			return false;
 		History currentHistory = currentPosition.sellShares(shares);
 		cashMoney += currentHistory.getCashFromSale();
 		if(currentPosition.getShares() <= 0){
 			portfolio.remove(currentPosition);
 		}
 		myHistory.add(currentHistory);
+			return true;
 	}
 	
 	/*private History getHistory(Stock intrestedStock){
