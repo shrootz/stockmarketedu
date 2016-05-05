@@ -4,11 +4,13 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.googlecode.objectify.ObjectifyService;
 
 
 public class Student implements Comparable{
+	private static final Logger _logger = Logger.getLogger(Student.class.getName());
 	protected ArrayList<Position> portfolio;
 	protected String email; // do we need to store this info for gmail login?
 	protected String name; // students should know their name
@@ -110,6 +112,7 @@ public class Student implements Comparable{
 	public void recieveDividends(){
 		for(Position myPos: portfolio){
 			//dividend per share * number of shares + cashMoney
+			_logger.info(myPos.getStockType().getDividendShare() * myPos.getShares());
 			cashMoney += (myPos.getStockType().getDividendShare() * myPos.getShares());
 		}
 	}

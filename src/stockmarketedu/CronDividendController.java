@@ -25,6 +25,7 @@ public class CronDividendController  extends HttpServlet {
 		    	Class c = s.getClassroom();
 		    	ArrayList<Student> student = c.getMyClass();
 		    	for(Student stu: student){
+		    		_logger.info(stu.getName());
 		    		stu.recieveDividends();
 		    	}
 		    }
