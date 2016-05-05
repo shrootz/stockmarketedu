@@ -50,6 +50,8 @@
 	    boolean inClass = false;
 	    int teacherIndex = -1;
 	    Student student = null;
+	    ArrayList<String> permittedStocks = new ArrayList<String>();
+	    String permittedStocksString = new String("");
 
 	    NumberFormat formatter = new DecimalFormat("#0.00");
 
@@ -76,6 +78,10 @@
 	    					ObjectifyService.ofy().save().entity(teacher).now();
 	    				}
 	    				inClass = true;
+	    				for(Stock stk: teacher.getClassroom().getStocksAllowed()) {
+	    					permittedStocks.add(stk.getSymbol());
+	    					permittedStocksString += stk.getSymbol() + " ";
+	    				}
 	    				break;
 	    			}
 	    		}
@@ -84,6 +90,7 @@
 	    		}
 	    	}
 		}
+		pageContext.setAttribute("permitted_stocks", permittedStocksString);
 	%>
 	<body class="left-sidebar">
 
@@ -213,12 +220,37 @@
 					if(signedIn && inClass) {
 				%>
 				<div class="row">
+
+					<div class="12u">
+						<article class="info">
+							<p class="byline">Valid stock symbols</p>
+						</article>
+						<article class="box">
+							${permitted_stocks}
+						</article>
+					</div>
+
+				</div>
+				<div class="row">
 					<div class="6u">
 						<article class="info">
 							<p class="byline">Buy a stock</p>
 						</article>
 						<article class="box">
-							<form action="/buystock" method="post" name="buystock" onsubmit="return validateBuyStock()">
+							<script>
+								function validateBuyComplete() {
+									var fields = Boolean(validateBuyStock());
+									if(!fields) {
+										return false;
+									}
+									var permits = Boolean(validateStockSymbolBuy());
+									if(!permits) {
+										return false;
+									}
+									return true;
+								}
+							</script>
+							<form action="/buystock" method="post" name="buystock" onsubmit="return validateBuyComplete()">
 								Stock Ticker<br> <input type="text" name="Stock Ticker"><br>
 								Number of Shares<br> <input type="text" name="Number of Shares"><br>
 								<input type="submit" value="Submit">
@@ -230,7 +262,20 @@
 							<p class="byline">Sell a stock</p>
 						</article>
 						<article class="box">
-							<form action="/sellstock" method="post" name="sellstock" onsubmit="return validateSellStock()">
+							<script>
+								function validateSellComplete() {
+									var fields = Boolean(validateSellStock());
+									if(!fields) {
+										return false;
+									}
+									var permits = Boolean(validateStockSymbolSell());
+									if(!permits) {
+										return false;
+									}
+									return true;
+								}
+							</script>
+							<form action="/sellstock" method="post" name="sellstock" onsubmit="return validateSellComplete()">
 								Stock Ticker<br> <input type="text" name="Stock Ticker"><br>
 								Number of Shares<br> <input type="text" name="Number of Shares"><br>
 								<input type="submit" value="Submit">
@@ -264,6 +309,34 @@
 		</div>
 
 	</body>
+	<script>
+		function validateStockSymbolBuy() {
+			var ticker = document.forms["buystock"]["Stock Ticker"].value;
+			var allowed = "${permitted_stocks}";
+			var stocks = allowed.split(" ");
+			for(var j = 0; j < stocks.length; j++) {
+				if(ticker === stocks[j]) {
+					return true;
+				}
+			}	
+			alert(ticker + " is not a permitted stock");
+			return false;
+		}
+	</script>
+	<script>
+		function validateStockSymbolSell() {
+			var ticker = document.forms["sellstock"]["Stock Ticker"].value;
+			var allowed = "${permitted_stocks}";
+			var stocks = allowed.split(" ");
+			for(var j = 0; j < stocks.length; j++) {
+				if(ticker === stocks[j]) {
+					return true;
+				}
+			}
+			alert(ticker + " is not a permitted stock");
+			return false;
+		}
+	</script>
 	<script src="js/studentfacts.js"></script>
 	<script src="js/validate.js"></script>
 </html>

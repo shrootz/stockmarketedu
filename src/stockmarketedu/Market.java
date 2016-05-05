@@ -80,6 +80,10 @@ public abstract class Market {
 			market.remove(s);
 		}
 	}
+	
+	public String[] getDefaultStocks() {
+		return stockTicker;
+	}
 
 		
 }

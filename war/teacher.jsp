@@ -14,11 +14,14 @@
 <%@ page import="stockmarketedu.RankByProfitableSale" %>
 <%@ page import="stockmarketedu.RankByProfitPerShare" %>
 <%@ page import="stockmarketedu.Position" %>
+<%@ page import="stockmarketedu.Market" %>
+<%@ page import="stockmarketedu.MarketFacade" %>
 <%@ page import="stockmarketedu.Stock" %>
 
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="java.text.NumberFormat"%>
+<%@ page isELIgnored="false" %>
 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
@@ -47,6 +50,8 @@
 	    User user = userService.getCurrentUser();
 
 	    ObjectifyService.register(Supervisor.class);
+	    ObjectifyService.register(Market.class);
+	    ObjectifyService.register(MarketFacade.class);
 	    List<Supervisor> teachers = ObjectifyService.ofy().load().type(Supervisor.class).list(); 
 	    boolean signedIn = false;
 	    boolean createdClass = false;
@@ -68,6 +73,13 @@
     			}
 	    	}
 		}
+		Market m = Market.getInstance();
+		ArrayList<String> valids = new ArrayList<String>();
+		String placeholderStocks = new String("");
+		for(String stock: m.getDefaultStocks()) {
+			placeholderStocks = new String(placeholderStocks + stock + " ");
+		}
+		pageContext.setAttribute("placeholders", placeholderStocks);
 	%>
 	<body class="left-sidebar">
 
@@ -239,12 +251,25 @@
 							<article class="info">
 							<p class="byline">Add more student emails or stocks below, if desired.</p>
 							</article>
+							<script>
+									function validateConfigure() {
+										var fields = Boolean(validateConfigureClass());
+										if(!fields) {
+											return false;
+										}
+										var stocks = Boolean(validatePermittedStocksConfig());
+										if(!stocks) {
+											return false;
+										}
+										return true;
+									}
+							</script>
 							<article class="box">
-								<form id="class-config" action="/configureclass" name="configure" method="post" onsubmit="return validateConfigureClass()">
+								<form id="class-config" action="/configureclass" name="configure" method="post" onsubmit="return validateConfigure()">
 									Participant Emails<br>
 									<textarea rows="3" name="Student Emails" placeholder="Enter student emails separated by a space."></textarea>
 									Permitted Stocks<br>
-									<textarea rows="3" name="Permitted Stocks" placeholder="Enter permitted stock tickers separated by a space."></textarea>
+									<textarea rows="3" name="Permitted Stocks" placeholder="Enter permitted stock tickers separated by a space. Valid stock symbols are: ${placeholders}"></textarea>
 									<input type="submit" value="Submit">
 								</form>
 							</article>
@@ -258,17 +283,30 @@
 
 					<div class="12u">
 						<article class="info">
-							<p class="byline">Configure class settings</p>
+							<p class="byline">Create class settings</p>
 						</article>
 						<article class="box">
-							<form id="class-config" action="/createclass" name="create" method="post" onsubmit="return validateCreateClass()">
+							<script>
+									function validateCreate() {
+										var fields = Boolean(validateCreateClass());
+										if(!fields) {
+											return false;
+										}
+										var stocks = Boolean(validatePermittedStocksCreate());
+										if(!stocks) {
+											return false;
+										}
+										return true;
+									}
+							</script>
+							<form id="class-config" action="/createclass" name="create" method="post" onsubmit="return validateCreate()">
 								<ul class="horiz">
 									<li>Starting Cash <input type="text" name="Starting Cash"></li>
 								</ul>
 								Participant Emails<br>
 								<textarea rows="3" name="Student Emails" placeholder="Enter student emails separated by a space."></textarea>
 								Permitted Stocks<br>
-								<textarea rows="3" name="Permitted Stocks" placeholder="Enter permitted stock tickers separated by a space."></textarea>
+								<textarea rows="3" name="Permitted Stocks" placeholder="Enter permitted stock tickers separated by a space. Valid stock symbols are: ${placeholders}"></textarea>
 								<input type="submit" value="Submit">
 							</form>
 						</article>
@@ -284,11 +322,24 @@
 							<p class="byline">No student in your class has completed registration. Add more student emails or stocks below, if desired.</p>
 							</article>
 							<article class="box">
-								<form id="class-config" action="/configureclass" name="configure" method="post" onsubmit="return validateConfigureClass()">
+								<script>
+									function validateConfigure() {
+										var fields = Boolean(validateConfigureClass());
+										if(!fields) {
+											return false;
+										}
+										var stocks = Boolean(validatePermittedStocksConfig());
+										if(!stocks) {
+											return false;
+										}
+										return true;
+									}
+								</script>
+								<form id="class-config" action="/configureclass" name="configure" method="post" onsubmit="return validateConfigure()">
 									Participant Emails<br>
 									<textarea rows="3" name="Student Emails" placeholder="Enter student emails separated by a space."></textarea>
 									Permitted Stocks<br>
-									<textarea rows="3" name="Permitted Stocks" placeholder="Enter permitted stock tickers separated by a space."></textarea>
+									<textarea rows="3" name="Permitted Stocks" placeholder="Enter permitted stock tickers separated by a space. Valid stock symbols are: ${placeholders}"></textarea>
 									<input type="submit" value="Submit">
 								</form>
 							</article>
@@ -310,6 +361,51 @@
 		</div>
 
 	</body>
+	<script>
+		function validatePermittedStocksCreate() {
+    		var stocks = document.forms["create"]["Permitted Stocks"].value;
+			var validStocks = "${placeholders}";
+			var tickers = stocks.split(" ");
+			var validTickers = validStocks.split(" ");
+			for(var i = 0; i < tickers.length; i++) {
+				var found = false;
+				for(var j = 0; j < validTickers.length; j++) {
+					if(tickers[i] === validTickers[j]) {
+						found = true;
+					}
+				}
+				if(!found) {
+					alert(tickers[i] + " is not a supported stock");
+					return false;
+				}
+			}
+			return true;
+		}
+	</script>
+	<script>
+		function validatePermittedStocksConfig() {
+    		var stocks = document.forms["configure"]["Permitted Stocks"].value;
+    		if(stocks == "" || stocks == null) {
+    			return true;
+    		}
+			var validStocks = "${placeholders}";
+			var tickers = stocks.split(" ");
+			var validTickers = validStocks.split(" ");
+			for(var i = 0; i < tickers.length; i++) {
+				var found = false;
+				for(var j = 0; j < validTickers.length; j++) {
+					if(tickers[i] === validTickers[j]) {
+						found = true;
+					}
+				}
+				if(!found) {
+					alert(tickers[i] + " is not a supported stock");
+					return false;
+				}
+			}
+			return true;
+		}
+	</script>
 	<script>
 	  function showRankByMoney() {
 	    document.getElementById('rank-shares').style.display = 'none';
