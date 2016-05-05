@@ -56,7 +56,7 @@
 									<h2 class="title">Stock Market Edu</h2>
 									<p class="byline">The stock market teaching tool for kids!</p>
 									<p>
-									Many Americans lack a foundational understanding of how to properly invest in the stock market, and without this understanding people can miss out on opportunities to secure wealth and run the risk of making unsafe or bad investments. The goal of our application, Stock Market Edu, is to provide a mock­stock market platform that gives kids and young adults a solid understanding of how the stock market and investments work. Tackling this problem at the grade school level will help close this gap and help students understand real world applications of calculus, algebra, and economics. We hope you, our userbase, feel the same!
+									Many Americans lack a foundational understanding of how to properly invest in the stock market, and without this understanding people can miss out on opportunities to secure wealth and run the risk of making unsafe or bad investments. The goal of our application, Stock Market Edu, is to provide a mock stock market platform that gives kids and young adults a solid understanding of how the stock market and investments work. Tackling this problem at the grade school level will help close this gap and help students understand real world applications of calculus, algebra, and economics. We hope you, our userbase, feel the same!
 									</p>
 								</article>
 								
