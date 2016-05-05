@@ -18,12 +18,12 @@ public class PositionTest {
 	public void testSellShare(){
 		History h;
 		try{
-			h = pos.sellShares(s.getDividendShare() + .01); // this should throw an exception
+			h = pos.sellShares(s.getDividendShare() + .01, new Stock()); // this should throw an exception
 		} catch (Exception e){
 			assertTrue(true); 
 		}
 		History expected = new History ("GOOG", 4, 10.50, 10.50);
-		h = pos.sellShares(4);
+		h = pos.sellShares(4, new Stock());
 		assertEquals(expected.getStockSymbol(), h.getStockSymbol()); 
 		assertEquals(expected.getPriceBought(), h.getPriceBought(), 0.01);
 		assertEquals(expected.getPriceSold(), h.getPriceSold(), 0.01);
