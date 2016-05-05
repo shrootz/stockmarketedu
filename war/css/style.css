@@ -507,6 +507,12 @@ box-sizing: content-box;
 		width: 100%;
 	}
 
+	td 
+	{
+		padding-right:1em;
+		padding-bottom: 0.5em;
+	}
+
 /*********************************************************************************/
 /* Icons                                                                         */
 /* Powered by Font Awesome by Dave Gandy | http://fontawesome.io                 */

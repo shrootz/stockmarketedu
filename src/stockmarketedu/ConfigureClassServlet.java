@@ -34,13 +34,14 @@ public class ConfigureClassServlet extends HttpServlet {
 	    List<Supervisor> teachers = ObjectifyService.ofy().load().type(Supervisor.class).list(); 
 		Supervisor teacher = null;
 		for(Supervisor teach: teachers) {
-			if(teach.getEmail().equals(user.getEmail())) {
+			if(teach.getEmail().toLowerCase().equals(user.getEmail().toLowerCase())) {
 				teacher = teach;
 				break;
 			}
 		}
 		
 		for(String s: emails) {
+			s = s.toLowerCase();
 			if(!teacher.getStudentEmails().contains(s)) {
 				teacher.addEmail(s);
 			}
@@ -54,15 +55,20 @@ public class ConfigureClassServlet extends HttpServlet {
 			validStocks.add(stock);
 		}
 		for(String s: stocks) {
+			s = s.toUpperCase();
 			for(String validStock: validStocks) {
 				if(validStock.equals(s)) {
+					boolean alreadyAdded = false;
 					for(Stock stk: teacher.getClassroom().getStocksAllowed()) {
 						if(s.equals(stk.getSymbol())) {
 							// stock was already added
+							alreadyAdded = true;
 							break;
 						}
 					}
-					teacher.getClassroom().addStock(s);
+					if(!alreadyAdded) {
+						teacher.getClassroom().addStock(s);
+					}
 					break;
 				}
 			}

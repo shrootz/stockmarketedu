@@ -13,6 +13,8 @@
 <%@ page import="stockmarketedu.Position" %>
 <%@ page import="stockmarketedu.Stock" %>
 <%@ page import="stockmarketedu.History" %>
+<%@ page import="stockmarketedu.Market" %>
+<%@ page import="stockmarketedu.MarketFacade" %>
 
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="java.text.NumberFormat"%>
@@ -45,6 +47,9 @@
 	    User user = userService.getCurrentUser();
 
 	    ObjectifyService.register(Supervisor.class);
+	    ObjectifyService.register(Market.class);
+	    ObjectifyService.register(MarketFacade.class);
+
 	    List<Supervisor> teachers = ObjectifyService.ofy().load().type(Supervisor.class).list(); 
 	    boolean signedIn = false;
 	    boolean inClass = false;
@@ -55,16 +60,19 @@
 
 	    NumberFormat formatter = new DecimalFormat("#0.00");
 
+	    Market mkt = Market.getInstance();
+
 		if (user != null) {
 	    	pageContext.setAttribute("user", user);
 	    	signedIn = true;
 	    	for(Supervisor teacher: teachers) {
 	    		for(String email: teacher.getStudentEmails()) {
+	    			email = email.toLowerCase();
 	    			System.out.println(email);
-	    			if(email.equals(user.getEmail())) {
+	    			if(email.equals(user.getEmail().toLowerCase())) {
 	    				boolean found = false;
 	    				for(Student stud: teacher.getClassroom().getMyClass()) {
-	    					if(stud.getEmail().equals(email)) {
+	    					if(stud.getEmail().toLowerCase().equals(email)) {
 	    						student = stud;
 	    						found = true;
 	    						break;
@@ -219,20 +227,27 @@
 				<%
 					if(signedIn && inClass) {
 				%>
-				<div class="row">
 
-					<div class="12u">
+				<div class="row">
+					<div class="4u">
 						<article class="info">
-							<p class="byline">Valid stock symbols</p>
+							<p class="byline">Current market environment</p>
 						</article>
 						<article class="box">
-							${permitted_stocks}
+							<ul>
+								<%
+									for(String stk: permittedStocks) {
+										pageContext.setAttribute("current_stk_sym", stk);
+										pageContext.setAttribute("current_stk_price", mkt.getStock(stk).getPrice());
+								%>
+								<li>${current_stk_sym}&#58; $${current_stk_price} per share</li>
+								<%
+									}
+								%>
+							</ul>
 						</article>
 					</div>
-
-				</div>
-				<div class="row">
-					<div class="6u">
+					<div class="4u">
 						<article class="info">
 							<p class="byline">Buy a stock</p>
 						</article>
@@ -257,7 +272,7 @@
 							</form>
 						</article>
 					</div>
-					<div class="6u">
+					<div class="4u">
 						<article class="info">
 							<p class="byline">Sell a stock</p>
 						</article>

@@ -97,7 +97,7 @@ public class Student implements Comparable{
 		return null;
 	}*/
 	
-	protected Position getPosition(Stock intrestedStock){
+	public Position getPosition(Stock intrestedStock){
 		String myStockName = intrestedStock.getName();
 		for(Position p: portfolio){
 			String stockName = p.getStockType().getName();
@@ -112,7 +112,7 @@ public class Student implements Comparable{
 	public void recieveDividends(){
 		for(Position myPos: portfolio){
 			//dividend per share * number of shares + cashMoney
-			_logger.info(myPos.getStockType().getDividendShare() * myPos.getShares());
+			_logger.info(Double.toString(myPos.getStockType().getDividendShare() * myPos.getShares()));
 			cashMoney += (myPos.getStockType().getDividendShare() * myPos.getShares());
 		}
 	}

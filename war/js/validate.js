@@ -56,11 +56,18 @@ function validateCreateClass() {
         return false;
     }
     var emails = students.split(" ");
+    var s_emails = "${student_emails}".split(" ");
     for(var i = 0; i < emails.length; i++) {
     	if(validateEmail(emails[i]) == false) {
     		alert(emails[i] + " is not a valid email");
     		return false;
     	}
+        for(var j = 0; j < s_emails.length; j++) {
+            if(s_emails[j] === emails[i]) {
+                alert(s_emails[j] + " is already registered as a student");
+                return false;
+            }
+        }
     }
     return true;
 }
@@ -75,12 +82,19 @@ function validateConfigureClass() {
     }
 
     var emails = students.split(" ");
+    var s_emails = "${student_emails}".split(" ");
     for(var i = 0; i < emails.length; i++) {
     	if(!validateEmail(emails[i])) {
     		alert(emails[i] + " is not a valid email");
     		return false;
     	}
-    }   
+        for(var j = 0; j < s_emails.length; j++) {
+            if(s_emails[j] === emails[i]) {
+                alert(s_emails[j] + " is already registered as a student");
+                return false;
+            }
+        }
+    }
     return true;
 }
 
