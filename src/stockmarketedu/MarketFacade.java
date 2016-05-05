@@ -53,7 +53,7 @@ public class MarketFacade extends Market {
 	@Override
 	public void updateStock() {
 		// update all the stocks in the market using YQL
-	    for(String symbol: market.keySet()){
+	    for(String symbol: getInstance().market.keySet()){
 	    	try {
 				String text = getQueryText(symbol);
 				_logger.info(text);
@@ -67,7 +67,7 @@ public class MarketFacade extends Market {
 			    if (dividendShareText != null && !dividendShareText.equals("")){
 			    	dividend = Double.parseDouble(dividendShareText);
 			    }
-			    market.get(symbol).updateStock(price, date, dividend);
+			    getInstance().market.get(symbol).updateStock(price, date, dividend);
 			  
 
 			    

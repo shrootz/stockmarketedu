@@ -29,6 +29,7 @@ public class CronDividendController  extends HttpServlet {
 		    		stu.recieveDividends();
 		    	}
 		    }
+		    ObjectifyService.ofy().save().entities(sups).now();
 		}
 		catch (Exception ex) {
 		//Log any exceptions in your Cron Job
