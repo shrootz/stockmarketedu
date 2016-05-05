@@ -13,6 +13,7 @@ function validateBuyStock() {
         alert("Number of Shares must be a decimal value greater than 0");
         return false;
     }
+    return true;
 }
 
 function validateSellStock() {
@@ -30,6 +31,7 @@ function validateSellStock() {
         alert("Number of Shares must be a decimal value greater than 0");
         return false;
     }
+    return true;
 }
 
 function validateCreateClass() {
@@ -53,36 +55,33 @@ function validateCreateClass() {
         alert("Starting Cash must be a decimal value greater than 0");
         return false;
     }
-    var emails = students.split[" "];
+    var emails = students.split(" ");
     for(var i = 0; i < emails.length; i++) {
-    	if(!validateEmail(emails[i])) {
-    		alert(email + " is not a valid email");
+    	if(validateEmail(emails[i]) == false) {
+    		alert(emails[i] + " is not a valid email");
     		return false;
     	}
     }
-
+    return true;
 }
 
 function validateConfigureClass() {
-    var students = document.forms["create"]["Student Emails"].value;
-    var stocks = document.forms["create"]["Permitted Stocks"].value;
+    var students = document.forms["configure"]["Student Emails"].value;
+    var stocks = document.forms["configure"]["Permitted Stocks"].value;
 
-    if (students == null || students == "") {
-        alert("Student Emails must be filled out");
-        return false;
-    }
-    if (stocks == null || stocks == "") {
-        alert("Permitted Stocks must be filled out");
+    if ((students == null || students == "") && (stocks == null || stocks == "")) {
+        alert("At least one field must be filled out");
         return false;
     }
 
-    var emails = students.split[" "];
+    var emails = students.split(" ");
     for(var i = 0; i < emails.length; i++) {
     	if(!validateEmail(emails[i])) {
-    		alert(email + " is not a valid email");
+    		alert(emails[i] + " is not a valid email");
     		return false;
     	}
     }   
+    return true;
 }
 
 function validateEmail(email) {

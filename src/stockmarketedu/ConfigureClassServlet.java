@@ -3,6 +3,7 @@ package stockmarketedu;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServlet;
@@ -45,9 +46,23 @@ public class ConfigureClassServlet extends HttpServlet {
 			}
 		}
 		
+		Market mkt = Market.getInstance();
+		ArrayList<String> validStocks = new ArrayList<String>();
+		for(String stock: mkt.getDefaultStocks()) {
+			validStocks.add(stock);
+		}
 		for(String s: stocks) {
-			if(!teacher.getClassroom().getStocksAllowed().contains(s)) {
-				teacher.getClassroom().addStock(s);
+			for(String validStock: validStocks) {
+				if(validStock.equals(s)) {
+					for(Stock stk: teacher.getClassroom().getStocksAllowed()) {
+						if(s.equals(stk.getSymbol())) {
+							// stock was already added
+							break;
+						}
+					}
+					teacher.getClassroom().addStock(s);
+					break;
+				}
 			}
 		}
 
