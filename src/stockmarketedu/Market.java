@@ -14,6 +14,11 @@ import com.googlecode.objectify.ObjectifyService;
 
 @Entity
 public abstract class Market {
+	static {
+		ObjectifyService.register(Supervisor.class);
+		ObjectifyService.register(Market.class);
+		ObjectifyService.register(MarketFacade.class);
+	}
 	@Id Long id;
 	private boolean openMarket;
 	protected Map<String, Stock> market;
