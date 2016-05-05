@@ -97,7 +97,7 @@ public class Student implements Comparable{
 		return null;
 	}*/
 	
-	protected Position getPosition(Stock intrestedStock){
+	public Position getPosition(Stock intrestedStock){
 		String myStockName = intrestedStock.getName();
 		for(Position p: portfolio){
 			String stockName = p.getStockType().getName();

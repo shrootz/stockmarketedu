@@ -233,7 +233,7 @@
 									<td>Cash</td>
 									<td>Net Worth</td>
 									<%
-										for(Stock stk: teacher.getClassroom().getStocksAllowed) {
+										for(Stock stk: teacher.getClassroom().getStocksAllowed()) {
 											pageContext.setAttribute("current_stock", stk.getSymbol());
 									%>
 										<td>${current_stock}</td>
@@ -255,9 +255,9 @@
 											<td>${stud_money}</td>
 											<%
 												for(Stock stk: teacher.getClassroom().getStocksAllowed()) {
-													double shareCount = s.getPosition(stk).getShares();
-													if(shareCount == null) {
-														shareCount = 0;
+													double shareCount = 0;
+													if(s.getPosition(stk) != null) {
+														shareCount = s.getPosition(stk).getShares();
 													}
 													pageContext.setAttribute("stk_shares", shareCount);
 											%>

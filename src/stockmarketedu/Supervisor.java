@@ -34,6 +34,7 @@ public class Supervisor{
 		accessCode = UUID.randomUUID().toString();
 		myClass = new Class(accessCode);
 		allStudentEmails = new ArrayList<String>();
+		alreadySentStudentEmails = new ArrayList<String>();
 	}
 	
 
