@@ -88,36 +88,31 @@ public class Supervisor{
 				alreadySentStudentEmails.add(s);
 			}
 		}
-		//allows for more students to be added without re-sending the same email
-	    Properties props = new Properties();
-	    Session session = Session.getDefaultInstance(props, null);
+		
+		Properties props = new Properties();
+        Session session = Session.getDefaultInstance(props, null);
+        String msgBody = "Please go to http://1-dot-stockmarketedu-1294.appspot.com/student.jsp and login with your email to get started!";
 
-	    String msgBody = "Come join our Stock Market Challenge!\n Use this accessCode"
-	    		+ this.accessCode + "to join my class"; 
-	    //  need a google app engine link to send 
-	    
-	      try {
-	          Message msg = new MimeMessage(session);
-	          msg.setFrom(new InternetAddress("email@stockmarketedu.appspotmail.com", "Your Teacher"));
-	          for (String s : allEmails){
-	        	  msg.addRecipient(Message.RecipientType.CC,
-	                         new InternetAddress(s));
-	          }
-	          msg.setSubject("You're doing the StockMarketEdu challenge");
-	          msg.setText(msgBody);
-	          msg.setContent(msgBody, "text/html; charset=utf-8");
-	          msg.setSentDate(new Date());
-	          Transport.send(msg);	
-	      }   catch (AddressException e) {
-	    	  _logger.info(e.getMessage());
-	          // ...
-	      }   catch (MessagingException e) {
-	    	  _logger.info(e.getMessage());
-	          // ...
-	      }   catch (UnsupportedEncodingException e) {
-	    	  _logger.info(e.getMessage());	    	  
-		 } catch(Exception e) {
-	    	  _logger.info(e.getMessage());	    	  
-		 }
+		for(String email: allEmails) {
+	        try {
+	            Message msg = new MimeMessage(session);
+	            msg.setFrom(new InternetAddress("email@stockmarketedu.appspotmail.com", "Your Teacher"));
+	            
+	            msg.addRecipient(Message.RecipientType.TO,
+	                             new InternetAddress(email, "Student"));
+	            msg.setSubject("You've been invited to a StockMarketEdu class!");
+	            msg.setText(msgBody);
+	            msg.setContent(msgBody, "text/html; charset=utf-8");
+	            msg.setSentDate(new Date());
+	            Transport.send(msg);
+	            System.out.println("Message sent to " + email);
+	        } catch (AddressException e) {
+	            System.out.println(e.getStackTrace());
+	        } catch (MessagingException e) {
+	            System.out.println(e.getStackTrace());
+	        } catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

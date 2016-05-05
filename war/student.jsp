@@ -197,7 +197,7 @@
 										for(Position p: student.getPortfolio()) {
 											pageContext.setAttribute("stock_symbol", p.getStockType().getSymbol());
 											pageContext.setAttribute("stock_shares", p.getShares());
-											pageContext.setAttribute("stock_price", formatter.format(p.getStockType().getPrice()));
+											pageContext.setAttribute("stock_price", formatter.format(mkt.getStock(p.getStockType().getSymbol()).getPrice()));
 									%>
 											<li>
 												${stock_symbol}&#58; ${stock_shares} shares @ $${stock_price}

@@ -137,9 +137,10 @@ public class Student implements Comparable{
 	}
 	
 	public double getMoney(){
+		Market m = Market.getInstance();
 		double totMoney = cashMoney;
 		for(Position p: portfolio){
-			totMoney += p.getPriceBought() * p.getShares();
+			totMoney += m.getStock(p.getStockType().getSymbol()).getPrice() * p.getShares();
 		}
 		return totMoney;
 	}
