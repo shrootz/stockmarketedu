@@ -40,7 +40,7 @@ public class CreateClassServlet extends HttpServlet {
 		for(String s: emails) {
 			teacher.addEmail(s.toLowerCase());
 		}
-		//teacher.sendInvitations();
+		teacher.sendInvitations();
 		Market mkt = Market.getInstance();
 		ArrayList<String> validStocks = new ArrayList<String>();
 		for(String stock: mkt.getDefaultStocks()) {
