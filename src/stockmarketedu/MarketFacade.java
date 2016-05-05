@@ -6,12 +6,13 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
+import java.util.logging.Logger;
 
 import com.googlecode.objectify.annotation.Entity;
 
 @Entity
 public class MarketFacade extends Market {
-
+	private static final Logger _logger = Logger.getLogger(MarketFacade.class.getName());
 	@Override
 	public boolean addStock(String stockSymbol) {
 		if (market.containsKey(stockSymbol)){
@@ -53,6 +54,7 @@ public class MarketFacade extends Market {
 	    for(String symbol: market.keySet()){
 	    	try {
 				String text = getQueryText(symbol);
+				_logger.info(text);
 			    double price = Double.parseDouble(text.substring(text.indexOf("<LastTradePriceOnly>") + "<LastTradePriceOnly>".length(), text.indexOf("</LastTradePriceOnly>")));
 			    Date date = new Date(); 
 			    String dividendShareText = null;
@@ -80,6 +82,7 @@ public class MarketFacade extends Market {
 	
 	private String getQueryText(String stockSymbol){
 		try {
+			_logger.info("Getting query");
 			URL url = new URL("http://query.yahooapis.com/v1/public/yql?q=select%20%2a%20from%20yahoo.finance.quotes%20where%20symbol%20in%20%28%22" + stockSymbol + "%22%29&env=store://datatables.org/alltableswithkeys");
 		    BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 		    String line;

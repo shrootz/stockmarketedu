@@ -18,9 +18,10 @@ public class CronController extends HttpServlet {
 		//resp.sendRedirect("/home.jsp");
 	    //REDIRECT TO HOME PAGE HERE TO WAKE GAE UP
 		try {
-			_logger.info("Cron Job has been executed");
+			_logger.info("Cron Job is executing");
 			Market globalMarket = Market.getInstance();
 		    globalMarket.updateStock();
+		    _logger.info("Cron Job has executed");
 		}
 		catch (Exception ex) {
 		//Log any exceptions in your Cron Job
