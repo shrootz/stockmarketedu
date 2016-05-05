@@ -41,12 +41,21 @@ public class Supervisor{
 	//when button is pressed call this method
 	//can also take in a block of emails and parse here.
 	public void addEmail(String email){
+		if(email.equals(this.email))
+			return;
+		if(allStudentEmails.contains(email))
+			return;
 		allStudentEmails.add(email);
 	}
 	
 	//set the cash amount with a button
-	public void setInitialCash(float cashMoney){
-		myClass.setInitialMoney(cashMoney);
+	public void setInitialCash(double cashMoney){
+		if(cashMoney > Double.MAX_VALUE/10){
+			myClass.setInitialMoney(Double.MAX_VALUE/10);
+		}
+		else{
+			myClass.setInitialMoney(cashMoney);
+		}
 	}
 	
 	public ArrayList<Student> rank(RankStudents rankingStrategy){
