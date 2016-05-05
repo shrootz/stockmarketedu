@@ -18,14 +18,14 @@ public class Position {
 		shares = -1;
 	}
 	
-	public History sellShares(double shares){
+	public History sellShares(double shares, Stock updated){
 		//if you try to sell more than you have, sell everything you have
 		if(this.shares < shares){
 			shares = this.shares;
 		}
-		stockType.getPrice();
+		updated.getPrice();
 		//add to History
-		History newHist = new History(stockType.getSymbol(), shares, pricePerShare, stockType.getPrice());
+		History newHist = new History(stockType.getSymbol(), shares, pricePerShare, updated.getPrice());
 		//update number of shares
 		this.shares -= shares;
 		return newHist;

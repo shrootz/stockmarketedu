@@ -77,7 +77,7 @@ public class Student implements Comparable{
 		Position currentPosition = getPosition(toSell);
 		if(currentPosition == null)
 			return false;
-		History currentHistory = currentPosition.sellShares(shares);
+		History currentHistory = currentPosition.sellShares(shares, toSell);
 		cashMoney += currentHistory.getCashFromSale();
 		if(currentPosition.getShares() <= 0){
 			portfolio.remove(currentPosition);
