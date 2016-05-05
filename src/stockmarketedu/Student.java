@@ -8,11 +8,11 @@ import java.util.List;
 import com.googlecode.objectify.ObjectifyService;
 
 public class Student{
-	private ArrayList<Position> portfolio;
-	private String email; // do we need to store this info for gmail login?
-	private String name; // students should know their name
-	private double cashMoney;
-	private ArrayList<History> myHistory;
+	protected ArrayList<Position> portfolio;
+	protected String email; // do we need to store this info for gmail login?
+	protected String name; // students should know their name
+	protected double cashMoney;
+	protected ArrayList<History> myHistory;
 
 	
 	public Student(String name, String email, double cashMoney){
@@ -92,7 +92,7 @@ public class Student{
 		return null;
 	}*/
 	
-	private Position getPosition(Stock intrestedStock){
+	protected Position getPosition(Stock intrestedStock){
 		String myStockName = intrestedStock.getName();
 		for(Position p: portfolio){
 			String stockName = p.getStockType().getName();
