@@ -80,7 +80,7 @@
 					<div class="3u">	
 						<section class="box widget-agenda">
 							<div class="inner">
-								My son didn’t know how to count to ten before SMEdu, but now he&#39;s managing my husband’s stock portfolio.
+								My son didn&#39;t know how to count to ten before SMEdu, but now he&#39;s managing my husband&#39;s stock portfolio.
 							</div>
 							- Sue B.
 						</section>

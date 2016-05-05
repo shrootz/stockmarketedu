@@ -25,11 +25,10 @@ public class ConfigureClassServlet extends HttpServlet {
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser();
 		String emailsString = req.getParameter("Student Emails");
-		if(emailsString.isEmpty()) {
-			resp.sendRedirect("/teacher.jsp");
-			return;
-		}
+		String stocksString= req.getParameter("Permitted Stocks");
+		
 		String[] emails = emailsString.split(" ");
+		String[] stocks = stocksString.split(" ");
 
 	    List<Supervisor> teachers = ObjectifyService.ofy().load().type(Supervisor.class).list(); 
 		Supervisor teacher = null;
@@ -43,6 +42,12 @@ public class ConfigureClassServlet extends HttpServlet {
 		for(String s: emails) {
 			if(!teacher.getStudentEmails().contains(s)) {
 				teacher.addEmail(s);
+			}
+		}
+		
+		for(String s: stocks) {
+			if(!teacher.getClassroom().getStocksAllowed().contains(s)) {
+				teacher.getClassroom().addStock(s);
 			}
 		}
 
