@@ -60,11 +60,15 @@
 	    int classSize = 0;
 
 	    NumberFormat formatter = new DecimalFormat("#0.00");
+	    String studentEmails = new String("");
 
 		if (user != null) {
 	    	pageContext.setAttribute("user", user);
 	    	signedIn = true;
 	    	for(Supervisor teach: teachers) {
+	    		for(String studEmail: teach.getStudentEmails()) {
+	    			studentEmails += studEmail;
+	    		}
     			if(user.getEmail().equals(teach.getEmail())) {
     				teacher = teach;
     				createdClass = true;
@@ -73,6 +77,7 @@
     			}
 	    	}
 		}
+		pageContext.setAttribute("student_emails", studentEmails);
 		Market m = Market.getInstance();
 		ArrayList<String> valids = new ArrayList<String>();
 		String placeholderStocks = new String("");
@@ -146,7 +151,7 @@
 						pageContext.setAttribute("top_share_profit", formatter.format(topShare.getMaxProfitPerShare()));
 				%>
 				<div class="row">
-					<div class="4u">
+					<div class="6u">
 						<article class="info">
 							<p class="byline">View class summary</p>
 						</article>
@@ -162,7 +167,7 @@
 							</ul>
 						</article>
 					</div>
-					<div class="4u">
+					<div class="6u">
 						<article class="info">
 							<p class="byline">View current class statistics</p>
 						</article>
@@ -214,7 +219,10 @@
 							<li ><a href="#" class="button alt" onclick="showRankByShare();">Profit Per Share</a></li>
 						</ul>
 					</div>
-					<div class="4u">
+					
+				</div>
+				<div class="row">
+					<div class="12u">
 						<article class="info">
 							<p class="byline">View detailed class data</p>
 						</article>
@@ -224,6 +232,14 @@
 									<td>Student Name</td>
 									<td>Cash</td>
 									<td>Net Worth</td>
+									<%
+										for(Stock stk: teacher.getClassroom().getStocksAllowed) {
+											pageContext.setAttribute("current_stock", stk.getSymbol());
+									%>
+										<td>${current_stock}</td>
+									<%
+										}
+									%>
 								</tr>
 								<%
 									ArrayList<Student> studs = teacher.getClassroom().getMyClass();
@@ -237,6 +253,18 @@
 											<td>${stud_name}</td>
 											<td>${stud_cash}</td>
 											<td>${stud_money}</td>
+											<%
+												for(Stock stk: teacher.getClassroom().getStocksAllowed()) {
+													double shareCount = s.getPosition(stk).getShares();
+													if(shareCount == null) {
+														shareCount = 0;
+													}
+													pageContext.setAttribute("stk_shares", shareCount);
+											%>
+												<td>${stk_shares}</td>
+											<%
+												}
+											%>
 										</tr>
 								<%
 									}
@@ -244,7 +272,6 @@
 							</table>
 						</article>
 					</div>
-					
 				</div>
 				<div class="row">
 						<div class="12u">

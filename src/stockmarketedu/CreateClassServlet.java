@@ -38,7 +38,7 @@ public class CreateClassServlet extends HttpServlet {
 		teacher.setEmail(user.getEmail());
 		teacher.getClassroom().setInitialMoney(cash);
 		for(String s: emails) {
-			teacher.addEmail(s);
+			teacher.addEmail(s.toLowerCase());
 		}
 		teacher.sendInvitations();
 		Market mkt = Market.getInstance();
