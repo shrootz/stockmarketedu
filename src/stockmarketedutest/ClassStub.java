@@ -3,28 +3,28 @@ package stockmarketedutest;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Class {
+public class ClassStub {
 	private ArrayList<Student> myClass;
-	private ArrayList<Stock> stocksAllowed;
+	private ArrayList<StockStub> stocksAllowed;
 	private final String accessCode;
 	private double initialMoney;
-	public Class(String accessCode){
+	public ClassStub(String accessCode){
 		//Students need to enter this randomly generated access code to be added to the class
 		this.accessCode = accessCode;
 		myClass = new ArrayList<Student>();
-		stocksAllowed = new ArrayList<Stock>();
+		stocksAllowed = new ArrayList<StockStub>();
 	}
 	
 	public String getAccessCode() {
 		return accessCode;
 	}
 	
-	public ArrayList<Stock> getStocksAllowed(){
+	public ArrayList<StockStub> getStocksAllowed(){
 		return stocksAllowed;
 	}
 	
 	public void addStock(String symbol){
-	    Market globalMarket = Market.getInstance();
+	    MarketStub globalMarket = MarketStub.getInstance();
 	    System.out.println(globalMarket);
 		stocksAllowed.add(globalMarket.getStock(symbol));
 	}

@@ -6,16 +6,16 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ClassTest {
-	Class c;
-	Stock s1;
-	Stock s2;
-	Stock s3;
+	ClassStub c;
+	StockStub s1;
+	StockStub s2;
+	StockStub s3;
 	@Before
 	public void setUp() throws Exception {
-		c = new Class("8675309");
-		s1 = new Stock("Google", 10.50, "GOOG", new java.util.Date(), 5, true);
-		s2 = new Stock("Facebook", 10.50, "FB", new java.util.Date(), 5, true);
-		s3 = new Stock("Netflix", 10.50, "NFLX", new java.util.Date(), 5, true);
+		c = new ClassStub("8675309");
+		s1 = new StockStub("Google", 10.50, "GOOG", new java.util.Date(), 5, true);
+		s2 = new StockStub("Facebook", 10.50, "FB", new java.util.Date(), 5, true);
+		s3 = new StockStub("Netflix", 10.50, "NFLX", new java.util.Date(), 5, true);
 	}
 	
 	@Test

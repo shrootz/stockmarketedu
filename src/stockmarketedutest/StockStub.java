@@ -2,7 +2,7 @@ package stockmarketedutest;
 
 import java.util.Date;
 
-public class Stock {
+public class StockStub {
 	private String name;
 	private double price;
 	private String symbol;
@@ -10,7 +10,7 @@ public class Stock {
 	private double dividendShare;
 	private boolean active;
 	
-	public Stock(String name, double price, String symbol, Date timeStamp, double dividendShare, boolean active){
+	public StockStub(String name, double price, String symbol, Date timeStamp, double dividendShare, boolean active){
 		this.name = name;
 		this.symbol = symbol;
 		this.price = price;
@@ -19,7 +19,7 @@ public class Stock {
 		this.active = active;
 	}
 	
-	public Stock() {
+	public StockStub() {
 		name = null;
 		price = 0;
 		symbol = null;
@@ -59,7 +59,7 @@ public class Stock {
 			return false;
 		}
 		else{
-			Stock other = (Stock) s;
+			StockStub other = (StockStub) s;
 			if((other.getName().contains(getName()) || getName().contains(other.getName())) && other.getSymbol().equals(getSymbol())){
 				return true;
 			}

@@ -8,8 +8,8 @@ import java.net.URL;
 import java.util.Date;
 import java.util.logging.Logger;
 
-public class MarketFacade extends Market {
-	private static final Logger _logger = Logger.getLogger(MarketFacade.class.getName());
+public class MarketFacadeStub extends MarketStub {
+	private static final Logger _logger = Logger.getLogger(MarketFacadeStub.class.getName());
 	@Override
 	public boolean addStock(String stockSymbol) {
 		if (market.containsKey(stockSymbol)){
@@ -33,7 +33,7 @@ public class MarketFacade extends Market {
 		    }
 		    boolean active = true;
 		    //System.out.println(name + price + stockSymbol + date + dividend + active);
-		    Stock s = new Stock(name, price, stockSymbol, date, dividend, active);
+		    StockStub s = new StockStub(name, price, stockSymbol, date, dividend, active);
 			market.put(stockSymbol, s);
 			saveMarket();
 			return true;

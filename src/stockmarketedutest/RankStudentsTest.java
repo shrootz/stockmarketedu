@@ -22,10 +22,10 @@ import org.junit.Test;
 public class RankStudentsTest {
 	private RankStudents ranks;
 	private ArrayList<Student> mockStudents;
-	MarketFacade myMarket;
+	MarketFacadeStub myMarket;
 	@Before
 	public void setUp(){
-		myMarket = new MarketFacade();
+		myMarket = new MarketFacadeStub();
 	    myMarket.removeDefaultStocks();
 	    myMarket.addStock("GOOG");
 	    

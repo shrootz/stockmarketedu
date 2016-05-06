@@ -8,12 +8,12 @@ import org.junit.Test;
 public class StudentTest {
 	Student student;
 	StudentStub student_s;
-	Supervisor supervisor;
-	Market m;
+	SupervisorStub supervisor;
+	MarketStub m;
 	@Before
 	public void setUp() throws Exception {
-		m = new MarketFacade();
-		supervisor = new Supervisor(); // manually put in an access code; 
+		m = new MarketFacadeStub();
+		supervisor = new SupervisorStub(); // manually put in an access code; 
 		supervisor.getClassroom().setInitialMoney(1000.0);
 		student = new Student("Sneha", "Email", supervisor.getClassroom().getInitialMoney()); 
 		student_s = new StudentStub("Sneha", "Email", supervisor.getClassroom().getInitialMoney()); 
@@ -45,13 +45,13 @@ public class StudentTest {
 	
 	@Test
 	public void testGetPortfolio(){
-		java.util.ArrayList<Position> expected = new java.util.ArrayList<Position>();
+		java.util.ArrayList<PositionStub> expected = new java.util.ArrayList<PositionStub>();
 		assertEquals(expected, student.getPortfolio());
 	}
 	
 	@Test
 	public void testGetMyHistory(){
-		java.util.ArrayList<History> expected = new java.util.ArrayList<History>();
+		java.util.ArrayList<HistoryStub> expected = new java.util.ArrayList<HistoryStub>();
 		assertEquals(expected, student.getMyHistory());
 	}
 	

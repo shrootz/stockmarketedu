@@ -6,24 +6,24 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class PositionTest {
-	Stock s;
-	Position pos;
+	StockStub s;
+	PositionStub pos;
 	@Before
 	public void setUp() throws Exception {
-		s = new Stock("Google", 10.50, "GOOG", new java.util.Date(), 5, true);
-		pos = new Position(s, 50); // did we forget to add this.shares = shares for the constructor?
+		s = new StockStub("Google", 10.50, "GOOG", new java.util.Date(), 5, true);
+		pos = new PositionStub(s, 50); // did we forget to add this.shares = shares for the constructor?
 	}
 
 	@Test
 	public void testSellShare(){
-		History h;
+		HistoryStub h;
 		try{
-			h = pos.sellShares(s.getDividendShare() + .01, new Stock()); // this should throw an exception
+			h = pos.sellShares(s.getDividendShare() + .01, new StockStub()); // this should throw an exception
 		} catch (Exception e){
 			assertTrue(true); 
 		}
-		History expected = new History ("GOOG", 4, 10.50, 10.50);
-		h = pos.sellShares(4, new Stock());
+		HistoryStub expected = new HistoryStub ("GOOG", 4, 10.50, 10.50);
+		h = pos.sellShares(4, new StockStub());
 		assertEquals(expected.getStockSymbol(), h.getStockSymbol()); 
 		assertEquals(expected.getPriceBought(), h.getPriceBought(), 0.01);
 		assertEquals(expected.getPriceSold(), h.getPriceSold(), 0.01);

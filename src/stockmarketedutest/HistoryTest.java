@@ -6,10 +6,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class HistoryTest {
-	History h;
+	HistoryStub h;
 	@Before
 	public void setUp() throws Exception {
-		h = new History("GOOG", 50.5, 10, 20);
+		h = new HistoryStub("GOOG", 50.5, 10, 20);
 	}
 
 	@Test

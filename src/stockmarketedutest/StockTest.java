@@ -6,10 +6,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class StockTest {
-	Stock s1;
+	StockStub s1;
 	@Before
 	public void setUp() throws Exception {
-		s1 = new Stock("Google", 10.50, "GOOG", new java.util.Date(10), 5, true);
+		s1 = new StockStub("Google", 10.50, "GOOG", new java.util.Date(10), 5, true);
 	}
 
 	@Test
@@ -40,7 +40,7 @@ public class StockTest {
 	
 	@Test
 	public void testUpdateStock(){
-		Stock s2 = new Stock("Google", 12, "GOOG", new java.util.Date(100), 12, true);
+		StockStub s2 = new StockStub("Google", 12, "GOOG", new java.util.Date(100), 12, true);
 		s1.updateStock(12, new java.util.Date(100), 12);
 		
 		assertTrue(s2.getDividendShare() == s1.getDividendShare());

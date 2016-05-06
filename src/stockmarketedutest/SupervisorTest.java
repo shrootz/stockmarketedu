@@ -8,7 +8,7 @@ public class SupervisorTest {
 
 	@Test
 	public void testEmailSupervisor() {
-		Supervisor s = new Supervisor();
+		SupervisorStub s = new SupervisorStub();
 		s.setEmail("abc@email.com");
 		s.addEmail("abc@email.com");
 		s.addEmail("email@email.com");

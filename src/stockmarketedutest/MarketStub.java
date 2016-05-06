@@ -6,20 +6,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class Market {
+public abstract class MarketStub {
 
 	private boolean openMarket;
-	protected Map<String, Stock> market;
-	private static Market myMarket = null;
+	protected Map<String, StockStub> market;
+	private static MarketStub myMarket = null;
 	private static final String[] stockTicker = {"GOOG", "AAPL", "FB", "NFLX", "CVS", "DAL", "SPY", "SAVE", "LUV", "TGT", 
 	                 							"JNJ", "M", "PEP", "RCL", "HD", "BRKB", "SBUX", "LMT", "INTC", "ETSY", 
 	                							"QQQ", "SHAK", "UCO", "BA", "V", "PAY" , "MA", "FIS", "PYPL" ,"AXP", "HAWK",
 	                							"WMT", "WAL", "GE", "GM", "PG", "IBM" , "AMD", "TSLA", "MSFT" ,"LNKD", "ABT",
 	                							"ANF", "C", "KO", "F", "FIT", "GLD", "SLV", "DIS", "DPS"};
 
-	protected Market(){
+	protected MarketStub(){
 		openMarket = false;
-		market = new HashMap<String, Stock>();
+		market = new HashMap<String, StockStub>();
 		for(String s: stockTicker){
 			addStock(s);
 		}
@@ -31,7 +31,7 @@ public abstract class Market {
 	public void closeMarket(){
 		openMarket = false;
 	}
-	public static Market getInstance() {
+	public static MarketStub getInstance() {
 		/*if(myMarket == null){
 			List<Market> market = ObjectifyService.ofy().load().type(Market.class).list();
 			if(market.isEmpty()){
@@ -53,7 +53,7 @@ public abstract class Market {
 	//basically it is useless for the person to have in their portfolio 
 	public abstract void updateStock();
 	
-	public Stock getStock(String symbol){
+	public StockStub getStock(String symbol){
 		//System.out.println(market.get(symbol).getName());
 		if(market.containsKey(symbol)){
 			return market.get(symbol);

@@ -2,13 +2,13 @@ package stockmarketedutest;
 
 import java.util.Date;
 
-public class History {
+public class HistoryStub {
 	private String stockSymbol;
 	private double shares;
 	private double priceBought; //perShare
 	private double priceSold; //perShare
 	
-	public History(String stockSymbol, double shares, double priceBought, double priceSold){
+	public HistoryStub(String stockSymbol, double shares, double priceBought, double priceSold){
 		this.stockSymbol = stockSymbol;
 		this.shares = shares;
 		this.priceBought = priceBought;

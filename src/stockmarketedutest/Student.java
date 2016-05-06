@@ -8,19 +8,19 @@ import java.util.logging.Logger;
 
 public class Student implements Comparable{
 	private static final Logger _logger = Logger.getLogger(Student.class.getName());
-	protected ArrayList<Position> portfolio;
+	protected ArrayList<PositionStub> portfolio;
 	protected String email; // do we need to store this info for gmail login?
 	protected String name; // students should know their name
 	protected double cashMoney;
-	protected ArrayList<History> myHistory;
+	protected ArrayList<HistoryStub> myHistory;
 
 	
 	public Student(String name, String email, double cashMoney){
 		this.name = name;
 		this.email = email;
 		this.cashMoney = cashMoney;
-		this.myHistory = new ArrayList<History>();
-		this.portfolio = new ArrayList<Position>();
+		this.myHistory = new ArrayList<HistoryStub>();
+		this.portfolio = new ArrayList<PositionStub>();
 	}
 	
 	public String getName() {
@@ -36,9 +36,9 @@ public class Student implements Comparable{
 		return formatter.format(cashMoney);
 	}
 	
-	public Position getPosition(Stock intrestedStock){
+	public PositionStub getPosition(StockStub intrestedStock){
 		String myStockName = intrestedStock.getName();
-		for(Position p: portfolio){
+		for(PositionStub p: portfolio){
 			String stockName = p.getStockType().getName();
 			if (stockName.equals(myStockName)){
 				return p;
@@ -49,24 +49,24 @@ public class Student implements Comparable{
 	
 	//called from a cron job, goes through the entire portfolio and adds to the cashMoney value
 	public void recieveDividends(){
-		for(Position myPos: portfolio){
+		for(PositionStub myPos: portfolio){
 			//dividend per share * number of shares + cashMoney
 			_logger.info(Double.toString(myPos.getStockType().getDividendShare() * myPos.getShares()));
 			cashMoney += (myPos.getStockType().getDividendShare() * myPos.getShares());
 		}
 	}
 	
-	public ArrayList<Position> getPortfolio() {
+	public ArrayList<PositionStub> getPortfolio() {
 		return portfolio;
 	}
 
-	public ArrayList<History> getMyHistory() {
+	public ArrayList<HistoryStub> getMyHistory() {
 		return myHistory;
 	}
 	
 	public double getMaxProfitableSale(){
 		double profit = Double.NEGATIVE_INFINITY;
-		for(History h: myHistory){
+		for(HistoryStub h: myHistory){
 			double change = h.getShares() * (h.getPriceBought() - h.getPriceSold());
 			if (change > profit){
 				profit = change;
@@ -77,7 +77,7 @@ public class Student implements Comparable{
 
 	public double getMaxProfitPerShare(){
 		double profit = Double.NEGATIVE_INFINITY;
-		for(History h: myHistory){
+		for(HistoryStub h: myHistory){
 			double change = h.getPriceBought() - h.getPriceSold();
 			if (change > profit){
 				profit = change;

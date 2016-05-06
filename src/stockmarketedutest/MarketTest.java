@@ -19,11 +19,11 @@ import org.junit.Test;
  * Will manually test singleton part
  */
 public class MarketTest {
-	MarketFacade myMarket;
+	MarketFacadeStub myMarket;
 	   @Before
 	   // Informs JUnit that this method should be run before each test
 	   public void setUp() {
-	       myMarket = new MarketFacade();
+	       myMarket = new MarketFacadeStub();
 	       myMarket.removeDefaultStocks();
 	   }
 	
@@ -54,9 +54,9 @@ public class MarketTest {
 		for(String s: stocks){
 			myMarket.addStock(s);
 		}
-		Stock[] expected = new Stock[5];
+		StockStub[] expected = new StockStub[5];
 		for(int i = 0; i<expected.length; i++){
-			expected[i] = new Stock(name[i], 0.0, stocks[i], new Date(), 0.0, true);
+			expected[i] = new StockStub(name[i], 0.0, stocks[i], new Date(), 0.0, true);
 		}
 		for (int i = 0; i<expected.length; i++){
 			assertEquals(expected[i], myMarket.getStock(stocks[i]));

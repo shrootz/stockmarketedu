@@ -8,19 +8,19 @@ import java.util.Properties;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-public class Supervisor{
+public class SupervisorStub{
 	private String name;
 	private String email; //gmail account login <- does this need to be stored here?
 	private final String accessCode;
-	private Class myClass;
+	private ClassStub myClass;
 	private ArrayList<String> allStudentEmails;
 	private ArrayList<String> alreadySentStudentEmails;
 	//private static final Logger _logger = Logger.getLogger(CronController.class.getName());
 
-	public Supervisor(){
+	public SupervisorStub(){
 		//this.name = name;
 		accessCode = UUID.randomUUID().toString();
-		myClass = new Class(accessCode);
+		myClass = new ClassStub(accessCode);
 		allStudentEmails = new ArrayList<String>();
 		alreadySentStudentEmails = new ArrayList<String>();
 	}
@@ -63,7 +63,7 @@ public class Supervisor{
 		email = e;
 	}
 
-	public Class getClassroom(){
+	public ClassStub getClassroom(){
 		return myClass;
 	}
 	//finish sign up button. this method will be called - send email to all the students

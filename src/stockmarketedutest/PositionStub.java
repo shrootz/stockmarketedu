@@ -1,37 +1,37 @@
 package stockmarketedutest;
 
-public class Position {
-	private Stock stockType;
+public class PositionStub {
+	private StockStub stockType;
 	private double pricePerShare;
 	private double shares;
 	
 	//get info from market and create a new position
-	public Position(Stock stockType, double shares){
+	public PositionStub(StockStub stockType, double shares){
 		this.stockType = stockType;
 		this.pricePerShare = stockType.getPrice();
 		this.shares = shares;
 	}
 	
-	private Position() {
-		stockType = new Stock();
+	private PositionStub() {
+		stockType = new StockStub();
 		pricePerShare = -1;
 		shares = -1;
 	}
 	
-	public History sellShares(double shares, Stock updated){
+	public HistoryStub sellShares(double shares, StockStub updated){
 		//if you try to sell more than you have, sell everything you have
 		if(this.shares < shares){
 			shares = this.shares;
 		}
 		updated.getPrice();
 		//add to History
-		History newHist = new History(stockType.getSymbol(), shares, pricePerShare, updated.getPrice());
+		HistoryStub newHist = new HistoryStub(stockType.getSymbol(), shares, pricePerShare, updated.getPrice());
 		//update number of shares
 		this.shares -= shares;
 		return newHist;
 	}
 	
-	public Stock getStockType() {
+	public StockStub getStockType() {
 		return stockType;
 	}
 	public double getPriceBought() {

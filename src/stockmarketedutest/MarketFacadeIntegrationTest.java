@@ -15,11 +15,11 @@ import org.junit.Test;
 public class MarketFacadeIntegrationTest {
 	
 
-   MarketFacade myMarket;
+   MarketFacadeStub myMarket;
    @Before
    // Informs JUnit that this method should be run before each test
    public void setUp() {
-       myMarket = new MarketFacade();
+       myMarket = new MarketFacadeStub();
        myMarket.removeDefaultStocks();
    }
 	   /*
