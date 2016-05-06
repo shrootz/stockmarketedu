@@ -8,11 +8,15 @@ import org.junit.Test;
 public class StudentTest {
 	Student student;
 	Supervisor supervisor;
+	Market m;
+	StudentStub student_s;
 	@Before
 	public void setUp() throws Exception {
+		m = new MarketFacade();
 		supervisor = new Supervisor(); // manually put in an access code; 
 		supervisor.getClassroom().setInitialMoney(1000.0);
 		student = new Student("Sneha", "Email", supervisor.getClassroom().getInitialMoney()); 
+		student_s = new StudentStub("Sneha", "Email", supervisor.getClassroom().getInitialMoney()); 
 		student.addCash(1000.0);
 		supervisor.getClassroom().addStudent(student);
 	}
@@ -58,10 +62,9 @@ public class StudentTest {
 	
 	@Test
 	public void getMoney(){
-		StudentStub student_s = (StudentStub) student;
-		Market m = new MarketFacade();
 		assertEquals(1000.0, student_s.getMoney(m), 0.01);
 	}
+	
 	
 	@Test
 	public void testGetMaxProfitPerShare(){ // nothing to look for
