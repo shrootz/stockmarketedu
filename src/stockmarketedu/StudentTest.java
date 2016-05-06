@@ -25,7 +25,7 @@ public class StudentTest {
 	@Test
 	public void testGetCashMoney(){
 		String s = student.getCashMoney();
-		assertEquals("1000.00", student.getCashMoney());
+		assertEquals("2000.00", student.getCashMoney());
 	}
 	
 	/*@Test
@@ -58,8 +58,9 @@ public class StudentTest {
 	
 	@Test
 	public void getMoney(){
-		
-		assertEquals(1000.0, student.getMoney(), 0.01);
+		StudentStub student_s = (StudentStub) student;
+		Market m = new MarketFacade();
+		assertEquals(1000.0, student_s.getMoney(m), 0.01);
 	}
 	
 	@Test
