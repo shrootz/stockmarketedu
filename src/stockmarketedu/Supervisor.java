@@ -96,7 +96,7 @@ public class Supervisor{
 		for(String email: allEmails) {
 	        try {
 	            Message msg = new MimeMessage(session);
-	            msg.setFrom(new InternetAddress("email@stockmarketedu.appspotmail.com", "Your Teacher"));
+	            msg.setFrom(new InternetAddress("email@stockmarketedu-1294.appspotmail.com", "Your Teacher"));
 	            
 	            msg.addRecipient(Message.RecipientType.TO,
 	                             new InternetAddress(email, "Student"));
