@@ -45,7 +45,7 @@ public class MarketTest {
 	} 
 	
 	/*
-	 * Check get stocks
+	 * Check get valid stocks
 	 */
 	@Test
 	public void testGetStock(){
@@ -64,6 +64,27 @@ public class MarketTest {
 		
 	}
 	
+	/*
+	 * Test getting invalid stock
+	 */
+	@Test
+	public void testGetInvalidStock(){
+		assertEquals(null, myMarket.getStock("GOOG"));
+	}
+	
+	/*
+	 * Test getting default stocks
+	 */
+	@Test
+	public void testDefaultStocks(){
+		String [] stock = myMarket.getDefaultStocks();
+		String [] expected = {"GOOG", "AAPL", "FB", "NFLX", "CVS", "DAL", "SPY", "SAVE", "LUV", "TGT", 
+					"JNJ", "M", "PEP", "RCL", "HD", "BRKB", "SBUX", "LMT", "INTC", "ETSY", 
+				"QQQ", "SHAK", "UCO", "BA", "V", "PAY" , "MA", "FIS", "PYPL" ,"AXP", "HAWK",
+				"WMT", "WAL", "GE", "GM", "PG", "IBM" , "AMD", "TSLA", "MSFT" ,"LNKD", "ABT",
+				"ANF", "C", "KO", "F", "FIT", "GLD", "SLV", "DIS", "DPS"};
+		assertArrayEquals(stock, expected);
+	}
 }
 		
 	

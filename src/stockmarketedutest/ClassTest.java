@@ -55,7 +55,7 @@ public class ClassTest {
 	@Test
 	public void testMoney(){ 
 		c.setInitialMoney(1000f);
-		assertTrue(c.getInitialMoney() == 1000f);
+		assertEquals(c.getInitialMoney(), 1000.0, 0.01);
 	}
 	
 	@Test

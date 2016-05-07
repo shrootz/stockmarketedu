@@ -33,7 +33,7 @@ public class StudentTest {
 	@Test
 	public void testGetCashMoney(){
 		String s = student.getCashMoney();
-		assertEquals("2000.00", student.getCashMoney());
+		assertEquals("2000.00", s);
 	}
 	
 	/*@Test
@@ -61,7 +61,7 @@ public class StudentTest {
 	
 	@Test
 	public void testGetMaxProfitableSale(){ // nothing to look for
-		assertTrue(student.getMaxProfitableSale() == Double.NEGATIVE_INFINITY);
+		assertEquals(student.getMaxProfitableSale(), Double.NEGATIVE_INFINITY, 0.01);
 	}
 	
 	@Test
@@ -71,7 +71,7 @@ public class StudentTest {
 	
 	@Test
 	public void testGetMaxProfitPerShare(){ // nothing to look for
-		assertTrue(student.getMaxProfitPerShare() == Double.NEGATIVE_INFINITY);
+		assertEquals(student.getMaxProfitPerShare(), Double.NEGATIVE_INFINITY, 0.01);
 	}
 	
 

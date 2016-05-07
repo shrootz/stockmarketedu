@@ -60,7 +60,7 @@ public class RankStudentsTest {
 		student.buyPosition("GOOG", 1, myMarket);
 		student.buyPosition("GOOG", 2, myMarket);
 		StockStub goog_stock = myMarket.getStock("GOOG");
-		assertTrue(student.getPosition(goog_stock).getShares() == 3);
+		assertEquals(student.getPosition(goog_stock).getShares(), 3.0, 0.1);
 	}
 	
 	@Test

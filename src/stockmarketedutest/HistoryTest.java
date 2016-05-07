@@ -19,17 +19,17 @@ public class HistoryTest {
 	
 	@Test
 	public void testGetShares() {
-		assertTrue(h.getShares() == 50.5);
+		assertEquals(h.getShares(), 50.5, 0.01);
 	}
 	
 	@Test
 	public void testGetPriceBought() {
-		assertTrue(h.getPriceBought() == 10);
+		assertEquals(h.getPriceBought(), 10.0, 0.01);
 	}
 	
 	@Test
 	public void testGetPriceSold() {
-		assertTrue(h.getPriceSold() ==  20);
+		assertEquals(h.getPriceSold(), 20.0, 0.01);
 	}
 
 }

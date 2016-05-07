@@ -99,33 +99,7 @@ public class MarketFacadeIntegrationTest {
 	 */
 	@Test
 	public void testUpdatingStocks(){
-		boolean open = false;
-		try{
-		    String string1 = "8:30:00";
-		    Date time1 = new SimpleDateFormat("HH:mm:ss").parse(string1);
-		    Calendar calendar1 = Calendar.getInstance();
-		    calendar1.setTime(time1);
-	
-		    String string2 = "16:30:00";
-		    Date time2 = new SimpleDateFormat("HH:mm:ss").parse(string2);
-		    Calendar calendar2 = Calendar.getInstance();
-		    calendar2.setTime(time2);
-		    
-		    Date x = new Date();
-		    
-		    if (x.after(calendar1.getTime()) && x.before(calendar2.getTime())) {
-		        open = true;
-		    }
-			
-		}
-		catch(Exception exe){
-			System.out.println("Problem with test");
-		}
-	    
-	    
-		Calendar calendar = Calendar.getInstance();
 		
-		int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 		String[] stocks = {"GOOG", "AAPL", "FB", "NFLX", "CVS", "DAL", "SPY", "SAVE", "LUV", "TGT", 
 							"JNJ", "M", "PEP", "RCL", "HD", "BRKB", "SBUX", "LMT", "INTC", "ETSY", 
 							"QQQ", "SHAK", "UCO", "BA", "V", "PAY" , "MA", "FIS", "PYPL" ,"AXP", "HAWK",
@@ -136,42 +110,17 @@ public class MarketFacadeIntegrationTest {
 			myMarket.addStock(s);
 			oldPrices.put(s, myMarket.getStock(s).getPrice());
 		}
-		if(dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY){ ///saturday or sunday or market is closed
-			myMarket.updateStock();
-			int same = 0;
-			for(String key: oldPrices.keySet()){
-				Double oldPrice = oldPrices.get(key);
-				Double newPrice = myMarket.getStock(key).getPrice();
-				if(Math.abs(oldPrice - newPrice) < 0.02){ //less than 2c change, say it's working b/c of after hour tradings 
-					same += 1;
-				}
+		
+		myMarket.updateStock();
+		int diff = 0;
+		for(String key: oldPrices.keySet()){
+			if(Math.abs(oldPrices.get(key) - myMarket.getStock(key).getPrice()) > 0.01){ //more than 1c change
+				diff += 1;
 			}
-			System.out.println(same);
-			assertTrue(same > (int) stocks.length * 0.75);
 		}
-		else if(!open){//allow larger margin b/c more after hours trading on weekdays
-			myMarket.updateStock();
-			int same = 0;
-			for(String key: oldPrices.keySet()){
-				Double oldPrice = oldPrices.get(key);
-				Double newPrice = myMarket.getStock(key).getPrice();
-				if(Math.abs(oldPrice - newPrice) < 0.10){ //less than 2c change, say it's working b/c of after hour tradings 
-					same += 1;
-				}
-			}
-			System.out.println(same);
-			assertTrue(same > (int) stocks.length * 0.75);
-		}
-		else{
-			myMarket.updateStock();
-			int diff = 0;
-			for(String key: oldPrices.keySet()){
-				if(Math.abs(oldPrices.get(key) - myMarket.getStock(key).getPrice()) > 0.01){ //more than 1c change
-					diff += 1;
-				}
-			}
-			assertTrue(diff > (int) 0.75 * stocks.length);
-		}
+		boolean changed = diff > 0.75*stocks.length;
+		assertTrue(changed);
+
 	}
 	
 	/*
