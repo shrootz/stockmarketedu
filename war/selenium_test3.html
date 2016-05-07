@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://1-dot-stockmarketedu-1294.appspot.com/index.jsp" />
+<title>student_test_with_comments</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">student_test_with_comments</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>http://1-dot-stockmarketedu-1294.appspot.com/</td>
+	<td></td>
+</tr>
+<!--trying to sign into the student portal since I'm supposedly in a class-->
+<tr>
+	<td>click</td>
+	<td>link=Student Portal</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Sign in to view performance</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Email</td>
+	<td>student2461l@gmail.com</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=next</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=Passwd</td>
+	<td>stockmarketedu461l</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=signIn</td>
+	<td></td>
+</tr>
+<!--buy too much of a stock-->
+<tr>
+	<td>type</td>
+	<td>css=input[name=&quot;Stock Ticker&quot;]</td>
+	<td>UCO</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input[name=&quot;Number of Shares&quot;]</td>
+	<td>1000</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<!--correctly buy a stock-->
+<tr>
+	<td>type</td>
+	<td>css=input[name=&quot;Stock Ticker&quot;]</td>
+	<td>BA</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input[name=&quot;Number of Shares&quot;]</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<!--buy an illegal stock-->
+<tr>
+	<td>type</td>
+	<td>css=input[name=&quot;Stock Ticker&quot;]</td>
+	<td>FB</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input[name=&quot;Number of Shares&quot;]</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=input[name=&quot;Stock Ticker&quot;]</td>
+	<td>Facebook</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<!--incorrectly sell a stock-->
+<tr>
+	<td>type</td>
+	<td>css=form[name=&quot;sellstock&quot;] &gt; input[name=&quot;Stock Ticker&quot;]</td>
+	<td>FB</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=form[name=&quot;sellstock&quot;] &gt; input[name=&quot;Number of Shares&quot;]</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=form[name=&quot;sellstock&quot;] &gt; input[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<!--correctly sell a stock (if I put too much it'll just sell all I have of said stock)-->
+<tr>
+	<td>type</td>
+	<td>css=form[name=&quot;sellstock&quot;] &gt; input[name=&quot;Stock Ticker&quot;]</td>
+	<td>BA</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>css=form[name=&quot;sellstock&quot;] &gt; input[name=&quot;Number of Shares&quot;]</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=form[name=&quot;sellstock&quot;] &gt; input[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<!--gtfo-->
+<tr>
+	<td>click</td>
+	<td>link=Sign out</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
