@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class Student implements Comparable{
+public class Student{
 	private static final Logger _logger = Logger.getLogger(Student.class.getName());
 	protected ArrayList<PositionStub> portfolio;
 	protected String email; // do we need to store this info for gmail login?
@@ -47,15 +47,6 @@ public class Student implements Comparable{
 		return null;
 	}
 	
-	//called from a cron job, goes through the entire portfolio and adds to the cashMoney value
-	public void recieveDividends(){
-		for(PositionStub myPos: portfolio){
-			//dividend per share * number of shares + cashMoney
-			_logger.info(Double.toString(myPos.getStockType().getDividendShare() * myPos.getShares()));
-			cashMoney += (myPos.getStockType().getDividendShare() * myPos.getShares());
-		}
-	}
-	
 	public ArrayList<PositionStub> getPortfolio() {
 		return portfolio;
 	}
@@ -90,12 +81,6 @@ public class Student implements Comparable{
 		cashMoney += c;
 	}
 
-
-	@Override
-	public int compareTo(Object that) {
-		return name.compareTo(((Student)that).name);
-
-	}
 
 	
 	

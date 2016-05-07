@@ -56,9 +56,9 @@ public class StudentStub extends Student{
 		return true;
 	}
 	
-	public void buyPosition(String symbol, double shares, MarketStub m){
+	public boolean buyPosition(String symbol, double shares, MarketStub m){
 		globalMarket = m;
-		buyPosition(symbol, shares);
+		return buyPosition(symbol, shares);
 		
 	}
 

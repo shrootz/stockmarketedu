@@ -20,7 +20,11 @@ public class StudentTest {
 		student.addCash(1000.0);
 		supervisor.getClassroom().addStudent(student);
 	}
-
+	@Test
+	public void studentEmails(){
+		assertEquals(student.getEmail(),"Email");
+	}
+	
 	@Test
 	public void testGetName() {
 		assertEquals("Sneha", student.getName());

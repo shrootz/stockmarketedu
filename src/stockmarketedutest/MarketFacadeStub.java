@@ -72,7 +72,7 @@ public class MarketFacadeStub extends MarketStub {
 			} catch (Exception e) {
 			    // ...
 				System.out.println(e.getMessage());
-				market.get(symbol).setInactive();
+				//market.get(symbol).setInactive();
 				
 			} 
 			

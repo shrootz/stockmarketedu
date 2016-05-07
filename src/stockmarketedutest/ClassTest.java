@@ -13,6 +13,8 @@ public class ClassTest {
 	@Before
 	public void setUp() throws Exception {
 		c = new ClassStub("8675309");
+		MarketStub m = new MarketFacadeStub();
+		c.addStock("GOOG", m);
 		s1 = new StockStub("Google", 10.50, "GOOG", new java.util.Date(), 5, true);
 		s2 = new StockStub("Facebook", 10.50, "FB", new java.util.Date(), 5, true);
 		s3 = new StockStub("Netflix", 10.50, "NFLX", new java.util.Date(), 5, true);
@@ -56,6 +58,10 @@ public class ClassTest {
 		assertTrue(c.getInitialMoney() == 1000f);
 	}
 	
+	@Test
+	public void testStocksAllowed(){
+		assertEquals(c.getStocksAllowed().get(0).getSymbol(),"GOOG");
+	}
 	//This test needs integration testing with objectify
 	/*@Test
 	public void testAddStock(){ // Market myMarket = Market.getInstance() is giving me problems here and I don't know why

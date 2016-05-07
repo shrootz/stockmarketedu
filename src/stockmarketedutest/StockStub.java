@@ -49,23 +49,18 @@ public class StockStub {
 		this.dividendShare = dividendShare;
 	}
 	
-	public void setInactive(){
-		active = false;
-	}
 	
 	@Override
 	public boolean equals(Object s){
-		if(s.getClass() != this.getClass()){
+	/*	if(s.getClass() != this.getClass()){
 			return false;
 		}
-		else{
+		else{*/
 			StockStub other = (StockStub) s;
 			if((other.getName().contains(getName()) || getName().contains(other.getName())) && other.getSymbol().equals(getSymbol())){
 				return true;
 			}
 			return false;
-		}
-		
-		
+		//}		
 	}
 }

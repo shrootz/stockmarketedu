@@ -25,27 +25,7 @@ public abstract class MarketStub {
 		}
 		//myMarket = new MarketAdapter();
 	}
-	public void openMarket(){
-		openMarket = true;
-	}
-	public void closeMarket(){
-		openMarket = false;
-	}
-	public static MarketStub getInstance() {
-		/*if(myMarket == null){
-			List<Market> market = ObjectifyService.ofy().load().type(Market.class).list();
-			if(market.isEmpty()){
-				System.out.println("market empty");
-				myMarket = new MarketFacade();
-				ObjectifyService.ofy().save().entity(myMarket).now();
-			}
-			else{
-				System.out.println("market found");
-				myMarket = market.get(0);
-			}
-		}*/
-	    return myMarket;
-	}
+	
 	//returns false if failed. most likely cause of failure will be invalid symbol
 	public abstract boolean addStock(String stockSymbol);
 	

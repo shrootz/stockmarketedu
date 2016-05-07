@@ -17,11 +17,11 @@ public class PositionTest {
 	@Test
 	public void testSellShare(){
 		HistoryStub h;
-		try{
+		//try{
 			h = pos.sellShares(s.getDividendShare() + .01, new StockStub()); // this should throw an exception
-		} catch (Exception e){
+		/*} catch (Exception e){
 			assertTrue(true); 
-		}
+		}*/
 		HistoryStub expected = new HistoryStub ("GOOG", 4, 10.50, 10.50);
 		h = pos.sellShares(4, new StockStub());
 		assertEquals(expected.getStockSymbol(), h.getStockSymbol()); 

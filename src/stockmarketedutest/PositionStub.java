@@ -12,12 +12,6 @@ public class PositionStub {
 		this.shares = shares;
 	}
 	
-	private PositionStub() {
-		stockType = new StockStub();
-		pricePerShare = -1;
-		shares = -1;
-	}
-	
 	public HistoryStub sellShares(double shares, StockStub updated){
 		//if you try to sell more than you have, sell everything you have
 		if(this.shares < shares){

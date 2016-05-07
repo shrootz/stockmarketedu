@@ -23,9 +23,9 @@ public class ClassStub {
 		return stocksAllowed;
 	}
 	
-	public void addStock(String symbol){
-	    MarketStub globalMarket = MarketStub.getInstance();
-	    System.out.println(globalMarket);
+	public void addStock(String symbol, MarketStub m){
+	    MarketStub globalMarket = m;
+	    //System.out.println(globalMarket);
 		stocksAllowed.add(globalMarket.getStock(symbol));
 	}
 	

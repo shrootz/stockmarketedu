@@ -49,6 +49,21 @@ public class RankStudentsTest {
 	}
 	
 	@Test
+	public void notEnoughMoney(){
+		StudentStub student = new StudentStub("Sneha", "Email", 0); 
+		assertFalse(student.buyPosition("GOOG", 4, myMarket));
+	}
+	
+	@Test
+	public void repeatStock(){
+		StudentStub student = new StudentStub("Sneha", "Email", 100000); 
+		student.buyPosition("GOOG", 1, myMarket);
+		student.buyPosition("GOOG", 2, myMarket);
+		StockStub goog_stock = myMarket.getStock("GOOG");
+		assertTrue(student.getPosition(goog_stock).getShares() == 3);
+	}
+	
+	@Test
 	public void testReturnRankingByMoney() {
 		ranks = new RankByMoney();
 		mockStudents = ranks.returnRanking(mockStudents);
